@@ -24,6 +24,7 @@ public class EventHandler {
 	public void checkEvent() {
 		if(hit(22, 21, "left") == true) {damagePit(gp.dialogueState);} //BURACO
 		if(hit(24, 8, "up") == true) {healingPool(gp.dialogueState);}
+		System.out.println("sexo");
 		
 		
 	}
