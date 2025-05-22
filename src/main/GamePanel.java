@@ -5,12 +5,14 @@ import java.awt.Color;               // Classe para definir cores
 import java.awt.Dimension;          // Usada para definir dimensões da tela
 import java.awt.Graphics;           // Contexto gráfico básico
 import java.awt.Graphics2D;         // Contexto gráfico mais avançado (2D)
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.JPanel;          // Componente Swing que permite desenhar elementos gráficos
 
 import entity.Entity;
 import entity.Player;               // Importa a classe do jogador
-import object.SuperObject;
 import tile.TileManager;           // Importa a classe que gerencia os tiles
 
 // Classe principal do painel do jogo
@@ -47,8 +49,9 @@ public class GamePanel extends JPanel implements Runnable {
     
     //ENTIDADES E OBJETOS
     public Player player = new Player(this, keyH); // Instância do jogador
-    public SuperObject obj[] = new SuperObject[10];
+    public Entity obj[] = new Entity[10];
     public Entity npc[] = new Entity[10];
+    ArrayList<Entity> entityList = new ArrayList<>();
     
     //GAME STATE
     public int gameState;
@@ -156,35 +159,52 @@ public class GamePanel extends JPanel implements Runnable {
         	
         	ui.draw(g2);
         }
+        
         else {
         	
             tileM.draw(g2);                 // Desenha o mapa (tiles)
-            
-            //Desenha os objetos
-             for(int i = 0; i < obj.length; i++) {
-             	
-             	if(obj[i] != null) {
-             		
-             		obj[i].draw(g2, this);
-             	}
-             }
-             
-             //NPC
-             for(int i = 0; i < npc.length; i++) {
-             	
-             	if(npc[i] != null) {
-             		npc[i].draw(g2);
-             	}
-             }
-             
-             player.draw(g2);  	 // Desenha o jogador
           
-             ui.draw(g2); 		 //Desenha a interface do jogo
+            entityList.add(player);                         // Adiciona o jogador (player) à lista de entidades.
+
+            for(int i = 0; i < npc.length; i++) {           // Percorre o array de NPCs (personagens não jogáveis).
+                if(npc[i] != null) {                        // Verifica se o NPC atual não é nulo.
+                    entityList.add(npc[i]);                 // Adiciona o NPC à lista de entidades.
+                }
+            }
+
+            for(int i = 0; i < obj.length; i++) {           // Percorre o array de objetos (itens no mapa, por exemplo).
+                if(obj[i] != null) {                        // Verifica se o objeto atual não é nulo.
+                    entityList.add(obj[i]);                 // Adiciona o objeto à lista de entidades.
+                }
+            }
+
+            // Ordena as entidades com base na coordenada Y (profundidade/posição vertical).
+            Collections.sort(entityList, new Comparator<Entity>() {
+                
+                @Override
+                public int compare(Entity e1, Entity e2) {
+                    int result = Integer.compare(e1.worldY, e2.worldY); // Compara a posição Y no mundo.
+                    return result; // Entidades com Y menor são desenhadas antes (mais "atrás").
+                }
+            });
+
+            // Desenha todas as entidades ordenadas na tela.
+            for(int i = 0; i < entityList.size(); i++) {
+                entityList.get(i).draw(g2);                 // Chama o método draw de cada entidade.
+            }
+
+            // Limpa a lista de entidades, mas de forma **errada** (risco de erro ou comportamento inesperado).
+            for(int i = 0; i < entityList.size(); i++) {
+                entityList.remove(i);                       // REMOVE os elementos por índice enquanto percorre a lista:
+                                                           // Isso pode causar *IndexOutOfBoundsException* ou pular elementos,
+                                                           // pois os índices mudam conforme remove. Melhor usar `clear()`.
+            }
+
+            
+            ui.draw(g2); 		 //Desenha a interface do jogo
         
         }
-        
- 
-     
+          
         //DEBUG
         if(keyH.checkDrawTime == true) {
         	long drawEnd = System.nanoTime();

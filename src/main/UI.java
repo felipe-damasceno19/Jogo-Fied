@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
-import object.SuperObject;
 import object.obj_Heart;
+import entity.Entity;
 
 import javax.imageio.ImageIO;
 
@@ -60,7 +60,7 @@ public class UI {
 		
 		
 		//CRIANDO HUD DOS OBJETOS
-		SuperObject heart = new obj_Heart(gp);
+		Entity heart = new obj_Heart(gp);
 		heart_full = heart.image;
 		heart_half = heart.image2;
 		heart_blank = heart.image3;
