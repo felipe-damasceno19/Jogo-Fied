@@ -193,12 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
                 entityList.get(i).draw(g2);                 // Chama o método draw de cada entidade.
             }
 
-            // Limpa a lista de entidades, mas de forma **errada** (risco de erro ou comportamento inesperado).
-            for(int i = 0; i < entityList.size(); i++) {
-                entityList.remove(i);                       // REMOVE os elementos por índice enquanto percorre a lista:
-                                                           // Isso pode causar *IndexOutOfBoundsException* ou pular elementos,
-                                                           // pois os índices mudam conforme remove. Melhor usar `clear()`.
-            }
+            entityList.clear();
 
             
             ui.draw(g2); 		 //Desenha a interface do jogo

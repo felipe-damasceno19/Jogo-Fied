@@ -118,7 +118,8 @@ public class Player extends Entity {
 	public void update() { 
 
 		// Verifica se alguma tecla de movimento está sendo pressionada
-		if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
+		if(keyH.upPressed == true || keyH.downPressed == true 
+				|| keyH.leftPressed == true || keyH.rightPressed == true || keyH.enterPressed == true) {
 
 			// Define a direção com base na tecla pressionada
 			if(keyH.upPressed) {
@@ -150,11 +151,9 @@ public class Player extends Entity {
 			//COLISAO DE EVENTOS
 			gp.eHandler.checkEvent();
 			
-			gp.keyH.enterPressed = false;
-			
-			
+		
 			// Se não houve colisão, move o jogador na direção escolhida
-			if(collisionOn == false) {
+			if(collisionOn == false && keyH.enterPressed == false) {
 				switch(direction) {
 					case "up":    worldY -= speed; break;
 					case "down":  worldY += speed; break;
@@ -162,11 +161,8 @@ public class Player extends Entity {
 					case "right": worldX += speed; break;
 				}
 			}
+			gp.keyH.enterPressed = false;
 		}
-	
-
-	
-
 		
 		
 		// Atualiza contagem de sprites para animação
