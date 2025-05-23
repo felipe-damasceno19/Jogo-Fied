@@ -50,8 +50,8 @@ public class EventHandler {
 		if(canTouchEvent == true) { // Se pode ativar eventos
 			
 			// Checa se o player colidiu com algum evento e executa se sim
-			if(hit(22, 21, "left") == true) {damagePit(22, 21, gp.dialogueState);} // Evento de buraco
-			if(hit(24, 8, "up") == true) {healingPool(24, 8, gp.dialogueState);} // Evento de cura
+			if(hit(27, 15, "right") == true) {damagePit(22, 21, gp.dialogueState);} // Evento de buraco
+			if(hit(23, 7, "up") == true) {healingPool(24, 8, gp.dialogueState);} // Evento de cura
 		}
 	}
 	
