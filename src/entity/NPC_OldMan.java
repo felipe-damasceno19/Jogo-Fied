@@ -34,10 +34,16 @@ public class NPC_OldMan extends Entity {
 
 	public void setDialogue() {
 		
-		dialogues[0] = "Esse jogo é maneirão";
-		dialogues[1] = "Eu quero todos os pals";
-		dialogues[2] = "Eu joguei todos os Resident Evil, TODOS!";
-		dialogues[3] = "Bolsonaro";
+		dialogues[0] = "Shalom Silas, eu tive uma ideia GENIAL! Um jogo onde o personagem principal é... EU! Mas não é qualquer jogo não, é um jogo onde você pode ser professor e aluno ao mesmo tempo!";
+		dialogues[1] = "E sabe quem seria o chefão final? Você, Silas! Com terno, gravata... e poderes de coordenador!";
+		dialogues[2] = "Já falei com o pessoal da TI. Eles disseram que se eu parar de usar o servidor como nuvem pessoal, talvez eles ajudem.";
+		dialogues[3] = "Silas, você já jogou todos os Resident Evil? Porque eu joguei TODOS. E eu ainda jogo! TODO DIA!";
+		dialogues[4] = "Tô pensando em fazer uma side quest que é só sobre você tentando corrigir TCC atrasado.";
+		dialogues[5] = "Ah, e adicionei um easter egg: se você digitar 'coordenador' três vezes, aparece um minigame de corrigir trabalho com prazos absurdos.";
+		dialogues[6] = "Mas calma, Silas, vai ter ética, vai ter metodologia... vai ter APA mesmo, de cabeça e tudo!";
+		dialogues[7] = "Esse jogo vai revolucionar a educação. Vai ser tipo Pokémon misturado com PowerPoint!";
+		dialogues[8] = "Silas... esse jogo é maneirão. Confia.";
+
 		
 	}
 	
@@ -69,6 +75,8 @@ public class NPC_OldMan extends Entity {
 	}
 	
 	public void speak() {
+		
+		
 		
 		//Faz coisas especificas do personagem
 		

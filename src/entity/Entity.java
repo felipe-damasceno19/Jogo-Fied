@@ -55,7 +55,7 @@ public class Entity {
 			dialogueIndex = 0;
 		}
 		
-		gp.ui.currentDialogue = dialogues[dialogueIndex];
+		gp.ui.startDialogue(dialogues[dialogueIndex]);
 		
 	    gp.ui.setNpcFaceImage(faceImage);
 		dialogueIndex++;

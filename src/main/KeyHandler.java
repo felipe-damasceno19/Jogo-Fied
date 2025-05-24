@@ -110,10 +110,10 @@ public class KeyHandler implements KeyListener {
 
         //DIALOGUE STATE
         else if(gp.gameState == gp.dialogueState) {
-        	if(code == KeyEvent.VK_ENTER) {
-        		gp.gameState = gp.playState;
+        	if (code == KeyEvent.VK_ENTER) {
+        	    gp.ui.handleDialogueEnter();
         	}
-        	
+
          }
         
      }
