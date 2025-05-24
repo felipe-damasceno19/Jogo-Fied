@@ -13,256 +13,157 @@ import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
 
-// Classe Player (jogador), que herda da classe Entity (não fornecida aqui)
+// A classe Player representa o personagem controlado pelo jogador.
+// Ela herda da classe Entity (entidade genérica no jogo).
 public class Player extends Entity {
 
-	KeyHandler keyH; // Referência ao manipulador de teclas
+	KeyHandler keyH; // Objeto responsável por lidar com as entradas do teclado
 	
-	public final int screenX;  // Posição X do jogador na tela (fixa)
-	public final int screenY;  // Posição Y do jogador na tela (fixa)
+	// Posições fixas do jogador na tela. Ele está sempre no centro da tela.
+	public final int screenX;
+	public final int screenY;
 	
+	// Arrays de sprites de animação: [direção][frame]
+	BufferedImage[][] walkSprites = new BufferedImage[4][4]; // sprites de movimento
+	BufferedImage[][] idleSprites = new BufferedImage[4][4]; // sprites de personagem parado
+	
+	// Construtor do jogador
 	public Player(GamePanel gp, KeyHandler keyH) {
-		
-		super(gp);  // Armazena o painel do jogo
-		this.keyH = keyH; // Armazena o manipulador de teclas
-		
+		super(gp); // chama o construtor da classe Entity
+		this.keyH = keyH; // armazena a referência ao KeyHandler
+
 		// Centraliza o jogador na tela
 		screenX = gp.screenWidth / 2 - (gp.tileSize / 2); 
 		screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 		
-		//Colisão do jogador
-		solidArea = new Rectangle();
-		solidArea.x = 18; //Margem esquerda
-		solidArea.y = 18; //Margem superior
+		// Define a área sólida (retângulo de colisão) do jogador
+		solidArea = new Rectangle(18, 18, 16, 22);
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
-		solidArea.width = 15;
-		solidArea.height = 20;
 
-		setDefaultValues(); // Define posição inicial, direção e velocidade
-		getPlayerImage(); // Carrega as imagens do jogador
+		setDefaultValues(); // inicializa valores como posição, direção e vida
+		loadPlayerSprites(); // carrega os sprites do jogador
 	}
 	
+	// Define valores iniciais do jogador
 	public void setDefaultValues() {
-		worldX = gp.tileSize * 19; // Posição inicial X no mundo
-		worldY = gp.tileSize * 25; // Posição inicial Y no mundo
-		speed = 4; // Velocidade do jogador
-		direction = "down"; // Direção inicial
-		
-		// PLAYER STATUS
+		worldX = gp.tileSize * 19; // Posição inicial no mundo (X)
+		worldY = gp.tileSize * 25; // Posição inicial no mundo (Y)
+		speed = 4;                 // Velocidade de movimento
+		direction = "down";        // Direção inicial
+
+		// Status de vida
 		maxLife = 6;
 		life = maxLife;
-		
 	}
 	
-	public void getPlayerImage() {
-			
-		up1 = setup("/player/Silas_top1");
-		up2 = setup("/player/Silas_top2");
-		up3 = setup("/player/Silas_top3");
-		up4 = setup("/player/Silas_top4");
-		up5 = setup("/player/Silas_top5");
-		up6 = setup("/player/Silas_top6");
-		
-		down1 = setup("/player/Silas Down1");
-		down2 = setup("/player/Silas Down2");
-		down3 = setup("/player/Silas Down3");
-		down4 = setup("/player/Silas Down4");
-		down5 = setup("/player/Silas Down5");
-		down6 = setup("/player/Silas Down6");
-		
-		left1 = setup("/player/Silas_left1");
-		left2 = setup("/player/Silas_left2");
-		left3 = setup("/player/Silas_left3");
-		left4 = setup("/player/Silas_left4");
-		left5 = setup("/player/Silas_left5");
-		left6 = setup("/player/Silas_left6");
-		
-		right1 = setup("/player/Silas_right1");
-		right2 = setup("/player/Silas_right2");
-		right3 = setup("/player/Silas_right3");
-		right4 = setup("/player/Silas_right4");
-		right5 = setup("/player/Silas_right5");
-		right6 = setup("/player/Silas_right6");
-		
-		up_stop1 = setup("/player/Silas_stp_up1");
-		up_stop2 = setup("/player/Silas_stp_up2");
-		up_stop3 = setup("/player/Silas_stp_up3");
-		up_stop4 = setup("/player/Silas_stp_up4");
-		up_stop5 = setup("/player/Silas_stp_up5");
-		up_stop6 = setup("/player/Silas_stp_up6");
-		
-		down_stop1 = setup("/player/Silas_stp_down1");
-		down_stop2 = setup("/player/Silas_stp_down2");
-		down_stop3 = setup("/player/Silas_stp_down3");
-		down_stop4 = setup("/player/Silas_stp_down4");
-		down_stop5 = setup("/player/Silas_stp_down5");
-		down_stop6 = setup("/player/Silas_stp_down6");
-		
-		left_stop1 = setup("/player/Silas_stp_left1");
-		left_stop2 = setup("/player/Silas_stp_left2");
-		left_stop3 = setup("/player/Silas_stp_left3");
-		left_stop4 = setup("/player/Silas_stp_left4");
-		left_stop5 = setup("/player/Silas_stp_left5");
-		left_stop6 = setup("/player/Silas_stp_left6");
-		
-		right_stop1 = setup("/player/Silas_stp_right1");
-		right_stop2 = setup("/player/Silas_stp_right2");
-		right_stop3 = setup("/player/Silas_stp_right3");
-		right_stop4 = setup("/player/Silas_stp_right4");
-		right_stop5 = setup("/player/Silas_stp_right5");
-		right_stop6 = setup("/player/Silas_stp_right6");
+	// Carrega os sprites do jogador a partir da imagem sprite sheet
+	public void loadPlayerSprites() {
+		try {
+			BufferedImage spriteSheet = ImageIO.read(getClass().getResourceAsStream("/player/sprite_Silas_walk_idle.png"));
+
+			// A imagem tem 32 sprites, os 16 primeiros são de caminhada, os 16 últimos de idle (parado)
+			for (int i = 0; i < 32; i++) {
+				BufferedImage frame = spriteSheet.getSubimage(i * 32, 0, 32, 32);
+				if (i < 16) {
+					walkSprites[i / 4][i % 4] = frame; // walkSprites[linha da direção][coluna do frame]
+				} else {
+					idleSprites[(i - 16) / 4][(i - 16) % 4] = frame; // idleSprites[linha da direção][coluna do frame]
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace(); // Mostra erro se falhar ao carregar a imagem
+		}
 	}
-		
+	
+	// Atualiza o estado do jogador a cada frame
+	public void update() {
+		boolean moving = false;
 
-	public void update() { 
-
-		// Verifica se alguma tecla de movimento está sendo pressionada
-		if(keyH.upPressed == true || keyH.downPressed == true 
-				|| keyH.leftPressed == true || keyH.rightPressed == true || keyH.enterPressed == true) {
+		// Verifica se alguma tecla de direção foi pressionada
+		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+			moving = true;
 
 			// Define a direção com base na tecla pressionada
-			if(keyH.upPressed) {
-			    direction = "up";
-			}
-			if(keyH.downPressed) {
-			    direction = "down";
-			}
-			if(keyH.leftPressed) {
-			    direction = "left";
-			}
-			if(keyH.rightPressed) {
-			    direction = "right";
-			}
+			if (keyH.upPressed) direction = "up";
+			if (keyH.downPressed) direction = "down";
+			if (keyH.leftPressed) direction = "left";
+			if (keyH.rightPressed) direction = "right";
 
-			
-			//COLISAO DE TILES
-			collisionOn = false; // Marca a colisão como falsa antes de checar
-			gp.cChecker.checkTile(this); 	// Checa colisão com o mapa, usando o CollisionChecker
-			
-			//COLISAO DE OBJETOS
-			int objIndex = gp.cChecker.checkObjetct(this, true); //Checa a colisao do objeto 
+			collisionOn = false; // Reinicia a colisão
+
+			// Checa colisão com tiles
+			gp.cChecker.checkTile(this);
+
+			// Checa colisão com objetos e coleta se possível
+			int objIndex = gp.cChecker.checkObjetct(this, true);
 			pickUpObject(objIndex);
-			
-			//COLISAO DE NPCS 
+
+			// Checa colisão com NPCs e interage se possível
 			int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
 			interactNPC(npcIndex);
-			
-			//COLISAO DE EVENTOS
+
+			// Checa eventos no mapa (ex: teleportes, cutscenes)
 			gp.eHandler.checkEvent();
-			
-		
-			// Se não houve colisão, move o jogador na direção escolhida
-			if(collisionOn == false && keyH.enterPressed == false) {
-				switch(direction) {
-					case "up":    worldY -= speed; break;
-					case "down":  worldY += speed; break;
-					case "left":  worldX -= speed; break;
+			gp.keyH.enterPressed = false; // Garante que o enter só seja considerado uma vez
+
+			// Se não houve colisão, move o jogador na direção definida
+			if (!collisionOn) {
+				switch (direction) {
+					case "up": worldY -= speed; break;
+					case "down": worldY += speed; break;
+					case "left": worldX -= speed; break;
 					case "right": worldX += speed; break;
 				}
 			}
-			gp.keyH.enterPressed = false;
 		}
-		
-		
-		// Atualiza contagem de sprites para animação
+
+		// Atualiza contador de sprite (animação)
 		spriteCounter++;
 		if (spriteCounter > 10) {
-			spriteNum++; // Muda para próximo sprite
-			if (spriteNum > 6) {
-				spriteNum = 1; // Reinicia após o último sprite
-			}
+			spriteNum++;
+			if (spriteNum > 3) spriteNum = 0; // Loop entre 0, 1, 2, 3
 			spriteCounter = 0;
 		}
 	}
-	
+
+	// Coleta de objeto (por enquanto vazio)
 	public void pickUpObject(int i) {
 		if(i != 999) {
-			
-			
-			}
+			// lógica futura para coleta de item
 		}
+	}
 	
+	// Interação com NPCs
 	public void interactNPC(int i) {
 		if(i != 999) {
-			
 			if(gp.keyH.enterPressed == true) {
-				
-				gp.gameState = gp.dialogueState;
-				gp.npc[i].speak();
+				gp.gameState = gp.dialogueState; // Muda o estado do jogo para diálogo
+				gp.npc[i].speak(); // Faz o NPC falar
 			}
-			
+		}
+	}
+	
+	// Desenha o jogador na tela
+	public void draw(Graphics2D g2) {
+		BufferedImage image = null;
+		int dirIndex = 0;
+
+		// Converte a direção para o índice da matriz de sprites
+		switch (direction) {
+			case "down": dirIndex = 2; break;
+			case "left": dirIndex = 1; break;
+			case "right": dirIndex = 0; break;
+			case "up": dirIndex = 3; break;
 		}
 
+		// Define se está se movendo ou parado
+		boolean isMoving = keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed;
+		
+		// Escolhe o sprite correto com base na direção e movimento
+		image = isMoving ? walkSprites[dirIndex][spriteNum] : idleSprites[dirIndex][spriteNum];
+
+		// Desenha o jogador no centro da tela
+		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 	}
-	
-	
-	public void draw(Graphics2D g2) {
-	    BufferedImage image = null; // Imagem que será desenhada
-
-	    // Escolhe sprite com base na direção e se está se movendo
-	    switch (direction) {
-	        case "up":
-	            BufferedImage[] upImages = {up1, up2, up3, up4, up5, up6};
-	            BufferedImage[] upStopImages = {up_stop1, up_stop2, up_stop3, up_stop4, up_stop5, up_stop6};
-	            
-	            if (keyH.upPressed) {
-	                image = upImages[spriteNum - 1]; // Em movimento
-	            } else {
-	                image = upStopImages[spriteNum - 1]; // Parado
-	            }
-	            break;
-	            
-	        case "down":
-	            BufferedImage[] downImages = {down1, down2, down3, down4, down5, down6};
-	            BufferedImage[] downStopImages = {down_stop1, down_stop2, down_stop3, down_stop4, down_stop5, down_stop6};
-	            
-	            if (keyH.downPressed) {
-	                image = downImages[spriteNum - 1];
-	            } else {
-	                image = downStopImages[spriteNum - 1];
-	            }
-	            break;
-	            
-	        case "left":
-	            BufferedImage[] leftImages = {left1, left2, left3, left4, left5, left6};
-	            BufferedImage[] leftStopImages = {left_stop1, left_stop2, left_stop3, left_stop4, left_stop5, left_stop6};
-	            
-	            if (keyH.leftPressed) {
-	                image = leftImages[spriteNum - 1];
-	            } else {
-	                image = leftStopImages[spriteNum - 1];
-	            }
-	            break;
-	            
-	        case "right":
-	            BufferedImage[] rightImages = {right1, right2, right3, right4, right5, right6};
-	            BufferedImage[] rightStopImages = {right_stop1, right_stop2, right_stop3, right_stop4, right_stop5, right_stop6};
-	            
-	            if (keyH.rightPressed) {
-	                image = rightImages[spriteNum - 1];
-	            } else {
-	                image = rightStopImages[spriteNum - 1];
-	            }
-	            break;
-	    }
-
-	    // Desenha a imagem do jogador
-	    if (image != null) {
-	        g2.drawImage(image, screenX, screenY, null);
-	    }
-	    
-	    // --- DEBUG: Desenha a hitbox (área de colisão) ---
-	    Color originalColor = g2.getColor();
-	    g2.setColor(Color.RED);
-
-	    // Posição real da hitbox na tela (ajustada pela câmera)
-	    int hitboxX = screenX + solidArea.x;
-	    int hitboxY = screenY + solidArea.y;
-
-	    g2.drawRect(hitboxX, hitboxY, solidArea.width, solidArea.height);
-
-	    g2.setColor(originalColor); // Restaura a cor original
-	}
-
 }
