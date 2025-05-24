@@ -47,8 +47,8 @@ public class Player extends Entity {
 	
 	// Define valores iniciais do jogador
 	public void setDefaultValues() {
-		worldX = gp.tileSize * 19; // Posição inicial no mundo (X)
-		worldY = gp.tileSize * 25; // Posição inicial no mundo (Y)
+		worldX = gp.tileSize * 52; // Posição inicial no mundo (X)
+		worldY = gp.tileSize * 36; // Posição inicial no mundo (Y)
 		speed = 4;                 // Velocidade de movimento
 		direction = "down";        // Direção inicial
 

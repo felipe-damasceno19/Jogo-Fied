@@ -31,6 +31,11 @@ public class UI {
 
 	BufferedImage titleScreenImage;
 	public BufferedImage npcFaceImage; // imagem atual do rosto do NPC
+	
+	// Controle da animação do rosto do NPC
+	int npcFaceAnimationCounter = 0;
+	int npcFaceAnimationSpeed = 12; // quanto menor, mais rápido alterna
+	boolean npcFaceToggle = false;
 
 	
 	public UI(GamePanel gp) {
@@ -235,7 +240,7 @@ public class UI {
 	
 	public void drawDialogueScreen() {
 
-	    // JANELA
+	    // JANELA DO DIALOGO
 	    int x = gp.tileSize * 2;
 	    int y = gp.tileSize / 2;
 	    int width = gp.screenWidth - (gp.tileSize * 4);
@@ -245,16 +250,36 @@ public class UI {
 
 	    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
 	    x += gp.tileSize;
-	    y += gp.tileSize;
+	    y += gp.tileSize - 4;
 
-	    // DESENHAR A IMAGEM DO ROSTO
+	    // ==== ANIMAÇÃO DO ROSTO ====
 	    if (npcFaceImage != null) {
-	        int faceSize = gp.tileSize * 2; //POSIÇÃO DO SPRITE DO ROSTO DO NPC NO DIALOGO
-	        g2.drawImage(npcFaceImage, x, y, faceSize, faceSize, null); //DESENHA O SPRITE DO NPC NO DIALOGO
+	        int faceSize = gp.tileSize * 2;
+
+	        // Dimensões do frame individual
+	        int frameWidth = npcFaceImage.getWidth() / 2;
+	        int frameHeight = npcFaceImage.getHeight();
+
+	        // Seleciona o frame (0 ou 1)
+	        int frameX = npcFaceToggle ? frameWidth : 0;
+
+	        // Corta o frame do sprite sheet
+	        BufferedImage faceSprite = npcFaceImage.getSubimage(frameX, 0, frameWidth, frameHeight);
+
+	        // Desenha o rosto
+	        g2.drawImage(faceSprite, x, y, faceSize, faceSize, null);
+
+	        // Lógica de animação
+	        npcFaceAnimationCounter++;
+	        if (npcFaceAnimationCounter > npcFaceAnimationSpeed) {
+	            npcFaceToggle = !npcFaceToggle;
+	            npcFaceAnimationCounter = 0;
+	        }
 	    }
 
-	    // DESENHAR O TEXTO (um pouco mais para o lado para não sobrepor a imagem)
-	    int textX = x + gp.tileSize * 3 + 20; // espaço depois da imagem
+
+	    // ==== TEXTO DO DIALOGO ====
+	    int textX = x + gp.tileSize * 3 + 20;
 	    int textY = y + 40;
 
 	    for (String line : currentDialogue.split("\n")) {
@@ -262,6 +287,7 @@ public class UI {
 	        textY += 40;
 	    }
 	}
+
 
 	//TELA DO DIALOGO
 	public void drawSubWindow(int x, int y, int width, int height) {

@@ -29,7 +29,7 @@ public class NPC_OldMan extends Entity {
 		left2 = setup("/npc/oldman_left_2"); 
 		right1 = setup("/npc/oldman_right_1"); 
 		right2 = setup("/npc/oldman_right_2"); 
-		faceImage = setup("/npc/oldman_down_1");
+		faceImage = setup("/npc/ismael_talking");
 	}
 
 	public void setDialogue() {
