@@ -146,6 +146,9 @@ public class UI {
             drawPlayerLife();
             drawDialogueScreen();
         }
+        if(gp.gameState == gp.characterState) {
+        	drawCharacterScreen();
+        }
     }
 
     // Desenha os corações (vida) do jogador
@@ -297,7 +300,16 @@ public class UI {
             textY += 40;
         }
     }
-
+    
+    public void drawCharacterScreen() {
+    	//FRAME
+    	final int frameX = gp.tileSize*2;
+    	final int frameY = gp.tileSize;
+    	final int frameWidth = gp.tileSize*5;
+    	final int frameHeight = gp.tileSize*10;
+    	drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+    }
+    
     // Retorna até 3 linhas visíveis por vez, separadas por \n
     private String getVisibleLinesText() {
         StringBuilder sb = new StringBuilder();
@@ -322,6 +334,7 @@ public class UI {
         }
     }
 
+    
     // Desenha uma caixa arredondada com borda branca
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0, 240); // preto com transparência
