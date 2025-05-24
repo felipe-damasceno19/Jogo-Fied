@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.obj_Key;
 
 // A classe Player representa o personagem controlado pelo jogador.
 // Ela herda da classe Entity (entidade genérica no jogo).
@@ -47,6 +48,7 @@ public class Player extends Entity {
 
 		setDefaultValues(); // inicializa valores como posição, direção e vida
 		loadPlayerSprites(); // carrega os sprites do jogador
+		setItems();
 	}
 	
 	// Define valores iniciais do jogador
@@ -61,7 +63,16 @@ public class Player extends Entity {
 		life = maxLife;
 	}
 	
-
+	public void setItems() {
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+	}
 	// Carrega os sprites do jogador a partir da imagem sprite sheet
 	public void loadPlayerSprites() {
 		try {

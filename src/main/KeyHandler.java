@@ -147,7 +147,7 @@ public class KeyHandler implements KeyListener {
     		}
     	}
     	if(code == KeyEvent.VK_S) {
-    		if(gp.ui.slotRow !=4) {
+    		if(gp.ui.slotRow !=3) {
     			gp.ui.slotRow++;
     		}
     		
