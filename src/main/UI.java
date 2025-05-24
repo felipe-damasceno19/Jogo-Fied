@@ -242,14 +242,21 @@ public class UI {
             int faceSize = gp.tileSize * 2;
             int frameWidth = npcFaceImage.getWidth() / 2;
             int frameHeight = npcFaceImage.getHeight();
-            int frameX = npcFaceToggle ? frameWidth : 0;
+
+            // Se ainda estiver digitando, anima. Se já terminou, usa frame parado
+            boolean animarFace = textCharIndex < getVisibleLinesText().length();
+
+            int frameX = (animarFace && npcFaceToggle) ? frameWidth : 0;
             BufferedImage faceSprite = npcFaceImage.getSubimage(frameX, 0, frameWidth, frameHeight);
             g2.drawImage(faceSprite, x, y, faceSize, faceSize, null);
 
-            npcFaceAnimationCounter++;
-            if (npcFaceAnimationCounter > npcFaceAnimationSpeed) {
-                npcFaceToggle = !npcFaceToggle;
-                npcFaceAnimationCounter = 0;
+            // Só anima se ainda estiver digitando
+            if (animarFace) {
+                npcFaceAnimationCounter++;
+                if (npcFaceAnimationCounter > npcFaceAnimationSpeed) {
+                    npcFaceToggle = !npcFaceToggle;
+                    npcFaceAnimationCounter = 0;
+                }
             }
         }
 
@@ -267,6 +274,22 @@ public class UI {
                 textCounter = 0;
             }
         }
+        
+        if (textCharIndex < getVisibleLinesText().length()) {
+            textCounter++;
+            if (textCounter > textDisplaySpeed) {
+                char nextChar = getVisibleLinesText().charAt(textCharIndex);
+
+                // ✅ Toca som apenas para letras e números (evita espaços e pontuação)
+                if (Character.isLetterOrDigit(nextChar)) {
+                    gp.playSE(5); // índice 5 = som "talk.wav" registrado na classe Sound
+                }
+
+                textCharIndex++;
+                textCounter = 0;
+            }
+        }
+
 
         String visibleText = getVisibleLinesText().substring(0, Math.min(textCharIndex, getVisibleLinesText().length()));
         for (String line : visibleText.split("\n")) {
