@@ -3,12 +3,12 @@ package tile;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
-
 import main.GamePanel;
 import main.UtilityTool;
 
@@ -16,25 +16,94 @@ public class TileManager {
 	GamePanel gp; // Referência ao painel principal do jogo
 	public Tile[] tile; // Array de tiles disponíveis (tipos diferentes: grama, parede, etc.)
 	public int mapTileNum[][]; // Mapa do mundo armazenado como IDs de tiles (matriz de números)
-
+	ArrayList<String> fileNames = new ArrayList<>();
+	ArrayList<String> collisionStatus = new ArrayList<>();
+	
+	
 	public TileManager(GamePanel gp) {
 		this.gp = gp; // Guarda a referência ao GamePanel
-
-		tile = new Tile[10]; // Inicializa o array de tiles com capacidade para 10 tipos
-		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow]; // Mapa baseado nas dimensões do mundo
-
+		
+		// Lê o Tile data 
+		InputStream is = getClass().getResourceAsStream("/maps/tileDataM1.txt");
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
+		
+		// PEGA OS CAMINHOS DOS TILE E A INFO DE COLISÃO
+		String line;
+		
+		try {
+			
+			while((line = br.readLine()) != null){
+				fileNames.add(line);
+				collisionStatus.add(br.readLine());
+			} 
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		tile = new Tile[fileNames.size()]; // Inicializa o array de tiles com capacidade para 10 tipos
 		getTileImage(); // Carrega as imagens dos tiles
-		loadMap("/maps/world01.txt"); // Carrega o mapa a partir de um arquivo de texto
+		
+		
+		// Pega maxWorldCol & Row
+		
+		
+		try {
+			
+			is = new FileInputStream("res/maps/sampleM1.txt");
+			br = new BufferedReader(new InputStreamReader(is));
+			String line2 = br.readLine();
+			String maxTile[] = line2.split(" ");
+			
+			gp.maxWorldCol = maxTile.length;
+			gp.maxWorldRow = maxTile.length;
+			 
+			mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow]; // Mapa baseado nas dimensões do mundo
+			
+			br.close();
+			
+		} catch(IOException e) {
+			System.out.println("Exception:" + e);
+		}
+		
+		
+		loadMap("/maps/sampleM1.txt");
+		
+		
+		// loadMap("/maps/world01.txt"); // Carrega o mapa a partir de um arquivo de texto
 	}
 
 	public void getTileImage() {
 			
-			setup(0, "grass", false);
-			setup(1, "wall", true);
-			setup(2, "water", true);
-			setup(3, "earth", false);
-			setup(4, "tree", true);
-			setup(5, "sand", false);	
+		
+		for(int i = 0 ; i < fileNames.size(); i++) {
+			
+			String fileName;
+			boolean collision;
+			
+			// Pega caminho do Arquivo
+			fileName = fileNames.get(i);
+			
+			// Pega info colisão e transforma em Boleano
+			if(collisionStatus.get(i).equals("true")) {
+				collision = true;	
+			} else {
+				collision = false;
+			}
+			
+			
+			setup(i, fileName, collision);
+			
+		}
+		
+//			setup(0, "grass", false);
+//			setup(1, "wall", true);
+//			setup(2, "water", true);
+//			setup(3, "earth", false);
+//			setup(4, "tree", true);
+//			setup(5, "sand", false);	
 	}
 	public void setup(int index, String imageName, boolean collision) { // Define um tile no array de tiles. Recebe: índice do tile, nome da imagem e se tem colisão
 		
@@ -42,13 +111,15 @@ public class TileManager {
 
 		try {
 			tile[index] = new Tile();
-			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+ imageName + ".png"));
+			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+ imageName));
 			tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
 			tile[index].collision = collision;
 		}
 		catch(IOException e) {
 			e.printStackTrace();
 		}
+		
+
 	}
 
 	public void loadMap(String filePath) {

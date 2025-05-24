@@ -36,16 +36,16 @@ public class Player extends Entity {
 		solidArea.y = 18; //Margem superior
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
-		solidArea.width = 16;
-		solidArea.height = 22;
+		solidArea.width = 15;
+		solidArea.height = 20;
 
 		setDefaultValues(); // Define posição inicial, direção e velocidade
 		getPlayerImage(); // Carrega as imagens do jogador
 	}
 	
 	public void setDefaultValues() {
-		worldX = gp.tileSize * 23; // Posição inicial X no mundo
-		worldY = gp.tileSize * 21; // Posição inicial Y no mundo
+		worldX = gp.tileSize * 19; // Posição inicial X no mundo
+		worldY = gp.tileSize * 25; // Posição inicial Y no mundo
 		speed = 4; // Velocidade do jogador
 		direction = "down"; // Direção inicial
 		

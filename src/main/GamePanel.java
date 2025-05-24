@@ -30,8 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     
     //CONFIGURAÇÕES DO MUNDO
-    public final int maxWorldCol = 50;           // Máximo de colunas do mundo (mapa)
-    public final int maxWorldRow = 50;           // Máximo de linhas do mundo (mapa)
+    public int maxWorldCol = 50;           // Máximo de colunas do mundo (mapa)
+    public int maxWorldRow = 50;           // Máximo de linhas do mundo (mapa)
    
 
     int FPS = 60;                                 // Taxa de quadros por segundo
