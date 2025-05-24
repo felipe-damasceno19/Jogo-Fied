@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -26,6 +27,9 @@ public class Player extends Entity {
 	// Arrays de sprites de animação: [direção][frame]
 	BufferedImage[][] walkSprites = new BufferedImage[4][4]; // sprites de movimento
 	BufferedImage[][] idleSprites = new BufferedImage[4][4]; // sprites de personagem parado
+	
+	public ArrayList<Entity> inventory = new ArrayList<>();
+	public final int maxInventorySize = 20;
 	
 	// Construtor do jogador
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -57,6 +61,7 @@ public class Player extends Entity {
 		life = maxLife;
 	}
 	
+
 	// Carrega os sprites do jogador a partir da imagem sprite sheet
 	public void loadPlayerSprites() {
 		try {
