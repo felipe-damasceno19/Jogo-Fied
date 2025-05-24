@@ -42,7 +42,11 @@ public class UI {
 
     // Sprite do rosto do NPC atual (para a caixa de diálogo)
     public BufferedImage npcFaceImage;
-
+    
+    //posição dos slots
+    public int slotCol = 0;
+    public int slotRow = 0;
+    
     // Controle da animação do rosto do NPC (alterna entre dois frames)
     int npcFaceAnimationCounter = 0;
     int npcFaceAnimationSpeed = 12; // tempo entre trocas de frame
@@ -148,6 +152,7 @@ public class UI {
         }
         if(gp.gameState == gp.characterState) {
         	drawCharacterScreen();
+        	drawInventory();
         }
     }
 
@@ -308,6 +313,33 @@ public class UI {
     	final int frameWidth = gp.tileSize*5;
     	final int frameHeight = gp.tileSize*10;
     	drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+    }
+    
+    public void drawInventory() {
+    	
+    	//FRAME
+    	int frameX = gp.tileSize*9;
+    	int frameY = gp.tileSize;
+    	int frameWidth = gp.tileSize*6;
+    	int frameHeight = gp.tileSize*5;
+    	drawSubWindow(frameX, frameY, frameWidth, frameHeight);      
+    
+    	//SLOT
+    	final int slotXstart = frameX + 20;
+    	final int slotYstart = frameY + 20;
+    	int slotX = slotXstart;
+    	int slotY = slotYstart;
+    	
+    	//CURSOR
+    	int cursorX = slotXstart + (gp.tileSize * slotCol);
+    	int cursorY = slotYstart + (gp.tileSize * slotRow);
+    	int cursorWidth = gp.tileSize;
+    	int cursorHeight = gp.tileSize;
+    	
+    	//Desenho Cursor
+    	g2.setColor(Color.white);
+    	g2.setStroke(new BasicStroke(3));
+    	g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
     }
     
     // Retorna até 3 linhas visíveis por vez, separadas por \n

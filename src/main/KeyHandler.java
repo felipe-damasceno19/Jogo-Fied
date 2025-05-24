@@ -133,9 +133,21 @@ public class KeyHandler implements KeyListener {
      	}
      }
      public void characterState(int code) {
-    	 if(code == KeyEvent.VK_C) {
+    	if(code == KeyEvent.VK_C) {
      		gp.gameState = gp.playState;
      	}
+    	if(code == KeyEvent.VK_W) {
+    		gp.ui.slotRow--;
+    	}
+    	if(code == KeyEvent.VK_A) {
+    		gp.ui.slotCol--;
+    	}
+    	if(code == KeyEvent.VK_S) {
+    		gp.ui.slotRow++;
+    	}
+    	if(code == KeyEvent.VK_D) {
+    		gp.ui.slotCol++;
+    	}
      }
 
     // Método chamado quando uma tecla é solta
