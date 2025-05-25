@@ -32,6 +32,9 @@ public class Player extends Entity {
 	public ArrayList<Entity> inventory = new ArrayList<>();
 	public final int maxInventorySize = 20;
 	
+	public boolean nearInteractable = false;
+
+	
 	// Construtor do jogador
 	public Player(GamePanel gp, KeyHandler keyH) {
 		super(gp); // chama o construtor da classe Entity
@@ -118,6 +121,17 @@ public class Player extends Entity {
 			// Checa colisão com NPCs e interage se possível
 			int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
 			interactNPC(npcIndex);
+			
+			// Antes ou depois de checar NPCs/objetos
+			nearInteractable = false;
+
+			if (gp.cChecker.checkEntity(this, gp.npc) != 999) {
+			    nearInteractable = true;
+			}
+			if (gp.cChecker.checkObjetct(this, false) != 999) {
+			    nearInteractable = true;
+			}
+
 
 			// Checa eventos no mapa (ex: teleportes, cutscenes)
 			gp.eHandler.checkEvent();

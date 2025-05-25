@@ -62,6 +62,14 @@ public class UI {
     // Lista com todas as linhas do texto, quebradas automaticamente
     java.util.List<String> fullTextLines = new ArrayList<>();
     int currentLineStart = 0; // Índice da primeira linha atualmente visível
+    
+ // Sprites de botão "F" animado
+    BufferedImage[] fButtonFrames;
+    int fFrameIndex = 0;
+    int fFrameCounter = 0;
+    int fFrameSpeed = 15;
+
+    
 
     // ===============================
     // CONSTRUTOR DA CLASSE
@@ -87,6 +95,9 @@ public class UI {
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
+        
+        fButtonFrames = loadButtonSprites("/buttons/press_enter.png", 2);
+
 
         // Carrega as imagens de HUD do coração (vida do jogador)
         Entity heart = new obj_Heart(gp);
@@ -154,6 +165,14 @@ public class UI {
         	drawCharacterScreen();
         	drawInventory();
         }
+        
+        if (gp.gameState == gp.playState) {
+            drawPlayerLife();
+            if (gp.player.nearInteractable) {
+                drawInteractionPrompt(); // ✅ Adiciona o prompt quando estiver perto
+            }
+        }
+
     }
 
     // Desenha os corações (vida) do jogador
@@ -402,6 +421,79 @@ public class UI {
             }
         }
     }
+    
+    public BufferedImage[] loadButtonSprites(String path, int frameCount) {
+        BufferedImage[] frames = new BufferedImage[frameCount];
+
+        try {
+            InputStream is = getClass().getResourceAsStream(path);
+            BufferedImage spriteSheet = ImageIO.read(is);
+
+            int frameWidth = spriteSheet.getWidth() / frameCount;
+            int frameHeight = spriteSheet.getHeight();
+
+            for (int i = 0; i < frameCount; i++) {
+                frames[i] = spriteSheet.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
+            }
+
+        } catch (IOException e) {
+            System.out.println("⚠️ Erro ao carregar sprites do botão em: " + path);
+            e.printStackTrace();
+        }
+
+        return frames;
+    }
+
+
+    public void drawInteractionPrompt() {
+        String text = "Aperte 'Enter' para interagir";
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22F));
+        int textWidth = g2.getFontMetrics().stringWidth(text);
+        int padding = 20;
+        int spriteSize = 40; // Aumentado para melhor visibilidade
+
+        // Caixa da interface (com botão + texto)
+        int boxWidth = textWidth + spriteSize + padding * 2;
+        int boxHeight = 60;
+
+        // Posição no canto inferior direito
+        int boxX = gp.screenWidth - boxWidth - gp.tileSize / 2;
+        int boxY = gp.screenHeight - boxHeight - gp.tileSize / 4;
+
+        // ==== FUNDO ESCURO ====
+        g2.setColor(new Color(0, 0, 0, 200));
+        g2.fillRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
+
+        // ==== BORDA BRANCA ====
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
+
+        // ==== SPRITE DO BOTÃO ====
+        if (fButtonFrames != null) {
+            BufferedImage currentFrame = fButtonFrames[fFrameIndex];
+
+            int spriteX = boxX + padding;
+            int spriteY = boxY + (boxHeight - spriteSize) / 2; // Centraliza verticalmente
+
+            g2.drawImage(currentFrame, spriteX, spriteY, spriteSize, spriteSize, null);
+
+            // Animação
+            fFrameCounter++;
+            if (fFrameCounter > fFrameSpeed) {
+                fFrameIndex = (fFrameIndex + 1) % fButtonFrames.length;
+                fFrameCounter = 0;
+            }
+        }
+
+        // ==== TEXTO ====
+        int textX = boxX + padding + spriteSize + 10;
+        int textY = boxY + (boxHeight + g2.getFontMetrics().getAscent()) / 2 - 4; // Centraliza com base na altura da fonte
+
+        g2.setColor(Color.white);
+        g2.drawString(text, textX, textY);
+    }
+
 
     
     // Desenha uma caixa arredondada com borda branca
