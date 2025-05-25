@@ -111,7 +111,7 @@ public class UI {
         message = text;
         messageOn = true;
     }
-
+    
     // Prepara o texto de diálogo para ser exibido com digitação progressiva
     public void startDialogue(String text) {
         fullText = text;

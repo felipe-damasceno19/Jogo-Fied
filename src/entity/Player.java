@@ -159,9 +159,16 @@ public class Player extends Entity {
 
 	// Coleta de objeto (por enquanto vazio)
 	public void pickUpObject(int i) {
-		if(i != 999) {
-			// lógica futura para coleta de item
-		}
+//		if(i != 999) {
+//			// lógica futura para coleta de item
+//			
+//			String objectName = gp.obj[i].name;
+//			
+//			switch(objectName) {
+//			case "Door":
+//				break;
+//			}
+//		}
 	}
 	
 	// Interação com NPCs
