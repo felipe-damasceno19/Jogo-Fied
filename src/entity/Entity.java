@@ -41,6 +41,8 @@ public class Entity {
 	public int maxLife;
 	public int life;
 		
+	//Atributos dos Itens
+	public String description = "";
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;

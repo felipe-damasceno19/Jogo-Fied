@@ -42,7 +42,11 @@ public class UI {
 
     // Sprite do rosto do NPC atual (para a caixa de diálogo)
     public BufferedImage npcFaceImage;
-
+    
+    //posição dos slots
+    public int slotCol = 0;
+    public int slotRow = 0;
+    
     // Controle da animação do rosto do NPC (alterna entre dois frames)
     int npcFaceAnimationCounter = 0;
     int npcFaceAnimationSpeed = 12; // tempo entre trocas de frame
@@ -58,6 +62,14 @@ public class UI {
     // Lista com todas as linhas do texto, quebradas automaticamente
     java.util.List<String> fullTextLines = new ArrayList<>();
     int currentLineStart = 0; // Índice da primeira linha atualmente visível
+    
+ // Sprites de botão "F" animado
+    BufferedImage[] fButtonFrames;
+    int fFrameIndex = 0;
+    int fFrameCounter = 0;
+    int fFrameSpeed = 15;
+
+    
 
     // ===============================
     // CONSTRUTOR DA CLASSE
@@ -83,6 +95,9 @@ public class UI {
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
+        
+        fButtonFrames = loadButtonSprites("/buttons/press_enter.png", 2);
+
 
         // Carrega as imagens de HUD do coração (vida do jogador)
         Entity heart = new obj_Heart(gp);
@@ -96,7 +111,7 @@ public class UI {
         message = text;
         messageOn = true;
     }
-
+    
     // Prepara o texto de diálogo para ser exibido com digitação progressiva
     public void startDialogue(String text) {
         fullText = text;
@@ -146,6 +161,18 @@ public class UI {
             drawPlayerLife();
             drawDialogueScreen();
         }
+        if(gp.gameState == gp.characterState) {
+        	drawCharacterScreen();
+        	drawInventory();
+        }
+        
+        if (gp.gameState == gp.playState) {
+            drawPlayerLife();
+            if (gp.player.nearInteractable) {
+                drawInteractionPrompt(); // ✅ Adiciona o prompt quando estiver perto
+            }
+        }
+
     }
 
     // Desenha os corações (vida) do jogador
@@ -297,7 +324,80 @@ public class UI {
             textY += 40;
         }
     }
-
+    
+    public void drawCharacterScreen() {
+    	//FRAME
+    	final int frameX = gp.tileSize*2;
+    	final int frameY = gp.tileSize;
+    	final int frameWidth = gp.tileSize*5;
+    	final int frameHeight = gp.tileSize*10;
+    	drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+    }
+    
+    public void drawInventory() {
+    	
+    	//FRAME
+    	int frameX = gp.tileSize*9;
+    	int frameY = gp.tileSize;
+    	int frameWidth = gp.tileSize*6;
+    	int frameHeight = gp.tileSize*5;
+    	drawSubWindow(frameX, frameY, frameWidth, frameHeight);      
+    
+    	//SLOT
+    	final int slotXstart = frameX + 20;
+    	final int slotYstart = frameY + 20;
+    	int slotX = slotXstart;
+    	int slotY = slotYstart;
+    	int slotSize = gp.tileSize+3;
+    	
+    	//DESENHANDO INTENS
+    	for(int i = 0; i < gp.player.inventory.size(); i++) {
+    		g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null );
+    		slotX += slotSize;
+    		
+    		if(i == 4 || i == 9 || i == 14) {
+    			slotX = slotXstart;
+    			slotY += slotSize;
+    		} 
+    	}
+    	
+    	//CURSOR
+    	int cursorX = slotXstart + (slotSize * slotCol);
+    	int cursorY = slotYstart + (slotSize * slotRow);
+    	int cursorWidth = gp.tileSize;
+    	int cursorHeight = gp.tileSize;
+    	
+    	//Desenho do Cursor
+    	g2.setColor(Color.white);
+    	g2.setStroke(new BasicStroke(3));
+    	g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+    	
+    	//Descriprion frame
+    	int dFrameX = frameX;
+    	int dFrameY = frameY + frameHeight + 10;
+    	int dFrameWidth = frameWidth;
+    	int dFrameHeight = gp.tileSize*3;
+    	drawSubWindow(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+    	
+    	//Texto da Descrição
+    	int textX = dFrameX + 20;
+    	int textY = dFrameY + gp.tileSize;
+    	g2.setFont(g2.getFont().deriveFont(28F)); 
+    	
+    	int itemIndex = getItemIndexOnSlot();
+    	
+    	if(itemIndex < gp.player.inventory.size()) {
+    			for(String line: gp.player.inventory.get(itemIndex).description.split("\n")) {
+    			g2.drawString(line, textX, textY);
+    			textY += 32;
+    			}
+    		}
+    	}
+    
+    public int getItemIndexOnSlot() {
+    	int itemIndex = slotCol + (slotRow*5);
+    	return itemIndex;
+    }
     // Retorna até 3 linhas visíveis por vez, separadas por \n
     private String getVisibleLinesText() {
         StringBuilder sb = new StringBuilder();
@@ -321,7 +421,81 @@ public class UI {
             }
         }
     }
+    
+    public BufferedImage[] loadButtonSprites(String path, int frameCount) {
+        BufferedImage[] frames = new BufferedImage[frameCount];
 
+        try {
+            InputStream is = getClass().getResourceAsStream(path);
+            BufferedImage spriteSheet = ImageIO.read(is);
+
+            int frameWidth = spriteSheet.getWidth() / frameCount;
+            int frameHeight = spriteSheet.getHeight();
+
+            for (int i = 0; i < frameCount; i++) {
+                frames[i] = spriteSheet.getSubimage(i * frameWidth, 0, frameWidth, frameHeight);
+            }
+
+        } catch (IOException e) {
+            System.out.println("⚠️ Erro ao carregar sprites do botão em: " + path);
+            e.printStackTrace();
+        }
+
+        return frames;
+    }
+
+
+    public void drawInteractionPrompt() {
+        String text = "Aperte 'Enter' para interagir";
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22F));
+        int textWidth = g2.getFontMetrics().stringWidth(text);
+        int padding = 20;
+        int spriteSize = 40; // Aumentado para melhor visibilidade
+
+        // Caixa da interface (com botão + texto)
+        int boxWidth = textWidth + spriteSize + padding * 2;
+        int boxHeight = 60;
+
+        // Posição no canto inferior direito
+        int boxX = gp.screenWidth - boxWidth - gp.tileSize / 2;
+        int boxY = gp.screenHeight - boxHeight - gp.tileSize / 4;
+
+        // ==== FUNDO ESCURO ====
+        g2.setColor(new Color(0, 0, 0, 200));
+        g2.fillRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
+
+        // ==== BORDA BRANCA ====
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
+
+        // ==== SPRITE DO BOTÃO ====
+        if (fButtonFrames != null) {
+            BufferedImage currentFrame = fButtonFrames[fFrameIndex];
+
+            int spriteX = boxX + padding;
+            int spriteY = boxY + (boxHeight - spriteSize) / 2; // Centraliza verticalmente
+
+            g2.drawImage(currentFrame, spriteX, spriteY, spriteSize, spriteSize, null);
+
+            // Animação
+            fFrameCounter++;
+            if (fFrameCounter > fFrameSpeed) {
+                fFrameIndex = (fFrameIndex + 1) % fButtonFrames.length;
+                fFrameCounter = 0;
+            }
+        }
+
+        // ==== TEXTO ====
+        int textX = boxX + padding + spriteSize + 10;
+        int textY = boxY + (boxHeight + g2.getFontMetrics().getAscent()) / 2 - 4; // Centraliza com base na altura da fonte
+
+        g2.setColor(Color.white);
+        g2.drawString(text, textX, textY);
+    }
+
+
+    
     // Desenha uma caixa arredondada com borda branca
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0, 240); // preto com transparência

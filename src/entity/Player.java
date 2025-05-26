@@ -6,12 +6,14 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.obj_Key;
 
 // A classe Player representa o personagem controlado pelo jogador.
 // Ela herda da classe Entity (entidade genérica no jogo).
@@ -26,6 +28,12 @@ public class Player extends Entity {
 	// Arrays de sprites de animação: [direção][frame]
 	BufferedImage[][] walkSprites = new BufferedImage[4][4]; // sprites de movimento
 	BufferedImage[][] idleSprites = new BufferedImage[4][4]; // sprites de personagem parado
+	
+	public ArrayList<Entity> inventory = new ArrayList<>();
+	public final int maxInventorySize = 20;
+	
+	public boolean nearInteractable = false;
+
 	
 	// Construtor do jogador
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -43,6 +51,7 @@ public class Player extends Entity {
 
 		setDefaultValues(); // inicializa valores como posição, direção e vida
 		loadPlayerSprites(); // carrega os sprites do jogador
+		setItems();
 	}
 	
 	// Define valores iniciais do jogador
@@ -57,6 +66,16 @@ public class Player extends Entity {
 		life = maxLife;
 	}
 	
+	public void setItems() {
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Key(gp));
+	}
 	// Carrega os sprites do jogador a partir da imagem sprite sheet
 	public void loadPlayerSprites() {
 		try {
@@ -102,6 +121,17 @@ public class Player extends Entity {
 			// Checa colisão com NPCs e interage se possível
 			int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
 			interactNPC(npcIndex);
+			
+			// Antes ou depois de checar NPCs/objetos
+			nearInteractable = false;
+
+			if (gp.cChecker.checkEntity(this, gp.npc) != 999) {
+			    nearInteractable = true;
+			}
+			if (gp.cChecker.checkObjetct(this, false) != 999) {
+			    nearInteractable = true;
+			}
+
 
 			// Checa eventos no mapa (ex: teleportes, cutscenes)
 			gp.eHandler.checkEvent();
@@ -129,9 +159,16 @@ public class Player extends Entity {
 
 	// Coleta de objeto (por enquanto vazio)
 	public void pickUpObject(int i) {
-		if(i != 999) {
-			// lógica futura para coleta de item
-		}
+//		if(i != 999) {
+//			// lógica futura para coleta de item
+//			
+//			String objectName = gp.obj[i].name;
+//			
+//			switch(objectName) {
+//			case "Door":
+//				break;
+//			}
+//		}
 	}
 	
 	// Interação com NPCs
