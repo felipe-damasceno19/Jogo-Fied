@@ -1,6 +1,7 @@
-/sound/
-/main/
 /entity/
+/main/
 /object/
-/notes/
-
+/tile/
+/tiles/
+/title/
+/npc/

@@ -10,7 +10,7 @@ public class obj_Chest extends Entity{
 		super(gp);
 		
 		name = "Chest";
-		down1 = setup("/objects/chest(OLD)");
+		ObjImage = setup("/objects/chest(OLD)");
 		collision = true;
 			
 	}

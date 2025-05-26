@@ -16,11 +16,17 @@ public class Entity {
 	public int worldX, worldY;
 	public int speed;
 	
-	public BufferedImage up1, up2, up3, up4, up5, up6, up_stop1, up_stop2, up_stop3, up_stop4, up_stop5, up_stop6,
-	down1, down2, down3, down4, down5, down6, down_stop1, down_stop2, down_stop3, down_stop4, down_stop5, down_stop6,
-	left1, left2, left3, left4, left5, left6, left_stop1, left_stop2, left_stop3, left_stop4, left_stop5, left_stop6,
-	right1, right2, right3, right4, right5, right6, right_stop1, right_stop2, right_stop3, right_stop4, right_stop5, right_stop6;
+	// Substituir dezenas de imagens separadas
+	public BufferedImage[][] npcWalkSprites = new BufferedImage[4][4];
+	public BufferedImage[][] npcIdleSprites = new BufferedImage[4][4];
+
+	public boolean moving = false;
+	public int actionDuration = 0; // Contador de tempo para mover ou parar
+	public int waitTime = 0;       // Tempo a esperar quando parado
+
+
 	public BufferedImage faceImage;
+	public BufferedImage ObjImage;
 	
 	public String direction = "down";
 	
@@ -79,86 +85,62 @@ public class Entity {
 		}
 	}
 	
+
 	public void update() {
-		
-		setAction(); //Métodos criados nas subclasses tem prioridade
-		
-		collisionOn = false;
-		gp.cChecker.checkTile(this);
-		gp.cChecker.checkObjetct(this, false);
-		gp.cChecker.checkPlayer(this);
-		
-		// Se não houve colisão, move o jogador na direção escolhida
-		if(collisionOn == false) {
-			switch(direction) {
-				case "up":    worldY -= speed; break;
-				case "down":  worldY += speed; break;
-				case "left":  worldX -= speed; break;
-				case "right": worldX += speed; break;
-			}
-		}
-	
-	// Atualiza contagem de sprites para animação
-	spriteCounter++;
-	if (spriteCounter > 12) {
-		if(spriteNum == 1) {
-			spriteNum = 2;
-		}
-		else if(spriteNum == 2) {
-			spriteNum = 1;
-		}
-		spriteCounter = 0;
-		}
+	    setAction();
+
+	    collisionOn = false;
+	    gp.cChecker.checkTile(this);
+	    gp.cChecker.checkObjetct(this, false);
+	    gp.cChecker.checkPlayer(this);
+
+	    moving = false;
+
+	    if (!collisionOn) {
+	        switch (direction) {
+	            case "up": worldY -= speed; moving = true; break;
+	            case "down": worldY += speed; moving = true; break;
+	            case "left": worldX -= speed; moving = true; break;
+	            case "right": worldX += speed; moving = true; break;
+	        }
+	    }
+
+	    spriteCounter++;
+	    if (spriteCounter > 12) {
+	        spriteNum = (spriteNum + 1) % 4;
+	        spriteCounter = 0;
+	    }
 	}
+
+
 	
 	public void draw(Graphics2D g2) {
-		
-		BufferedImage image = null;
-		int screenX = worldX - gp.player.worldX + gp.player.screenX;
-		int screenY = worldY - gp.player.worldY + gp.player.screenY;
-	
-		if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX 
-			&& worldX - gp.tileSize < gp.player.worldX + gp.player.screenX 
-			&& worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
-			&& worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-			
-			switch(direction) {
-			case "up":
-				if(spriteNum == 1) {
-					image = up1;
-				}
-				if(spriteNum == 2) {
-					image = up2;
-				}
-				break;
-			case "down":
-				if(spriteNum == 1) {
-					image = down1;
-				}
-				if(spriteNum == 2) {
-					image = down2;
-				}
-				break;
-			case "left":
-				if(spriteNum == 1) {
-					image = left1;
-				}
-				if(spriteNum == 2) {
-					image = left2;
-				}
-				break;
-			case "right":
-				if(spriteNum == 1) {
-					image = right1;
-				}
-				if(spriteNum == 2) {
-					image = right2;
-				}
-				break;
-			}
-			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-		}		
+	    BufferedImage image = null;
+	    int screenX = worldX - gp.player.worldX + gp.player.screenX;
+	    int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+	    if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
+	            && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+	            && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
+	            && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+
+	        int dirIndex = 2; // down por padrão
+	        if ("right".equals(direction)) dirIndex = 0;
+	        else if ("left".equals(direction)) dirIndex = 1;
+	        else if ("down".equals(direction)) dirIndex = 2;
+	        else if ("up".equals(direction)) dirIndex = 3;
+
+	        if (moving) {
+	            image = npcWalkSprites[dirIndex][spriteNum];
+	        } else {
+	            image = npcIdleSprites[dirIndex][spriteNum];
+	        }
+
+	        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+	    }
 	}
+
+
 
 	public BufferedImage setup(String imagePath) {
 		

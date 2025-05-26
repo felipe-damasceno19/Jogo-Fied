@@ -1,6 +1,10 @@
 package entity;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random; // Importa a classe Random para gerar números aleatórios
+
+import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
@@ -20,16 +24,26 @@ public class NPC_OldMan extends Entity {
 
 	// Método para carregar as imagens de animação do NPC
 	public void getImage() {
+	    try {
+	        BufferedImage sheet = ImageIO.read(getClass().getResourceAsStream("/npc/sprite_Ismael_walk_idle.png"));
 
-		up1 = setup("/npc/oldman_up_1"); 
-		up2 = setup("/npc/oldman_up_2");
-		down1 = setup("/npc/oldman_down_1"); 
-		down2 = setup("/npc/oldman_down_2"); 
-		left1 = setup("/npc/oldman_left_1"); 
-		left2 = setup("/npc/oldman_left_2"); 
-		right1 = setup("/npc/oldman_right_1"); 
-		right2 = setup("/npc/oldman_right_2"); 
-		faceImage = setup("/npc/ismael_talking");
+	        // Walk: frames 0 a 15
+	        for (int i = 0; i < 16; i++) {
+	            BufferedImage frame = sheet.getSubimage(i * 32, 0, 32, 32);
+	            npcWalkSprites[i / 4][i % 4] = frame;
+	        }
+
+	        // Idle: frames 16 a 31
+	        for (int i = 16; i < 32; i++) {
+	            BufferedImage frame = sheet.getSubimage(i * 32, 0, 32, 32);
+	            npcIdleSprites[(i - 16) / 4][(i - 16) % 4] = frame;
+	        }
+
+	        faceImage = setup("/npc/ismael_talking");
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	public void setDialogue() {
@@ -48,31 +62,34 @@ public class NPC_OldMan extends Entity {
 	}
 	
 	// Define o comportamento do NPC (movimento aleatório)
+	@Override
 	public void setAction() {
+	    actionDuration++;
 
-		actionLockCounter++; // Incrementa o contador de ações
+	    if (moving) {
+	        if (actionDuration >= 60) { // Move por 1 segundo (ajuste se quiser)
+	            moving = false;
+	            actionDuration = 0;
+	            waitTime = new Random().nextInt(6) + 5; // 5 a 10 segundos
+	            waitTime *= 60; // em frames (60 fps)
+	        }
+	    } else {
+	        if (actionDuration >= waitTime) {
+	            // Decide nova direção aleatória
+	            Random random = new Random();
+	            int i = random.nextInt(100) + 1;
 
-		if (actionLockCounter == 120) { // A cada 120 frames (~2 segundos)
-			Random random = new Random();
-			int i = random.nextInt(100) + 1; // Gera um número aleatório de 1 a 100
+	            if (i <= 25) direction = "up";
+	            else if (i <= 50) direction = "down";
+	            else if (i <= 75) direction = "left";
+	            else direction = "right";
 
-			// Define a direção do NPC com base no número sorteado
-			if (i <= 25) {
-				direction = "up"; // 25% de chance de ir para cima
-			}
-			if (i > 25 && i <= 50) {
-				direction = "down"; // 25% de chance de ir para baixo
-			}
-			if (i > 50 && i <= 75) {
-				direction = "left"; // 25% de chance de ir para a esquerda
-			}
-			if (i > 75 && i <= 100) {
-				direction = "right"; // 25% de chance de ir para a direita
-			}
-
-			actionLockCounter = 0; // Reinicia o contador de ações
-		}
+	            moving = true;
+	            actionDuration = 0;
+	        }
+	    }
 	}
+
 	
 	public void speak() {
 		
