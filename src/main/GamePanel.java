@@ -6,6 +6,8 @@ import java.awt.Dimension;          // Usada para definir dimensões da tela
 import java.awt.Font;
 import java.awt.Graphics;           // Contexto gráfico básico
 import java.awt.Graphics2D;         // Contexto gráfico mais avançado (2D)
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,7 +91,22 @@ public class GamePanel extends JPanel implements Runnable {
     	
     	tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
     	g2 = (Graphics2D)tempScreen.getGraphics();
+    	
+    	setFullScreen(); //TELA CHEIA
     }
+    
+    public void setFullScreen() {
+    	
+    	// RESOLUÇÃO DE ACORDO COM A TELA DO APARELHO LOCAL
+    	GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    	GraphicsDevice gd = ge.getDefaultScreenDevice();
+    	gd.setFullScreenWindow(Main.window);
+    	
+    	// PEGA A LARGURA E ALTURA DA TELA CHEIA
+    	screenWidth2 = Main.window.getWidth();
+    	screenHeight2 = Main.window.getHeight();
+    	
+    	}
     
     // Inicia a thread do jogo
     public void startGameThread() {
