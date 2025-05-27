@@ -6,6 +6,9 @@ import java.awt.Dimension;          // Usada para definir dimensões da tela
 import java.awt.Font;
 import java.awt.Graphics;           // Contexto gráfico básico
 import java.awt.Graphics2D;         // Contexto gráfico mais avançado (2D)
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,11 +26,18 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;                         // Fator de escala para ampliar os tiles
     
     public final int tileSize = originalTileSize * scale; // Tamanho final dos tiles (64x64 px)
-    public final int maxScreenCol = 16;          // Número máximo de colunas visíveis na tela
+    public final int maxScreenCol = 20;          // Número máximo de colunas visíveis na tela
     public final int maxScreenRow = 12;          // Número máximo de linhas visíveis na tela
     public final int screenWidth = tileSize * maxScreenCol; // Largura total da tela em pixels
     public final int screenHeight = tileSize * maxScreenRow; // Altura total da tela em pixels
-
+    
+    //TELA CHEIA
+    int screenWidth2 = screenWidth;
+    int screenHeight2 = screenHeight;
+    BufferedImage tempScreen;
+    Graphics2D g2;
+    
+    
     
     //CONFIGURAÇÕES DO MUNDO
     public int maxWorldCol = 50;           // Máximo de colunas do mundo (mapa)
@@ -78,7 +88,25 @@ public class GamePanel extends JPanel implements Runnable {
     	aSetter.setNpc();
     	playMusic(1);
     	gameState = titleState;
+    	
+    	tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+    	g2 = (Graphics2D)tempScreen.getGraphics();
+    	
+    	setFullScreen(); //TELA CHEIA
     }
+    
+    public void setFullScreen() {
+    	
+    	// RESOLUÇÃO DE ACORDO COM A TELA DO APARELHO LOCAL
+    	GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    	GraphicsDevice gd = ge.getDefaultScreenDevice();
+    	gd.setFullScreenWindow(Main.window);
+    	
+    	// PEGA A LARGURA E ALTURA DA TELA CHEIA
+    	screenWidth2 = Main.window.getWidth();
+    	screenHeight2 = Main.window.getHeight();
+    	
+    	}
     
     // Inicia a thread do jogo
     public void startGameThread() {
@@ -101,13 +129,13 @@ public class GamePanel extends JPanel implements Runnable {
             
         	currentTime = System.nanoTime();     // Pega o tempo atual
             delta += (currentTime - lastTime) / drawInterval; // Calcula tempo decorrido
-            //timer += (currentTime - lastTime);   // Soma ao temporizador de FPS
             lastTime = currentTime;
 
             if (delta >= 1) { // Se passou tempo suficiente para 1 frame
                 
             	update();                        // Atualiza lógica do jogo
-                repaint();                       // Redesenha tela
+            	drawToTempScreen();	
+            	drawToScreen();
                 delta--;                         // Decrementa o delta
                 drawCount++;                     // Aumenta contagem de quadros
             }
@@ -145,14 +173,9 @@ public class GamePanel extends JPanel implements Runnable {
                           
     }
 
-    // Método que desenha os elementos na tela
-    @Override
-    public void paintComponent(Graphics g) {
+    public void drawToTempScreen() {
     	
-        super.paintComponent(g);                 // Limpa a tela antes de redesenhar
-        Graphics2D g2 = (Graphics2D) g;          // Usa Graphics2D para desenho mais avançado
-
-        //DEBUG
+    	  //DEBUG
         long drawStart = 0;
         if(keyH.showDebugText == true) {
             drawStart = System.nanoTime();
@@ -224,9 +247,18 @@ public class GamePanel extends JPanel implements Runnable {
            // g2.drawString("Draw time: "+passed, x, y);
            // System.out.println("Draw time: "+passed);
         }
-       
-        g2.dispose();        // Libera recursos gráficos
+    	
     }
+ 
+    public void drawToScreen() {
+    	
+    	Graphics g = getGraphics();
+    	g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+    	g.dispose();
+    	
+    }
+    
+    
     public void playMusic(int i) {
     	
     	music.setFile(i);
