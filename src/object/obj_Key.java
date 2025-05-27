@@ -10,7 +10,7 @@ public class obj_Key extends Entity {
 		super(gp);
 		
 		name = "Key";
-		ObjImage = setup("/objects/key");
+		down1 = setup("/objects/key");
 		description = "[" + name + "]\nEu quero todos os paus.";
 	}
 	

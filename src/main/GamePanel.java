@@ -178,7 +178,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             for(int i = 0; i < obj.length; i++) {           // Percorre o array de objetos (itens no mapa, por exemplo).
                 if(obj[i] != null) {                        // Verifica se o objeto atual não é nulo.
-                    entityList.add(obj[i]);                 // Adiciona o objeto à lista de entidades.
+                	entityList.add(obj[i]);                 // Adiciona o objeto à lista de entidades.
                 }
             }
 
@@ -197,7 +197,10 @@ public class GamePanel extends JPanel implements Runnable {
                 entityList.get(i).draw(g2);                 // Chama o método draw de cada entidade.
             }
 
-            entityList.clear();
+            // Desenha todas as entidades ordenadas na tela.
+            for(int i = 0; i < entityList.size(); i++) {
+                entityList.remove(i);                 // Chama o método draw de cada entidade.
+            }
 
             
             ui.draw(g2); 		 //Desenha a interface do jogo

@@ -10,7 +10,7 @@ public class obj_Door extends Entity {
 		
 		super(gp);
 		name = "Door";
-		ObjImage = setup("/objects/door");
+		down1 = setup("/objects/door");
 		collision = true;
 		
 		solidArea.x = 0;
