@@ -115,31 +115,45 @@ public class Entity {
 
 	
 	public void draw(Graphics2D g2) {
-	    BufferedImage image = null;
-	    int screenX = worldX - gp.player.worldX + gp.player.screenX;
-	    int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        BufferedImage imageToDraw = null;
 
-	    if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
-	            && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-	            && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
-	            && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-	        int dirIndex = 2; // down por padrão
-	        if ("right".equals(direction)) dirIndex = 0;
-	        else if ("left".equals(direction)) dirIndex = 1;
-	        else if ("down".equals(direction)) dirIndex = 2;
-	        else if ("up".equals(direction)) dirIndex = 3;
+        // Verifica se a entidade está na tela
+        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+            worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+            worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+            worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
-	        if (moving) {
-	            image = npcWalkSprites[dirIndex][spriteNum];
-	        } else {
-	            image = npcIdleSprites[dirIndex][spriteNum];
-	        }
+            if (npcWalkSprites[0][0] != null) {
+                // É um NPC animado
+                int dirIndex = 2; // down por padrão
+                if ("right".equals(direction)) dirIndex = 0;
+                else if ("left".equals(direction)) dirIndex = 1;
+                else if ("down".equals(direction)) dirIndex = 2;
+                else if ("up".equals(direction)) dirIndex = 3;
 
-	        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-	    }
-	}
+                if (moving) {
+                    imageToDraw = npcWalkSprites[dirIndex][spriteNum];
+                } else {
+                    imageToDraw = npcIdleSprites[dirIndex][spriteNum];
+                }
+            } else if (ObjImage != null) {
+                // É um objeto (ex: baú)
+                imageToDraw = ObjImage;
+            } else if (image != null) {
+                // Imagem genérica
+                imageToDraw = image;
+            }
 
+            if (imageToDraw != null) {
+                g2.drawImage(imageToDraw, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            } else {
+                System.out.println("⚠️ Entidade sem imagem: " + name);
+            }
+        }
+    }
 
 
 	public BufferedImage setup(String imagePath) {
