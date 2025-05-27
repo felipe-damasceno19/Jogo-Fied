@@ -377,7 +377,7 @@ false
 tile189.png
 false
 tile190.png
-false
+true
 tile191.png
 false
 tile192.png

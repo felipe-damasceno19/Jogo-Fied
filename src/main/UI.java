@@ -352,7 +352,7 @@ public class UI {
     	
     	//DESENHANDO INTENS
     	for(int i = 0; i < gp.player.inventory.size(); i++) {
-    		g2.drawImage(gp.player.inventory.get(i).down1, slotX, slotY, null );
+    		g2.drawImage(gp.player.inventory.get(i).ObjImage, slotX, slotY, null );
     		slotX += slotSize;
     		
     		if(i == 4 || i == 9 || i == 14) {

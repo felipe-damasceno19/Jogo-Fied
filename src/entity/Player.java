@@ -99,6 +99,11 @@ public class Player extends Entity {
 	public void update() {
 		boolean moving = false;
 
+		// Checa colisão com NPCs e interage se possível
+		int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+		interactNPC(npcIndex);
+		gp.keyH.enterPressed = false; // Garante que o enter só seja considerado uma vez
+		
 		// Verifica se alguma tecla de direção foi pressionada
 		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			moving = true;
@@ -118,10 +123,6 @@ public class Player extends Entity {
 			int objIndex = gp.cChecker.checkObjetct(this, true);
 			pickUpObject(objIndex);
 
-			// Checa colisão com NPCs e interage se possível
-			int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
-			interactNPC(npcIndex);
-			
 			// Antes ou depois de checar NPCs/objetos
 			nearInteractable = false;
 
@@ -135,10 +136,10 @@ public class Player extends Entity {
 
 			// Checa eventos no mapa (ex: teleportes, cutscenes)
 			gp.eHandler.checkEvent();
-			gp.keyH.enterPressed = false; // Garante que o enter só seja considerado uma vez
+			
 
 			// Se não houve colisão, move o jogador na direção definida
-			if (!collisionOn) {
+			if (!collisionOn && keyH.enterPressed == false) {
 				switch (direction) {
 					case "up": worldY -= speed; break;
 					case "down": worldY += speed; break;
