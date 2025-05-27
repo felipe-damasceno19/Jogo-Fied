@@ -22,8 +22,8 @@ import tile.TileManager;           // Importa a classe que gerencia os tiles
 // Classe principal do painel do jogo
 public class GamePanel extends JPanel implements Runnable {
 
-    final int originalTileSize = 16;             // Tamanho original de cada tile (em pixels)
-    final int scale = 3;                         // Fator de escala para ampliar os tiles
+    final int originalTileSize = 32;             // Tamanho original de cada tile (em pixels)
+    final int scale = 2;                         // Fator de escala para ampliar os tiles
     
     public final int tileSize = originalTileSize * scale; // Tamanho final dos tiles (64x64 px)
     public final int maxScreenCol = 20;          // Número máximo de colunas visíveis na tela
