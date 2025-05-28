@@ -12,10 +12,15 @@ public class Main {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Define a ação de fechar o programa ao fechar a janela
 		window.setResizable(false); // Impede que o usuário redimensione a janela
 		window.setTitle("Jogo FIED"); // Define o título da janela
-		window.setUndecorated(true);
+
 		
 		GamePanel gamePanel = new GamePanel(); // Cria um painel do jogo
 		window.add(gamePanel); // Adiciona o painel do jogo à janela
+		
+		gamePanel.config.loadConfig();
+		if(gamePanel.fullScreenOn == true) {
+			window.setUndecorated(true);
+		}
 		
 		window.pack(); // Ajusta o tamanho da janela automaticamente baseado no conteúdo
 		
