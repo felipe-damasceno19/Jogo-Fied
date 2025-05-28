@@ -79,7 +79,7 @@ public class UI {
 
         // Tenta carregar a imagem da tela de título
         try {
-            InputStream is = getClass().getResourceAsStream("/title/uninta_quest.png");
+            InputStream is = getClass().getResourceAsStream("/title/menu_tela.png");
             titleScreenImage = ImageIO.read(is);
         } catch (IOException e) {
             e.printStackTrace();
