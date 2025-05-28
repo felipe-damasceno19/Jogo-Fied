@@ -24,7 +24,7 @@ public class TileManager {
 		this.gp = gp; // Guarda a referência ao GamePanel
 		
 		// Lê o Tile data 
-		InputStream is = getClass().getResourceAsStream("/maps/tileDataM1.txt");
+		InputStream is = getClass().getResourceAsStream("/maps/tileDataS1.txt");
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		
 		// PEGA OS CAMINHOS DOS TILE E A INFO DE COLISÃO
@@ -52,7 +52,7 @@ public class TileManager {
 		
 		try {
 			
-			is = new FileInputStream("res/maps/sampleM1.txt");
+			is = new FileInputStream("res/maps/sampleS1.txt");
 			br = new BufferedReader(new InputStreamReader(is));
 			String line2 = br.readLine();
 			String maxTile[] = line2.split(" ");
@@ -69,7 +69,7 @@ public class TileManager {
 		}
 		
 		
-		loadMap("/maps/sampleM1.txt");
+		loadMap("/maps/sampleS1.txt");
 		
 		
 		// loadMap("/maps/world01.txt"); // Carrega o mapa a partir de um arquivo de texto
@@ -111,7 +111,7 @@ public class TileManager {
 
 		try {
 			tile[index] = new Tile();
-			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+ imageName));
+			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles_sala_01/"+ imageName));
 			tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
 			tile[index].collision = collision;
 		}
