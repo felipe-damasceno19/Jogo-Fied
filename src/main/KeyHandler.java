@@ -52,6 +52,9 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.characterState) {
         	characterState(code);
         }
+        else if(gp.gameState == gp.optionsState) {
+        	optionsState(code);
+        }
         
      }
      public void titleState (int code) {
@@ -122,9 +125,12 @@ public class KeyHandler implements KeyListener {
          if (code == KeyEvent.VK_ENTER) {
          	enterPressed = true;
          }
+         if (code == KeyEvent.VK_ESCAPE) {
+        	 gp.gameState = gp.optionsState;
+         }
      }
      public void pauseState(int code) {
-    	 if (code == KeyEvent.VK_ESCAPE){
+    	 if (code == KeyEvent.VK_P){
              gp.gameState = gp.playState;
          }
      }
@@ -160,6 +166,16 @@ public class KeyHandler implements KeyListener {
     	}
      }
 
+     public void optionsState(int code) {
+    	 if(code == KeyEvent.VK_ESCAPE) {
+    		 gp.gameState = gp.playState;
+    	 }
+    	 if(code == KeyEvent.VK_ENTER) {
+    		 enterPressed = true;
+    	 }
+     }
+     
+     
     // Método chamado quando uma tecla é solta
     @Override
     public void keyReleased(KeyEvent e) {

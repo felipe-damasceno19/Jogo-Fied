@@ -47,6 +47,8 @@ public class UI {
     public int slotCol = 0;
     public int slotRow = 0;
     
+    int subState = 0;
+    
     // Controle da animação do rosto do NPC (alterna entre dois frames)
     int npcFaceAnimationCounter = 0;
     int npcFaceAnimationSpeed = 12; // tempo entre trocas de frame
@@ -150,6 +152,7 @@ public class UI {
         if (gp.gameState == gp.titleState) {
             drawTitleScreen();
         }
+        
         if (gp.gameState == gp.playState) {
             drawPlayerLife();
         }
@@ -171,6 +174,9 @@ public class UI {
             if (gp.player.nearInteractable) {
                 drawInteractionPrompt(); // ✅ Adiciona o prompt quando estiver perto
             }
+        }
+        if(gp.gameState == gp.optionsState) {
+        	drawOptionsScreen();
         }
 
     }
@@ -393,6 +399,66 @@ public class UI {
     			}
     		}
     	}
+    
+    public void drawOptionsScreen() {
+    	
+    	g2.setColor(Color.white);
+    	g2.setFont(g2.getFont().deriveFont(32F));
+    	
+    	//SUB JANELA
+    	int frameX = gp.tileSize * 6;
+    	int frameY = gp.tileSize;
+    	int frameWidth = gp.tileSize * 8;
+    	int frameHeight = gp.tileSize * 10;
+    	drawSubWindow(frameX, frameY, frameWidth, frameHeight);	
+    	
+    	switch(subState) {
+    	case 0: options_top(frameX, frameY); break;
+    	case 1: break;
+    	case 2: break;
+    	}
+ 
+    }
+    
+    public void options_top(int frameX, int frameY) {
+    	
+    	int textX;
+    	int textY;
+    	
+    	//TITULO
+    	String text = "CONFIGURAÇÕES";
+    	textX = getXforCenteredText(text);
+    	textY = frameY + gp.tileSize;
+    	g2.drawString(text, textX, textY);
+    	
+    	//LIGAR E DESLIGAR TELA CHEIA
+        textX = frameX + gp.tileSize;
+        textY += gp.tileSize * 2;
+        g2.drawString("TELA CHEIA", textX, textY);
+        
+        //MUSICA
+        textY += gp.tileSize;
+        g2.drawString("MÚSICA", textX, textY);
+        
+        //EFEITO SONORO
+        textY += gp.tileSize;
+        g2.drawString("EFEITOS SONORO", textX, textY);
+                
+        //CONTROLE
+        textY += gp.tileSize;
+        g2.drawString("CONTROLE", textX, textY);
+        
+        //FECHAR O JOGO
+        textY += gp.tileSize;
+        g2.drawString("QUIT", textX, textY);
+        
+        //VOLTAR
+        textY += gp.tileSize * 2;
+        g2.drawString("VOLTAR AO JOGO", textX, textY);
+        
+    }
+    
+    
     
     public int getItemIndexOnSlot() {
     	int itemIndex = slotCol + (slotRow*5);
