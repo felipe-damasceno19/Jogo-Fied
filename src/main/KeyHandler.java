@@ -82,10 +82,6 @@ public class KeyHandler implements KeyListener {
          	 
          	 if(gp.ui.commandNum == 1) {
          		 
-         		 //ADICIONAR DEPOIS
-         	 }
-         	 if(gp.ui.commandNum == 2) {
-         		 
          		 System.exit(0);
          		 
          	 }
@@ -176,8 +172,12 @@ public class KeyHandler implements KeyListener {
     	 
     	 int maxCommandNum = 0;
     	 switch(gp.ui.subState) {
-    	 case 0: maxCommandNum = 5; break;
+    	     case 0: maxCommandNum = 5; break; // menu principal
+    	     case 1: maxCommandNum = 0; break; // notificação de tela cheia (só tem "VOLTAR")
+    	     case 2: maxCommandNum = 0; break; // tela de controles (só tem "VOLTAR")
+    	     case 3: maxCommandNum = 1; break; // confirmação de saída (tem "SIM" e "NÃO")
     	 }
+
     	 
     	 if(code == KeyEvent.VK_W) {
     		gp.ui.commandNum--;
