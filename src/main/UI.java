@@ -38,7 +38,7 @@ public class UI {
     public int commandNum = 0;
 
     // Imagem de fundo da tela de título
-    BufferedImage titleScreenImage;
+    BufferedImage titleScreenImage, selectorImage;
 
     // Sprite do rosto do NPC atual (para a caixa de diálogo)
     public BufferedImage npcFaceImage;
@@ -83,6 +83,10 @@ public class UI {
         try {
             InputStream is = getClass().getResourceAsStream("/title/menu_tela.png");
             titleScreenImage = ImageIO.read(is);
+            
+            InputStream is1 = getClass().getResourceAsStream("/objects/lupa.png");
+            selectorImage = ImageIO.read(is1);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -234,19 +238,23 @@ public class UI {
         x = getXforCenteredText(text);
         y += gp.tileSize * 3.5;
         g2.drawString(text, x, y);
-        if (commandNum == 0) g2.drawString(">", x - gp.tileSize, y);
-
-        //text = "CARREGAR JOGO";
-        // x = getXforCenteredText(text);
-        // y += gp.tileSize;
-        // g2.drawString(text, x, y);
-        //if (commandNum == 1) g2.drawString(">", x - gp.tileSize, y);
+        if (commandNum == 0 && selectorImage != null) {
+        	
+        	int iconX = x - gp.tileSize + 27;
+        	int iconY = y - gp.tileSize + 37;
+        	g2.drawImage(selectorImage, iconX, iconY, 24, 24, null);
+        }
 
         text = "SAIR";
         x = getXforCenteredText(text);
         y += gp.tileSize;
         g2.drawString(text, x, y);
-        if (commandNum == 1) g2.drawString(">", x - gp.tileSize, y);
+        if (commandNum == 1 && selectorImage != null) {
+        	
+        	int iconX = x - gp.tileSize + 27;
+        	int iconY = y - gp.tileSize + 37;
+        	g2.drawImage(selectorImage, iconX, iconY, 24, 24, null);
+        }
     }
 
     // Desenha a palavra "PAUSA" no meio da tela
