@@ -25,7 +25,7 @@ public class Config {
 				bw.write("On");
 			}
 			if(gp.fullScreenOn == false) {
-				bw.write("off");
+				bw.write("Off");
 			}
 			bw.newLine();
 			
