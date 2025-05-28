@@ -1,8 +1,8 @@
-/sound/
 /entity/
 /main/
+/object/
+/sound/
 /tile/
-/title/
-/sala01/
+/tiles/
 /tiles_sala_01/
-/maps/
+/title/
