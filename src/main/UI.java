@@ -503,11 +503,15 @@ public class UI {
         
         //VOLUME DA MUSICA
         textY += gp.tileSize;
-        g2.drawRect(textX, textY, 120, 24);
+        g2.drawRect(textX, textY, 120, 24); //120/5 = 24
+        int volumeWidth = 24 * gp.music.volumeScale;
+        g2.fillRect(textX, textY, volumeWidth, 24);
         
         //EFEITO SONORO
         textY += gp.tileSize;
         g2.drawRect(textX, textY, 120, 24);
+        volumeWidth = 24 * gp.se.volumeScale;
+        g2.fillRect(textX, textY, volumeWidth, 24);
         
     }
      
