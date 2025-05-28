@@ -116,7 +116,7 @@ public class KeyHandler implements KeyListener {
          }
          
          // ESC para pausar
-         if (code == KeyEvent.VK_ESCAPE) {
+         if (code == KeyEvent.VK_P) {
              gp.gameState = gp.pauseState;
          }
          if (code == KeyEvent.VK_ENTER) {
