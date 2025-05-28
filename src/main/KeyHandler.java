@@ -52,6 +52,9 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.characterState) {
         	characterState(code);
         }
+        else if(gp.gameState == gp.optionsState) {
+        	optionsState(code);
+        }
         
      }
      public void titleState (int code) {
@@ -74,14 +77,10 @@ public class KeyHandler implements KeyListener {
          	 if(gp.ui.commandNum == 0) {
          		 gp.gameState = gp.playState;
          		 gp.stopMusic();
-         		// gp.playMusic(0);
+         		 gp.playMusic(0);
          	 }
          	 
          	 if(gp.ui.commandNum == 1) {
-         		 
-         		 //ADICIONAR DEPOIS
-         	 }
-         	 if(gp.ui.commandNum == 2) {
          		 
          		 System.exit(0);
          		 
@@ -116,15 +115,18 @@ public class KeyHandler implements KeyListener {
          }
          
          // ESC para pausar
-         if (code == KeyEvent.VK_ESCAPE) {
+         if (code == KeyEvent.VK_P) {
              gp.gameState = gp.pauseState;
          }
          if (code == KeyEvent.VK_ENTER) {
          	enterPressed = true;
          }
+         if (code == KeyEvent.VK_ESCAPE) {
+        	 gp.gameState = gp.optionsState;
+         }
      }
      public void pauseState(int code) {
-    	 if (code == KeyEvent.VK_ESCAPE){
+    	 if (code == KeyEvent.VK_P){
              gp.gameState = gp.playState;
          }
      }
@@ -160,6 +162,74 @@ public class KeyHandler implements KeyListener {
     	}
      }
 
+     public void optionsState(int code) {
+    	 if(code == KeyEvent.VK_ESCAPE) {
+    		 gp.gameState = gp.playState;
+    	 }
+    	 if(code == KeyEvent.VK_ENTER) {
+    		 enterPressed = true;
+    	 }
+    	 
+    	 int maxCommandNum = 0;
+    	 switch(gp.ui.subState) {
+    	     case 0: maxCommandNum = 5; break; // menu principal
+    	     case 1: maxCommandNum = 0; break; // notificação de tela cheia (só tem "VOLTAR")
+    	     case 2: maxCommandNum = 0; break; // tela de controles (só tem "VOLTAR")
+    	     case 3: maxCommandNum = 1; break; // confirmação de saída (tem "SIM" e "NÃO")
+    	 }
+
+    	 
+    	 if(code == KeyEvent.VK_W) {
+    		gp.ui.commandNum--;
+    		gp.playSE(3);
+    		if(gp.ui.commandNum < 0) {
+    			gp.ui.commandNum = maxCommandNum;
+    		}
+    	 }
+    	 if(code == KeyEvent.VK_S) {
+    		gp.ui.commandNum++;
+    		gp.playSE(3);
+    		if(gp.ui.commandNum > maxCommandNum) {
+    			gp.ui.commandNum = 0;
+    		}
+    	 }
+    	 
+    	 if(code == KeyEvent.VK_A) {
+    		
+    		 if(gp.ui.subState == 0) {
+    			 if(gp.ui.commandNum == 1 && gp.music.volumeScale > 0) {
+    				 gp.music.volumeScale--;
+    				 gp.music.checkVolume();
+    				 gp.playSE(3);
+    			 }
+    			 
+    			 if(gp.ui.commandNum == 2 && gp.se.volumeScale > 0) {
+        			 gp.se.volumeScale--;
+        			 gp.playSE(3);
+        			 }
+        		 }
+    		 }
+    	 
+    	 if(code == KeyEvent.VK_D) {
+    		 
+    		 if(gp.ui.subState == 0) {
+    			 if(gp.ui.commandNum == 1 && gp.music.volumeScale < 5) {
+    				 gp.music.volumeScale++;
+    				 gp.music.checkVolume();
+    				 gp.playSE(3);
+    			 }
+    			 if(gp.ui.commandNum == 2 && gp.se.volumeScale < 5) {
+    				 gp.se.volumeScale++;
+    				 gp.playSE(3);
+    			 }
+    		 }
+    		 
+    	 }
+    	 
+    	 
+     }
+     
+     
     // Método chamado quando uma tecla é solta
     @Override
     public void keyReleased(KeyEvent e) {
