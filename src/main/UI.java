@@ -505,7 +505,7 @@ public class UI {
         	
         }
         
-        //CAIXA DE CONFIRMAÇÃO DO MENU DE OPÇÕES
+        //CAIXA DE CONFIRMAÇÃO DA TELA CHEIA
         textX = frameX + gp.tileSize * 5;
         textY = frameY + gp.tileSize * 2 + 40;
         g2.setStroke(new BasicStroke(3));
