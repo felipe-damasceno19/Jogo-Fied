@@ -1,7 +1,9 @@
 // Pacote principal do jogo
 package main;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;               // Classe para definir cores
+import java.awt.Composite;
 import java.awt.Dimension;          // Usada para definir dimensões da tela
 import java.awt.Font;
 import java.awt.Graphics;           // Contexto gráfico básico
@@ -102,6 +104,8 @@ public class GamePanel extends JPanel implements Runnable {
     	
     }
     
+    
+    
     public void setFullScreen() {
     	
     	// RESOLUÇÃO DE ACORDO COM A TELA DO APARELHO LOCAL
@@ -181,81 +185,70 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void drawToTempScreen() {
-    	
-    	  //DEBUG
+        
+        //DEBUG
         long drawStart = 0;
-        if(keyH.showDebugText == true) {
+        if (keyH.showDebugText == true) {
             drawStart = System.nanoTime();
         }   
         
         //TELA INICIAL
-        if(gameState == titleState) {
-        	
-        	ui.draw(g2);
-        }
-        
-        else {
-        	
-            tileM.draw(g2);                 // Desenha o mapa (tiles)
-          
-            entityList.add(player);                         // Adiciona o jogador (player) à lista de entidades.
+        if (gameState == titleState) {
+            ui.draw(g2);
+        } else {
+            tileM.draw(g2); // Desenha o mapa (tiles)
 
-            for(int i = 0; i < npc.length; i++) {           // Percorre o array de NPCs (personagens não jogáveis).
-                if(npc[i] != null) {                        // Verifica se o NPC atual não é nulo.
-                    entityList.add(npc[i]);                 // Adiciona o NPC à lista de entidades.
+            entityList.add(player);
+
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
+                    entityList.add(npc[i]);
                 }
             }
 
-            for(int i = 0; i < obj.length; i++) {           // Percorre o array de objetos (itens no mapa, por exemplo).
-                if(obj[i] != null) {                        // Verifica se o objeto atual não é nulo.
-                    entityList.add(obj[i]);                 // Adiciona o objeto à lista de entidades.
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) {
+                    entityList.add(obj[i]);
                 }
             }
 
-            // Ordena as entidades com base na coordenada Y (profundidade/posição vertical).
             Collections.sort(entityList, new Comparator<Entity>() {
-                
                 @Override
                 public int compare(Entity e1, Entity e2) {
-                    int result = Integer.compare(e1.worldY, e2.worldY); // Compara a posição Y no mundo.
-                    return result; // Entidades com Y menor são desenhadas antes (mais "atrás").
+                    return Integer.compare(e1.worldY, e2.worldY);
                 }
             });
 
-            // Desenha todas as entidades ordenadas na tela.
-            for(int i = 0; i < entityList.size(); i++) {
-                entityList.get(i).draw(g2);                 // Chama o método draw de cada entidade.
+            for (int i = 0; i < entityList.size(); i++) {
+                entityList.get(i).draw(g2);
             }
 
             entityList.clear();
 
-            
-            ui.draw(g2); 		 //Desenha a interface do jogo
-        
+            ui.draw(g2);
+
+            drawFog(g2); // FOG: Aplica a névoa por cima de tudo
         }
-          
+
         //DEBUG
-        if(keyH.showDebugText == true) {
-        	long drawEnd = System.nanoTime();
+        if (keyH.showDebugText == true) {
+            long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
-            
-            
+
             g2.setFont(new Font("Arial", Font.PLAIN, 20));
             g2.setColor(Color.white);
             int x = 10;
             int y = 400;
             int lineHeight = 20;
-            
-            g2.drawString("WorldX" +player.worldX, x, y); y += lineHeight;
-            g2.drawString("WorldY" +player.worldY, x, y); y += lineHeight;
-            g2.drawString("Col" +(player.worldX + player.solidArea.x) / tileSize , x, y);y += lineHeight;
-            g2.drawString("Row" +(player.worldY + player.solidArea.y) / tileSize , x, y);
-            
-           // g2.drawString("Draw time: "+passed, x, y);
-           // System.out.println("Draw time: "+passed);
+
+            g2.drawString("WorldX" + player.worldX, x, y); y += lineHeight;
+            g2.drawString("WorldY" + player.worldY, x, y); y += lineHeight;
+            g2.drawString("Col" + (player.worldX + player.solidArea.x) / tileSize, x, y); y += lineHeight;
+            g2.drawString("Row" + (player.worldY + player.solidArea.y) / tileSize, x, y);
         }
-    	
     }
+
+   
  
     public void drawToScreen() {
     	
@@ -281,4 +274,18 @@ public class GamePanel extends JPanel implements Runnable {
     	se.setFile(i);
     	se.play();
     }
+    
+    public void drawFog(Graphics2D g2) {
+        Composite originalComposite = g2.getComposite();
+
+        // Névoa estilo Silent Hill: cinza claro e suave
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f)); // 40% opaco
+
+        g2.setColor(new Color(200, 200, 200, 255)); // Cinza claro (como neblina real)
+
+        g2.fillRect(0, 0, screenWidth, screenHeight);
+
+        g2.setComposite(originalComposite); // Restaura o estado original
+    }
+ 
 }
