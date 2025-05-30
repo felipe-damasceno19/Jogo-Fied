@@ -87,7 +87,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.setBackground(Color.black);         // Cor de fundo da tela
         this.setDoubleBuffered(true);            // Otimiza o desenho dos gráficos
         this.addKeyListener(keyH);               // Adiciona escutador de teclado
-        this.setFocusable(true);                 // Permite que o painel receba foco do teclado
+        this.setFocusable(true);  
+        // Permite que o painel receba foco do teclado
     }
 
     public void setupGame() {
