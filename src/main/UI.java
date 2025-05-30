@@ -227,19 +227,21 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
-    // Desenha a caixa de diálogo com texto animado e rosto do NPC
     public void drawDialogueScreen() {
-        int x = gp.tileSize * 2;
-        int y = gp.tileSize / 2;
-        int width = gp.screenWidth - (gp.tileSize * 4);
-        int height = gp.tileSize * 4;
+        // Ajustando a largura da caixa e centralizando horizontalmente
+        int width = gp.screenWidth / 2;  // Ajuste a largura como preferir
+        int height = gp.tileSize * 3;
+        int x = (gp.screenWidth - width) / 2;  // Centralizando horizontalmente
+        int y = gp.tileSize / 2;  // Mantendo a posição vertical como estava
+
+        // Desenha a caixa de diálogo
         drawSubWindow(x, y, width, height);
 
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
         x += gp.tileSize;
-        y += gp.tileSize - 4;
+        y += gp.tileSize - 32;
 
-        // Animação do rosto (2 frames lado a lado)
+        // Animação do rosto do NPC (se existir)
         if (npcFaceImage != null) {
             int faceSize = gp.tileSize * 2;
             int frameWidth = npcFaceImage.getWidth() / 2;
@@ -267,7 +269,7 @@ public class UI {
         String[] visibleLines = getVisibleLinesText().split("\n");
         int lineHeight = 40;
         int totalTextHeight = visibleLines.length * lineHeight;
-        int textY = y + ((gp.tileSize * 2) - totalTextHeight) / 2 + 30;
+        int textY = y + ((gp.tileSize * 2) - totalTextHeight) / 2 + 32;
 
         if (textCharIndex < getVisibleLinesText().length()) {
             textCounter++;
@@ -292,13 +294,14 @@ public class UI {
             }
         }
 
-
+        // Exibe o texto
         String visibleText = getVisibleLinesText().substring(0, Math.min(textCharIndex, getVisibleLinesText().length()));
         for (String line : visibleText.split("\n")) {
             g2.drawString(line, textX, textY);
             textY += 40;
         }
     }
+
     
     public void drawCharacterScreen() {
     	//FRAME

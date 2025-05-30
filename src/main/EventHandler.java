@@ -54,11 +54,55 @@ public class EventHandler {
 		
 		if(canTouchEvent == true) { // Se pode ativar eventos
 			
-			// Checa se o player colidiu com algum evento e executa se sim
-			if(hit(0, 27, 15, "right") == true) {damagePit( gp.dialogueState);} // Evento de buraco
-			else if(hit(0, 23, 7, "up") == true) {healingPool(gp.dialogueState);} // Evento de cura
-			else if(hit(0, 58, 36, "any") == true){teleport(1,32,25);} 
-			else if(hit(1, 45, 25, "any") == true){teleport(0,63,52);} 
+			// MAPA 0
+			if(gp.currentMap == 0) {
+				// Checa se o player colidiu com algum evento e executa se sim
+				if(hit(0, 27, 15, "right") == true) {damagePit( gp.dialogueState);} // Evento de buraco
+				if(hit(0, 23, 7, "up") == true) {healingPool(gp.dialogueState);} // Evento de cura
+				
+				// Portas no mapa 0
+					if(hit(0, 33, 24, "up") == true){teleport(1,57,51);} 
+					if(hit(0, 35, 24, "up") == true){teleport(2,76,31);}
+					if(hit(0, 37, 28, "down") == true){teleport(3,22,84);}
+				
+			} else if(gp.currentMap == 1) { // MAPA 01
+			    if(hit(1, 57, 51, "down") == true){teleport(0,33,24);} 
+			}
+
+			else if(gp.currentMap == 2) { // MAPA 02
+			    if(hit(2, 76, 32, "down") == true){teleport(0,35,24);} 
+			}
+			else if(gp.currentMap == 3) { // MAPA 03
+
+			    // VOLTA MAPA PRINCIPAL
+			    if(hit(3, 22, 84, "down") == true){teleport(0,37,28);}
+
+			    // ENTRA E SAI SALA 1 - BLOCO 1
+			    if(hit(3, 24, 83, "up") == true){teleport(4,25,41);} 
+
+			    // ENTRA E SAI SALA 2 - BLOCO 1
+			    if(hit(3, 28, 83, "up") == true){teleport(6,76,33);} 
+
+			    // ENTRA E SAI SALA 2 - BLOCO 1
+			    if(hit(3, 33, 83, "up") == true){teleport(3,37,20);} 
+			    if(hit(3, 37, 20, "down") == true){teleport(3,33,83);}
+			    
+			    
+			   
+			}
+			else if(gp.currentMap == 4) { // MAPA 04                
+			    // ENTRA E SAI SALA 1 - BLOCO 1
+			    if(hit(4, 25, 41, "down") == true){teleport(3,24,83);}
+			}else if(gp.currentMap == 5) { // MAPA 05               
+			    // ENTRA E SAI SALA 1 - BLOCO 1
+				//if(hit(5, 37, 20, "down") == true){teleport(3,33,83);}
+			}else if(gp.currentMap == 6) { // MAPA 05               
+			    // ENTRA E SAI SALA 1 - BLOCO 1
+				if(hit(6, 76, 33, "up") == true){teleport(3,28,83);}
+			}
+
+			
+			
 		}
 	}
 	
@@ -73,6 +117,7 @@ public class EventHandler {
 		eventRect[map][col][row].y = row * gp.tileSize + eventRect[map][col][row].y;
 		
 		// Verifica colisão entre a área do jogador e o retângulo de evento
+
 		if(map == gp.currentMap) {
 			if(gp.player.solidArea.intersects(eventRect[map][col][row]) && eventRect[map][col][row].eventDone == false) {
 				// Verifica se a direção do jogador é a exigida ou se qualquer direção serve
@@ -121,7 +166,7 @@ public class EventHandler {
 		gp.player.worldY = gp.tileSize * row;
 		previousEventX = gp.player.worldX;
 		previousEventY = gp.player.worldY;
-		System.out.println("oii");
+		canTouchEvent = false;
 		//gp.playSE(01);
 	}
 }

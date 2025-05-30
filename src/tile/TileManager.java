@@ -17,7 +17,7 @@ public class TileManager {
 	GamePanel gp; // Referência ao painel principal do jogo
 	public Tile[] tile; // Array de tiles disponíveis (tipos diferentes: grama, parede, etc.)
 	public int mapTileNum[][][]; // Mapa do mundo armazenado como IDs de tiles (matriz de números)
-	ArrayList<String> fileNames = new ArrayList<>();
+	public ArrayList<String> fileNames = new ArrayList<>();
 	ArrayList<String> collisionStatus = new ArrayList<>();
 	
 	
@@ -77,12 +77,17 @@ public class TileManager {
 		}
 		
 		
-		//loadMap("/maps/sampleS1.txt", 1);
+		// Carrega o mapa a partir de um arquivo de texto e diz qual numero do mapa
 		loadMap("/maps/sampleM1.txt", 0);
 		loadMap("/maps/sampleM2.txt", 1);
+		loadMap("/maps/sampleM3.txt", 2);
+		loadMap("/maps/sampleM3.txt", 3);
+		loadMap("/maps/sampleM3.txt", 4);
+		loadMap("/maps/sampleM3.txt", 5);
+		loadMap("/maps/sampleM3.txt", 6);
 		
 		
-		// loadMap("/maps/world01.txt"); // Carrega o mapa a partir de um arquivo de texto
+		
 	}
 
 	public void getTileImage() {
@@ -168,43 +173,55 @@ public class TileManager {
 		}
 	}
 	public void draw(Graphics2D g2) { // Método que desenha o mapa na tela, usando o objeto Graphics2D (g2)
-		
-		int worldCol = 0; // Começa na coluna 0 do mundo
-		int worldRow = 0; // Começa na linha 0 do mundo
-			
-		while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) { // Enquanto ainda tiver colunas e linhas no mapa
-			
-			int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow]; // Pega o número do tile (tipo de piso) na posição (coluna, linha)
-			
-			// Calcula onde o tile está no mundo
-			int worldX = worldCol * gp.tileSize; // Posição X real no mundo
-			int worldY = worldRow * gp.tileSize; // Posição Y real no mundo
+	    
+	    int worldCol = 0; // Começa na coluna 0 do mundo
+	    int worldRow = 0; // Começa na linha 0 do mundo
+	        
+	    while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) { // Enquanto ainda tiver colunas e linhas no mapa
+	        
+	        // Verifica se o índice está dentro dos limites antes de acessar o array
+	        if (worldCol >= gp.maxWorldCol || worldRow >= gp.maxWorldRow) {
+	            System.out.println("Erro: Indices fora dos limites! worldCol: " + worldCol + ", worldRow: " + worldRow);
+	            break;
+	        }
 
-			// Calcula onde desenhar o tile na tela (em relação ao jogador)
-			int screenX = worldX - gp.player.worldX + gp.player.screenX;
-			int screenY = worldY - gp.player.worldY + gp.player.screenY;
-			
-			if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX 
-				&& worldX - gp.tileSize < gp.player.worldX + gp.player.screenX 
-				&& worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
-				&& worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
-				
-				g2.drawImage(tile[tileNum].image, screenX, screenY, null);
-			}
-			
-			
-			// Desenha o tile na posição calculada da tela
-		
-			
-			worldCol++; // Vai pra próxima coluna
-			
-			// Se chegou ao final da linha, passa pra próxima linha
-			if(worldCol == gp.maxWorldCol) {
-				worldCol = 0; // Volta pra primeira coluna
-				worldRow++; // Vai pra próxima linha
-			}
-		}
+	        int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow]; // Pega o número do tile (tipo de piso) na posição (coluna, linha)
+	        
+	        // Debug: Imprime o valor de tileNum para verificar se está correto
+	        if (tileNum >= tile.length || tileNum < 0) {
+	            System.out.println("Erro: tileNum fora dos limites! tileNum: " + tileNum + ", maxTiles: " + tile.length);
+	        }
+
+	        // Calcula onde o tile está no mundo
+	        int worldX = worldCol * gp.tileSize; // Posição X real no mundo
+	        int worldY = worldRow * gp.tileSize; // Posição Y real no mundo
+
+	        // Calcula onde desenhar o tile na tela (em relação ao jogador)
+	        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+	        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+	        
+	        // Verifica se o tile está dentro da área visível
+	        if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX 
+	            && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX 
+	            && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
+	            && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+	            
+	            // Se tileNum for válido, desenha a imagem
+	            if (tileNum >= 0 && tileNum < tile.length) {
+	                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+	            }
+	        }
+
+	        worldCol++; // Vai pra próxima coluna
+	        
+	        // Se chegou ao final da linha, passa pra próxima linha
+	        if(worldCol == gp.maxWorldCol) {
+	            worldCol = 0; // Volta pra primeira coluna
+	            worldRow++; // Vai pra próxima linha
+	        }
+	    }
 	}
+
 
 	
 }

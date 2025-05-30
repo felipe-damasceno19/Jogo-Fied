@@ -39,26 +39,46 @@ public class CollisionChecker {
 	            // Calcula a nova linha superior após se mover para cima
 	            entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
 
-	            // Pega os dois tiles da linha superior (esquerda e direita)
-	            tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
-	            tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
+	            // Verificação para garantir que os índices de tile estão dentro dos limites
+	            if (entityLeftCol >= 0 && entityLeftCol < gp.maxWorldCol && entityTopRow >= 0 && entityTopRow < gp.maxWorldRow) {
+	                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
+	            } else {
+	                tileNum1 = -1; // Atribui um valor inválido se os índices estiverem fora dos limites
+	            }
+
+	            if (entityRightCol >= 0 && entityRightCol < gp.maxWorldCol && entityTopRow >= 0 && entityTopRow < gp.maxWorldRow) {
+	                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
+	            } else {
+	                tileNum2 = -1;
+	            }
 
 	            // Se qualquer um desses tiles tiver colisão, ativa o flag
-	            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
+	            if (tileNum1 != -1 && gp.tileM.tile[tileNum1].collision || tileNum2 != -1 && gp.tileM.tile[tileNum2].collision) {
 	                entity.collisionOn = true;
 	            }
 	            break;
+
+	        // Os outros casos (down, left, right) devem seguir a mesma lógica de verificação de limites
 
 	        case "down":
 	            // Calcula a nova linha inferior após se mover para baixo
 	            entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
 
-	            // Pega os dois tiles da linha inferior (esquerda e direita)
-	            tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
-	            tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
+	            // Verificação para garantir que os índices de tile estão dentro dos limites
+	            if (entityLeftCol >= 0 && entityLeftCol < gp.maxWorldCol && entityBottomRow >= 0 && entityBottomRow < gp.maxWorldRow) {
+	                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
+	            } else {
+	                tileNum1 = -1;
+	            }
+
+	            if (entityRightCol >= 0 && entityRightCol < gp.maxWorldCol && entityBottomRow >= 0 && entityBottomRow < gp.maxWorldRow) {
+	                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
+	            } else {
+	                tileNum2 = -1;
+	            }
 
 	            // Verifica colisão
-	            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
+	            if (tileNum1 != -1 && gp.tileM.tile[tileNum1].collision || tileNum2 != -1 && gp.tileM.tile[tileNum2].collision) {
 	                entity.collisionOn = true;
 	            }
 	            break;
@@ -67,12 +87,21 @@ public class CollisionChecker {
 	            // Calcula a nova coluna à esquerda após se mover para a esquerda
 	            entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
 
-	            // Pega os dois tiles da coluna esquerda (em cima e embaixo)
-	            tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
-	            tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
+	            // Verificação para garantir que os índices de tile estão dentro dos limites
+	            if (entityLeftCol >= 0 && entityLeftCol < gp.maxWorldCol && entityTopRow >= 0 && entityTopRow < gp.maxWorldRow) {
+	                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
+	            } else {
+	                tileNum1 = -1;
+	            }
+
+	            if (entityLeftCol >= 0 && entityLeftCol < gp.maxWorldCol && entityBottomRow >= 0 && entityBottomRow < gp.maxWorldRow) {
+	                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
+	            } else {
+	                tileNum2 = -1;
+	            }
 
 	            // Verifica colisão
-	            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
+	            if (tileNum1 != -1 && gp.tileM.tile[tileNum1].collision || tileNum2 != -1 && gp.tileM.tile[tileNum2].collision) {
 	                entity.collisionOn = true;
 	            }
 	            break;
@@ -81,18 +110,27 @@ public class CollisionChecker {
 	            // Calcula a nova coluna à direita após se mover para a direita
 	            entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
 
-	            // Pega os dois tiles da coluna direita (em cima e embaixo)
-	            tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
-	            tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
+	            // Verificação para garantir que os índices de tile estão dentro dos limites
+	            if (entityRightCol >= 0 && entityRightCol < gp.maxWorldCol && entityTopRow >= 0 && entityTopRow < gp.maxWorldRow) {
+	                tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
+	            } else {
+	                tileNum1 = -1;
+	            }
+
+	            if (entityRightCol >= 0 && entityRightCol < gp.maxWorldCol && entityBottomRow >= 0 && entityBottomRow < gp.maxWorldRow) {
+	                tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
+	            } else {
+	                tileNum2 = -1;
+	            }
 
 	            // Verifica colisão
-	            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
+	            if (tileNum1 != -1 && gp.tileM.tile[tileNum1].collision || tileNum2 != -1 && gp.tileM.tile[tileNum2].collision) {
 	                entity.collisionOn = true;
 	            }
 	            break;
 	    }
 	}
-	
+
 	public int checkObjetct(Entity entity, boolean player) {
 
 		int index = 999; // Valor padrão (sem colisão encontrada)
