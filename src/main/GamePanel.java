@@ -236,22 +236,39 @@ public class GamePanel extends JPanel implements Runnable {
 
         }
 
-        //DEBUG
+      //DEBUG
         if (keyH.showDebugText == true) {
-            long drawEnd = System.nanoTime();
-            long passed = drawEnd - drawStart;
-
+            drawStart = System.nanoTime();
+            
+            // Definindo a fonte e cor para o texto do debug
             g2.setFont(new Font("Arial", Font.PLAIN, 20));
             g2.setColor(Color.white);
             int x = 10;
             int y = 400;
             int lineHeight = 20;
 
-            g2.drawString("WorldX" + player.worldX, x, y); y += lineHeight;
-            g2.drawString("WorldY" + player.worldY, x, y); y += lineHeight;
-            g2.drawString("Col" + (player.worldX + player.solidArea.x) / tileSize, x, y); y += lineHeight;
-            g2.drawString("Row" + (player.worldY + player.solidArea.y) / tileSize, x, y);
+            // Exibe as coordenadas do jogador
+            g2.drawString("WorldX: " + player.worldX, x, y); y += lineHeight;
+            g2.drawString("WorldY: " + player.worldY, x, y); y += lineHeight;
+
+            // Cálculo da coluna e linha do tile baseado na posição do jogador
+            int tileCol = (player.worldX + player.solidArea.x) / tileSize;
+            int tileRow = (player.worldY + player.solidArea.y) / tileSize;
+            g2.drawString("Col: " + tileCol, x, y); y += lineHeight;
+            g2.drawString("Row: " + tileRow, x, y); y += lineHeight;
+
+            // Número do tile (baseado na posição do tile no grid do mapa)
+            int tileNum = tileM.mapTileNum[currentMap][tileCol][tileRow]; // Pega o número do tile
+            g2.drawString("Tile Number: " + tileNum, x, y); y += lineHeight;
+
+            // Caminho do tile - Acessando o caminho diretamente do TileManager
+            String tilePath = tileM.fileNames.get(tileNum); // Obtém o caminho do tile com base no índice
+            g2.drawString("Tile Path: " + tilePath, x, y); y += lineHeight;
+            // Cálculo de tempo de desenho
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
         }
+
     }
 
  

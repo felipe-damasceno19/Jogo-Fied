@@ -17,7 +17,7 @@ public class TileManager {
 	GamePanel gp; // Referência ao painel principal do jogo
 	public Tile[] tile; // Array de tiles disponíveis (tipos diferentes: grama, parede, etc.)
 	public int mapTileNum[][][]; // Mapa do mundo armazenado como IDs de tiles (matriz de números)
-	ArrayList<String> fileNames = new ArrayList<>();
+	public ArrayList<String> fileNames = new ArrayList<>();
 	ArrayList<String> collisionStatus = new ArrayList<>();
 	
 	

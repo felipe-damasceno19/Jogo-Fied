@@ -377,7 +377,7 @@ false
 tile189.png
 false
 tile190.png
-true
+false
 tile191.png
 false
 tile192.png
@@ -411,7 +411,7 @@ true
 tile206.png
 true
 tile207.png
-true
+false
 tile208.png
 false
 tile209.png
@@ -499,9 +499,9 @@ true
 tile249.png
 true
 tile250.png
-true
+false
 tile251.png
-true
+false
 tile252.png
 true
 tile253.png
