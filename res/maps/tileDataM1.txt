@@ -588,3 +588,11 @@ tile293.png
 true
 tile294.png
 true
+tile295.png
+true
+tile296.png
+true
+tile297.png
+true
+tile298.png
+true
