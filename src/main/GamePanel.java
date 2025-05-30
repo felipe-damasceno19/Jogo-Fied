@@ -19,6 +19,7 @@ import javax.swing.JPanel;          // Componente Swing que permite desenhar ele
 
 import entity.Entity;
 import entity.Player;               // Importa a classe do jogador
+import environment.EnvironmentManager;
 import tile.TileManager;           // Importa a classe que gerencia os tiles
 
 // Classe principal do painel do jogo
@@ -61,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
     Config config = new Config(this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
     Thread gameThread;    // Thread principal do jogo
     
     //ENTIDADES E OBJETOS
@@ -93,6 +95,7 @@ public class GamePanel extends JPanel implements Runnable {
     	aSetter.setObject();
     	aSetter.setNpc();
     	playMusic(1);
+    	eManager.setup();
     	gameState = titleState;
     	
     	tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
@@ -226,9 +229,10 @@ public class GamePanel extends JPanel implements Runnable {
 
             entityList.clear();
 
+            eManager.draw(g2); 
+            
             ui.draw(g2);
 
-            drawFog(g2); // FOG: Aplica a névoa por cima de tudo
         }
 
         //DEBUG
@@ -249,18 +253,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void drawFog(Graphics2D g2) {
-        Composite originalComposite = g2.getComposite();
-
-        // Névoa estilo Silent Hill: cinza claro e suave
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f)); // 40% opaco
-
-        g2.setColor(new Color(200, 200, 200, 255)); // Cinza claro (como neblina real)
-
-        g2.fillRect(0, 0, screenWidth, screenHeight);
-
-        g2.setComposite(originalComposite); // Restaura o estado original
-    }
  
  
     public void drawToScreen() {
