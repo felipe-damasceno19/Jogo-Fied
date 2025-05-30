@@ -163,7 +163,7 @@ public class Player extends Entity {
 //		if(i != 999) {
 //			// lógica futura para coleta de item
 //			
-//			String objectName = gp.obj[i].name;
+//			String objectName = gp.obj[gp.currentMap][i].name;
 //			
 //			switch(objectName) {
 //			case "Door":
@@ -177,7 +177,7 @@ public class Player extends Entity {
 		if(i != 999) {
 			if(gp.keyH.enterPressed == true) {
 				gp.gameState = gp.dialogueState; // Muda o estado do jogo para diálogo
-				gp.npc[i].speak(); // Faz o NPC falar
+				gp.npc[gp.currentMap][i].speak(); // Faz o NPC falar
 			}
 		}
 	}

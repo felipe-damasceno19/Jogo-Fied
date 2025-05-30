@@ -20,9 +20,6 @@ public class UI {
     // Fontes do estilo Undertale para títulos e diálogos
     Font undertaleFontSans, undertaleFontRegular;
 
-    // Imagens usadas no HUD de vida (coração cheio, metade e vazio)
-    BufferedImage heart_full, heart_half, heart_blank;
-
     // Sistema de mensagens temporárias na tela
     public boolean messageOn = false;
     public String message = "";
@@ -105,11 +102,6 @@ public class UI {
         fButtonFrames = loadButtonSprites("/buttons/press_enter.png", 2);
 
 
-        // Carrega as imagens de HUD do coração (vida do jogador)
-        Entity heart = new obj_Heart(gp);
-        heart_full = heart.image;
-        heart_half = heart.image2;
-        heart_blank = heart.image3;
     }
 
     // Mostra uma mensagem simples (ex: "Item coletado!")
@@ -158,14 +150,11 @@ public class UI {
         }
         
         if (gp.gameState == gp.playState) {
-            drawPlayerLife();
         }
         if (gp.gameState == gp.pauseState) {
-            drawPlayerLife();
             drawPauseScreen();
         }
         if (gp.gameState == gp.dialogueState) {
-            drawPlayerLife();
             drawDialogueScreen();
         }
         if(gp.gameState == gp.characterState) {
@@ -174,7 +163,6 @@ public class UI {
         }
         
         if (gp.gameState == gp.playState) {
-            drawPlayerLife();
             if (gp.player.nearInteractable) {
                 drawInteractionPrompt(); // ✅ Adiciona o prompt quando estiver perto
             }
@@ -183,33 +171,6 @@ public class UI {
         	drawOptionsScreen();
         }
 
-    }
-
-    // Desenha os corações (vida) do jogador
-    public void drawPlayerLife() {
-        int x = gp.tileSize / 2;
-        int y = gp.tileSize / 2;
-        int i = 0;
-
-        // Desenha os corações vazios (base)
-        while (i < gp.player.maxLife / 2) {
-            g2.drawImage(heart_blank, x, y, null);
-            i++;
-            x += gp.tileSize;
-        }
-
-        // Reinicia e desenha os corações preenchidos
-        x = gp.tileSize / 2;
-        i = 0;
-        while (i < gp.player.life) {
-            g2.drawImage(heart_half, x, y, null);
-            i++;
-            if (i < gp.player.life) {
-                g2.drawImage(heart_full, x, y, null);
-            }
-            i++;
-            x += gp.tileSize;
-        }
     }
 
     // Desenha a tela de título (menu inicial)

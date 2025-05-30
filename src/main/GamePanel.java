@@ -45,7 +45,8 @@ public class GamePanel extends JPanel implements Runnable {
     //CONFIGURAÇÕES DO MUNDO
     public int maxWorldCol = 50;           // Máximo de colunas do mundo (mapa)
     public int maxWorldRow = 50;           // Máximo de linhas do mundo (mapa)
-   
+    public final int maxMap = 10;
+    public int currentMap = 0;
 
     int FPS = 60;                                 // Taxa de quadros por segundo
 
@@ -64,8 +65,8 @@ public class GamePanel extends JPanel implements Runnable {
     
     //ENTIDADES E OBJETOS
     public Player player = new Player(this, keyH); // Instância do jogador
-    public Entity obj[] = new Entity[10];
-    public Entity npc[] = new Entity[10];
+    public Entity obj[][] = new Entity[maxMap][10];
+    public Entity npc[][] = new Entity[maxMap][10];
     ArrayList<Entity> entityList = new ArrayList<>();
     
     //GAME STATE
@@ -169,11 +170,11 @@ public class GamePanel extends JPanel implements Runnable {
     		
     		
     		//NPC
-    		for(int i = 0; i < npc.length; i++) {
+    		for(int i = 0; i < npc[1].length; i++) {
     			
-    			if(npc[i] != null) {
+    			if(npc[currentMap][i] != null) {
     				
-    				npc[i].update();
+    				npc[currentMap][i].update();
     				
     			}
     		}
@@ -200,15 +201,15 @@ public class GamePanel extends JPanel implements Runnable {
 
             entityList.add(player);
 
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    entityList.add(npc[i]);
+            for (int i = 0; i < npc[1].length; i++) {
+                if (npc[currentMap][i] != null) {
+                    entityList.add(npc[currentMap][i]);
                 }
             }
 
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) {
-                    entityList.add(obj[i]);
+            for (int i = 0; i < obj[1].length; i++) {
+                if (obj[currentMap][i] != null) {
+                    entityList.add(obj[currentMap][i]);
                 }
             }
 
@@ -248,7 +249,19 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-   
+    public void drawFog(Graphics2D g2) {
+        Composite originalComposite = g2.getComposite();
+
+        // Névoa estilo Silent Hill: cinza claro e suave
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f)); // 40% opaco
+
+        g2.setColor(new Color(200, 200, 200, 255)); // Cinza claro (como neblina real)
+
+        g2.fillRect(0, 0, screenWidth, screenHeight);
+
+        g2.setComposite(originalComposite); // Restaura o estado original
+    }
+ 
  
     public void drawToScreen() {
     	
@@ -274,18 +287,4 @@ public class GamePanel extends JPanel implements Runnable {
     	se.setFile(i);
     	se.play();
     }
-    
-    public void drawFog(Graphics2D g2) {
-        Composite originalComposite = g2.getComposite();
-
-        // Névoa estilo Silent Hill: cinza claro e suave
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f)); // 40% opaco
-
-        g2.setColor(new Color(200, 200, 200, 255)); // Cinza claro (como neblina real)
-
-        g2.fillRect(0, 0, screenWidth, screenHeight);
-
-        g2.setComposite(originalComposite); // Restaura o estado original
-    }
- 
 }

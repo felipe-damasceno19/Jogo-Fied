@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,13 +16,14 @@ import main.UtilityTool;
 public class TileManager {
 	GamePanel gp; // Referência ao painel principal do jogo
 	public Tile[] tile; // Array de tiles disponíveis (tipos diferentes: grama, parede, etc.)
-	public int mapTileNum[][]; // Mapa do mundo armazenado como IDs de tiles (matriz de números)
+	public int mapTileNum[][][]; // Mapa do mundo armazenado como IDs de tiles (matriz de números)
 	ArrayList<String> fileNames = new ArrayList<>();
 	ArrayList<String> collisionStatus = new ArrayList<>();
 	
 	
 	public TileManager(GamePanel gp) {
 		this.gp = gp; // Guarda a referência ao GamePanel
+		
 		
 		// Lê o Tile data 
 		InputStream is = getClass().getResourceAsStream("/maps/tileDataM1.txt");
@@ -49,18 +51,24 @@ public class TileManager {
 		
 		// Pega maxWorldCol & Row
 		
+		try {
+			is = new FileInputStream("res/maps/sampleM1.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		br = new BufferedReader(new InputStreamReader(is));
 		
 		try {
 			
-			is = new FileInputStream("res/maps/sampleM1.txt");
-			br = new BufferedReader(new InputStreamReader(is));
+
 			String line2 = br.readLine();
 			String maxTile[] = line2.split(" ");
 			
 			gp.maxWorldCol = maxTile.length;
 			gp.maxWorldRow = maxTile.length;
 			 
-			mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow]; // Mapa baseado nas dimensões do mundo
+			mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow]; // Mapa baseado nas dimensões do mundo
 			
 			br.close();
 			
@@ -69,7 +77,9 @@ public class TileManager {
 		}
 		
 		
-		loadMap("/maps/sampleM1.txt");
+		//loadMap("/maps/sampleS1.txt", 1);
+		loadMap("/maps/sampleM1.txt", 0);
+		loadMap("/maps/sampleM2.txt", 1);
 		
 		
 		// loadMap("/maps/world01.txt"); // Carrega o mapa a partir de um arquivo de texto
@@ -122,7 +132,7 @@ public class TileManager {
 
 	}
 
-	public void loadMap(String filePath) {
+	public void loadMap(String filePath, int map) {
 		try {
 			InputStream is = getClass().getResourceAsStream(filePath); // Abre o arquivo do mapa
 			BufferedReader br = new BufferedReader(new InputStreamReader(is)); // Leitor de texto do arquivo
@@ -140,7 +150,7 @@ public class TileManager {
 
 					int num = Integer.parseInt(numbers[col]); // Converte o número para inteiro
 					
-					mapTileNum[col][row] = num;
+					mapTileNum[map][col][row] = num;
 					col++; // Armazena o número (tipo do tile) na posição correta
 				}
 				if(col == gp.maxWorldCol) {
@@ -164,7 +174,7 @@ public class TileManager {
 			
 		while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) { // Enquanto ainda tiver colunas e linhas no mapa
 			
-			int tileNum = mapTileNum[worldCol][worldRow]; // Pega o número do tile (tipo de piso) na posição (coluna, linha)
+			int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow]; // Pega o número do tile (tipo de piso) na posição (coluna, linha)
 			
 			// Calcula onde o tile está no mundo
 			int worldX = worldCol * gp.tileSize; // Posição X real no mundo

@@ -40,8 +40,8 @@ public class CollisionChecker {
 	            entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
 
 	            // Pega os dois tiles da linha superior (esquerda e direita)
-	            tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-	            tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+	            tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
+	            tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
 
 	            // Se qualquer um desses tiles tiver colisão, ativa o flag
 	            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
@@ -54,8 +54,8 @@ public class CollisionChecker {
 	            entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
 
 	            // Pega os dois tiles da linha inferior (esquerda e direita)
-	            tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-	            tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+	            tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
+	            tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
 
 	            // Verifica colisão
 	            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
@@ -68,8 +68,8 @@ public class CollisionChecker {
 	            entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
 
 	            // Pega os dois tiles da coluna esquerda (em cima e embaixo)
-	            tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-	            tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+	            tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityTopRow];
+	            tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityLeftCol][entityBottomRow];
 
 	            // Verifica colisão
 	            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
@@ -82,8 +82,8 @@ public class CollisionChecker {
 	            entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
 
 	            // Pega os dois tiles da coluna direita (em cima e embaixo)
-	            tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-	            tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+	            tileNum1 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityTopRow];
+	            tileNum2 = gp.tileM.mapTileNum[gp.currentMap][entityRightCol][entityBottomRow];
 
 	            // Verifica colisão
 	            if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true) {
@@ -97,23 +97,23 @@ public class CollisionChecker {
 
 		int index = 999; // Valor padrão (sem colisão encontrada)
 
-		for(int i = 0; i < gp.obj.length; i++) {
+		for(int i = 0; i < gp.obj[1].length; i++) {
 
-			if(gp.obj[i] != null) { // Se existe um objeto na posição i
+			if(gp.obj[gp.currentMap][i] != null) { // Se existe um objeto na posição i
 
 				// Ajusta a área sólida da entidade com base na posição no mundo
 				entity.solidArea.x = entity.worldX + entity.solidArea.x;
 				entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
 				// Ajusta a área sólida do objeto com base na posição no mundo
-				gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
-				gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+				gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].worldX + gp.obj[gp.currentMap][i].solidArea.x;
+				gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].worldY + gp.obj[gp.currentMap][i].solidArea.y;
 
 				switch(entity.direction) {
 				case "up": // Se a entidade está indo pra cima
 					entity.solidArea.y -= entity.speed; // Move a área sólida pra onde ela estaria
-					if(entity.solidArea.intersects(gp.obj[i].solidArea)) { // Se colidiu com o objeto
-						if(gp.obj[i].collision == true) {
+					if(entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) { // Se colidiu com o objeto
+						if(gp.obj[gp.currentMap][i].collision == true) {
 							entity.collisionOn = true; // Marca que houve colisão
 						}
 						if(player == true) {
@@ -124,8 +124,8 @@ public class CollisionChecker {
 
 				case "down":
 					entity.solidArea.y += entity.speed;
-					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
-						if(gp.obj[i].collision == true) {
+					if(entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) {
+						if(gp.obj[gp.currentMap][i].collision == true) {
 							entity.collisionOn = true;
 						}
 						if(player == true) {
@@ -136,8 +136,8 @@ public class CollisionChecker {
 
 				case "left":
 					entity.solidArea.x -= entity.speed;
-					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
-						if(gp.obj[i].collision == true) {
+					if(entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) {
+						if(gp.obj[gp.currentMap][i].collision == true) {
 							entity.collisionOn = true;
 						}
 						if(player == true) {
@@ -148,8 +148,8 @@ public class CollisionChecker {
 
 				case "right":
 					entity.solidArea.x += entity.speed;
-					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
-						if(gp.obj[i].collision == true) {
+					if(entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) {
+						if(gp.obj[gp.currentMap][i].collision == true) {
 							entity.collisionOn = true;
 						}
 						if(player == true) {
@@ -162,34 +162,34 @@ public class CollisionChecker {
 				// Reseta a área sólida pros valores padrão depois do teste
 				entity.solidArea.x = entity.solidAreaDefaultX;
 				entity.solidArea.y = entity.solidAreaDefaultY;
-				gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
-				gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+				gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].solidAreaDefaultX;
+				gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].solidAreaDefaultY;
 			}
 		}
 		return index; // Retorna o índice do objeto colidido (ou 999 se não colidiu)
 	}
 
 	//COLISAO DE MONSTROS E NPCS
-	public int checkEntity(Entity entity, Entity[] target) {
+	public int checkEntity(Entity entity, Entity[][] target) {
 		
 		int index = 999; // Valor padrão (sem colisão encontrada)
 
-		for(int i = 0; i < target.length; i++) {
+		for(int i = 0; i < target[1].length; i++) {
 
-			if(target[i] != null) { // Se existe um objeto na posição i
+			if(target[gp.currentMap][i] != null) { // Se existe um objeto na posição i
 
 				// Ajusta a área sólida da entidade com base na posição no mundo
 				entity.solidArea.x = entity.worldX + entity.solidArea.x;
 				entity.solidArea.y = entity.worldY + entity.solidArea.y;
 
 				// Ajusta a área sólida do objeto com base na posição no mundo
-				target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
-				target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+				target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].worldX + target[gp.currentMap][i].solidArea.x;
+				target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].worldY + target[gp.currentMap][i].solidArea.y;
 
 				switch(entity.direction) {
 				case "up": // Se a entidade está indo pra cima
 					entity.solidArea.y -= entity.speed; // Move a área sólida pra onde ela estaria
-					if(entity.solidArea.intersects(target[i].solidArea)) { // Se colidiu com o objeto
+					if(entity.solidArea.intersects(target[gp.currentMap][i].solidArea)) { // Se colidiu com o objeto
 						
 						entity.collisionOn = true; // Marca que houve colisão
 						
@@ -200,7 +200,7 @@ public class CollisionChecker {
 
 				case "down":
 					entity.solidArea.y += entity.speed;
-					if(entity.solidArea.intersects(target[i].solidArea)) {
+					if(entity.solidArea.intersects(target[gp.currentMap][i].solidArea)) {
 						
 						entity.collisionOn = true;
 						
@@ -210,7 +210,7 @@ public class CollisionChecker {
 
 				case "left":
 					entity.solidArea.x -= entity.speed;
-					if(entity.solidArea.intersects(target[i].solidArea)) {
+					if(entity.solidArea.intersects(target[gp.currentMap][i].solidArea)) {
 						
 						entity.collisionOn = true;						
 						
@@ -221,7 +221,7 @@ public class CollisionChecker {
 
 				case "right":
 					entity.solidArea.x += entity.speed;
-					if(entity.solidArea.intersects(target[i].solidArea)) {
+					if(entity.solidArea.intersects(target[gp.currentMap][i].solidArea)) {
 						
 						entity.collisionOn = true;						
 						
@@ -233,8 +233,8 @@ public class CollisionChecker {
 				// Reseta a área sólida pros valores padrão depois do teste
 				entity.solidArea.x = entity.solidAreaDefaultX;
 				entity.solidArea.y = entity.solidAreaDefaultY;
-				target[i].solidArea.x = target[i].solidAreaDefaultX;
-				target[i].solidArea.y = target[i].solidAreaDefaultY;
+				target[gp.currentMap][i].solidArea.x = target[gp.currentMap][i].solidAreaDefaultX;
+				target[gp.currentMap][i].solidArea.y = target[gp.currentMap][i].solidAreaDefaultY;
 			}
 		}
 		return index;

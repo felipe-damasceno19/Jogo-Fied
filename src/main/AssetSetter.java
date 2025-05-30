@@ -17,18 +17,33 @@ public class AssetSetter {
 	
 	public void setObject() {
 		
-		gp.obj[0] = new obj_Door(gp);
-		gp.obj[0].worldX = gp.tileSize*53;
-		gp.obj[0].worldY = gp.tileSize*38;
-		
+		int mapNum = 0;	
+		int i = 0;
+		gp.obj[mapNum][i] = new obj_Door(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize*53;
+		gp.obj[mapNum][i].worldY = gp.tileSize*38;
+		i++;
 		
 	
 	}
 	public void setNpc() {
 		
-		gp.npc[0] = new NPC_OldMan(gp);
-		gp.npc[0].worldX = gp.tileSize * 56;
-		gp.npc[0].worldY = gp.tileSize * 36;
+		
+		// SETA NPC NO MAPA 0
+		int mapNum = 0;	
+		int i = 0;
+		gp.npc[mapNum][i] = new NPC_OldMan(gp);
+		gp.npc[mapNum][i].worldX = gp.tileSize * 56;
+		gp.npc[mapNum][i].worldY = gp.tileSize * 36;
+		i++;
+		
+		
+		// SETA NPC NO MAPA 1
+		mapNum = 1;	
+		gp.npc[mapNum][i] = new NPC_OldMan(gp);
+		gp.npc[mapNum][i].worldX = gp.tileSize * 16;
+		gp.npc[mapNum][i].worldY = gp.tileSize * 12;
+		i++;
 		
 	
 		
