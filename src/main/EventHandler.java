@@ -54,14 +54,22 @@ public class EventHandler {
 		
 		if(canTouchEvent == true) { // Se pode ativar eventos
 			
-			
+			// MAPA 0
 			if(gp.currentMap == 0) {
 				// Checa se o player colidiu com algum evento e executa se sim
 				if(hit(0, 27, 15, "right") == true) {damagePit( gp.dialogueState);} // Evento de buraco
 				if(hit(0, 23, 7, "up") == true) {healingPool(gp.dialogueState);} // Evento de cura
+				
+				// Portas no mapa 0
 				if(hit(0, 33, 24, "any") == true){teleport(1,57,51);} 
-			} else if(gp.currentMap == 1) {
+				if(hit(0, 35, 24, "any") == true){teleport(2,76,32);} 
+				
+			} else if(gp.currentMap == 1) { // MAPA 01
 				if(hit(1, 57, 51, "any") == true){teleport(0,33,24);} 
+			}
+			
+			else if(gp.currentMap == 2) { // MAPA 02
+				if(hit(2, 76, 32, "any") == true){teleport(0,35,24);} 
 			}
 			
 			

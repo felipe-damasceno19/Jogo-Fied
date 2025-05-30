@@ -38,9 +38,9 @@ public class AssetSetter {
 		// SETA NPC NO MAPA 0
 		int mapNum = 0;	
 		int i = 0;
-		gp.npc[mapNum][i] = new NPC_OldMan(gp);
-		gp.npc[mapNum][i].worldX = gp.tileSize * 56;
-		gp.npc[mapNum][i].worldY = gp.tileSize * 36;
+//		gp.npc[mapNum][i] = new NPC_OldMan(gp);
+//		gp.npc[mapNum][i].worldX = gp.tileSize * 56;
+//		gp.npc[mapNum][i].worldY = gp.tileSize * 36;
 		i++;
 		
 		
