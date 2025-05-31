@@ -14,6 +14,8 @@ import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
 import object.obj_Key;
+import object.obj_Letter;
+import object.obj_Letter2;
 
 // A classe Player representa o personagem controlado pelo jogador.
 // Ela herda da classe Entity (entidade genérica no jogo).
@@ -79,8 +81,8 @@ public class Player extends Entity {
 		
 		//inventory.clear(); //LIMPA O INVENTARIO DO PLAYER CASO MORRA, E DEIXA APENAS O PADROES
 		inventory.add(new obj_Key(gp));
-		inventory.add(new obj_Key(gp));
-		inventory.add(new obj_Key(gp));
+		inventory.add(new obj_Letter(gp));
+		inventory.add(new obj_Letter2(gp));
 		inventory.add(new obj_Key(gp));
 		inventory.add(new obj_Key(gp));
 		inventory.add(new obj_Key(gp));
