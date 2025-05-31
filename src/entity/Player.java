@@ -45,7 +45,7 @@ public class Player extends Entity {
 		screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 		
 		// Define a área sólida (retângulo de colisão) do jogador
-		solidArea = new Rectangle(18, 18, 16, 22);
+		solidArea = new Rectangle(24, 32, 16, 22);
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 
@@ -203,5 +203,8 @@ public class Player extends Entity {
 
 		// Desenha o jogador no centro da tela
 		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+		g2.setColor(Color.red);
+		g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+		
 	}
 }
