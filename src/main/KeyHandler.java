@@ -52,8 +52,13 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.characterState) {
         	characterState(code);
         }
+        //OPTIONS STATE
         else if(gp.gameState == gp.optionsState) {
         	optionsState(code);
+        }
+        //GAMEOVER STATE
+        else if(gp.gameState == gp.gameOverState) {
+        	gameOverState(code);
         }
         
      }
@@ -126,6 +131,10 @@ public class KeyHandler implements KeyListener {
          }
          if (code == KeyEvent.VK_ESCAPE) {
         	 gp.gameState = gp.optionsState;
+         }
+         
+         if(code == KeyEvent.VK_M) {
+        	 gp.gameState = gp.gameOverState;
          }
      }
      public void pauseState(int code) {
@@ -231,7 +240,32 @@ public class KeyHandler implements KeyListener {
     	 
     	 
      }
-     
+     public void gameOverState(int code) {
+    	 if(code == KeyEvent.VK_W) {
+    		 gp.ui.commandNum--;
+    		 if(gp.ui.commandNum < 0) {
+    			 gp.ui.commandNum = 1;
+    		 }
+    		 gp.playSE(3);
+    	 }
+    	 if(code == KeyEvent.VK_S) {
+    		 gp.ui.commandNum++;
+    		 if(gp.ui.commandNum > 1) {
+    			 gp.ui.commandNum = 0;
+    		 }
+    		 gp.playSE(3);
+    	 }
+    	 if(code == KeyEvent.VK_ENTER) {
+    		 if(gp.ui.commandNum == 0) {
+    			 gp.gameState = gp.playState;
+    			 gp.retry();
+    		 }
+    		 else if(gp.ui.commandNum == 1) {
+    			 gp.gameState = gp.titleState;
+    			 gp.restart();
+    		 }
+    	 }
+     }
      
     // Método chamado quando uma tecla é solta
     @Override

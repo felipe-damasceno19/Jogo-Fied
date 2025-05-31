@@ -170,6 +170,9 @@ public class UI {
         if(gp.gameState == gp.optionsState) {
         	drawOptionsScreen();
         }
+        if(gp.gameState == gp.gameOverState) {
+        	drawGameOverScreen();
+        }
 
     }
 
@@ -217,8 +220,6 @@ public class UI {
         	g2.drawImage(selectorImage, iconX, iconY, 24, 24, null);
         }
     }
-
-    // Desenha a palavra "PAUSA" no meio da tela
     public void drawPauseScreen() {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
         String text = "PAUSA";
@@ -226,7 +227,6 @@ public class UI {
         int y = gp.screenHeight / 2;
         g2.drawString(text, x, y);
     }
-
     public void drawDialogueScreen() {
         // Ajustando a largura da caixa e centralizando horizontalmente
         int width = gp.screenWidth / 2;  // Ajuste a largura como preferir
@@ -263,7 +263,6 @@ public class UI {
                 }
             }
         }
-
         // Texto com digitação progressiva
         int textX = x + gp.tileSize * 2 + 20;
         String[] visibleLines = getVisibleLinesText().split("\n");
@@ -301,8 +300,6 @@ public class UI {
             textY += 40;
         }
     }
-
-    
     public void drawCharacterScreen() {
     	//FRAME
     	final int frameX = gp.tileSize * 2;
@@ -311,7 +308,6 @@ public class UI {
     	final int frameHeight = gp.tileSize*10;
     	drawSubWindow(frameX, frameY, frameWidth, frameHeight);
     }
-    
     public void drawInventory() {
     	
     	//FRAME
@@ -370,8 +366,48 @@ public class UI {
     			textY += 32;
     			}
     		}
+    	}   
+    public void drawGameOverScreen() {
+    	
+    	g2.setColor(new Color (0,0,0,150));
+    	g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+    	
+    	int x;
+    	int y;
+    	String text;
+    	g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
+    	
+    	text = "GAME OVER";
+    	
+    	//SOMBRA
+    	g2.setColor(Color.black);
+    	x = getXforCenteredText(text);
+    	y = gp.tileSize * 4;
+    	g2.drawString(text, x, y);
+    	
+    	//GAME OVER
+    	g2.setColor(Color.white);
+    	g2.drawString(text, x-4, y-4);
+    	
+    	//TENTE NOVAMENTE
+    	g2.setFont(g2.getFont().deriveFont(50f));
+    	text = "TENTE NOVAMENTE";
+    	x = getXforCenteredText(text);
+    	y += gp.tileSize * 4;
+    	g2.drawString(text, x, y);
+    	if(commandNum == 0) {
+    		g2.drawImage(selectorImage, x - gp.tileSize + 27, y - gp.tileSize + 37, 24, 24, null);
     	}
-    
+    	
+    	//VOLTAR AO MENU
+    	text = " MENU";
+    	x = getXforCenteredText(text);
+    	y += 55;
+    	g2.drawString(text, x, y);
+    	if(commandNum == 1) {
+    		g2.drawImage(selectorImage, x - gp.tileSize + 27, y - gp.tileSize + 37, 24, 24, null);
+    	}
+    }
     public void drawOptionsScreen() {
     	
     	g2.setColor(Color.white);

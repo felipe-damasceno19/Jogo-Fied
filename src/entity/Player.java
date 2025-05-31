@@ -64,9 +64,20 @@ public class Player extends Entity {
 		// Status de vida
 		maxLife = 6;
 		life = maxLife;
+		
+		
 	}
-	
+	public void setDefaultPositions() {
+		
+		worldX = gp.tileSize * 29; // Posição inicial no mundo (X)
+		worldY = gp.tileSize * 25; // Posição inicial no mundo (Y)
+		direction = "down";        // Direção inicial
+		
+	}
+
 	public void setItems() {
+		
+		//inventory.clear(); //LIMPA O INVENTARIO DO PLAYER CASO MORRA, E DEIXA APENAS O PADROES
 		inventory.add(new obj_Key(gp));
 		inventory.add(new obj_Key(gp));
 		inventory.add(new obj_Key(gp));
@@ -156,6 +167,8 @@ public class Player extends Entity {
 			if (spriteNum > 3) spriteNum = 0; // Loop entre 0, 1, 2, 3
 			spriteCounter = 0;
 		}
+		
+		
 	}
 
 	// Coleta de objeto (por enquanto vazio)

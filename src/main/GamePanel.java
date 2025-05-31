@@ -79,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int dialogueState = 3;
     public final int characterState = 4;
     public final int optionsState = 5;
+    public final int gameOverState = 6;
     
     // Construtor: configurações iniciais do painel
     public GamePanel() {
@@ -109,7 +110,23 @@ public class GamePanel extends JPanel implements Runnable {
     	
     }
     
+    //METODO CASO O JOGADOR TENTE NOVAMENTE APOS O GAME OVER
+    public void retry() {
+    	
+    	player.setDefaultPositions();
+    	//PODE SE ADICIONAR ITENS E OBJETOS, CASO DESEJE QUE ELES VOLTEM AS POSIÇÕES INICIAIS AO TENTAR NOVAMENTE
+    }
     
+    //METODO CASO O JOGADOR REINICIE O JOGO
+    public void restart() {
+    	
+    	player.setDefaultValues();
+    	player.setDefaultPositions();
+    	player.setItems();
+
+    	aSetter.setObject();
+    	aSetter.setNpc();
+    }
     
     public void setFullScreen() {
     	
