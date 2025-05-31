@@ -135,6 +135,7 @@ public class KeyHandler implements KeyListener {
          
          if(code == KeyEvent.VK_M) {
         	 gp.gameState = gp.gameOverState;
+        	 //gp.playSE(2);
          }
      }
      public void pauseState(int code) {
