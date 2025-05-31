@@ -188,8 +188,6 @@ public class GamePanel extends JPanel implements Runnable {
     		
     		player.update();       // Atualiza posição e estado do jogador
     		
-    		
-    		
     		//NPC
     		for(int i = 0; i < npc[1].length; i++) {
     			
@@ -291,7 +289,6 @@ public class GamePanel extends JPanel implements Runnable {
  
  
     public void drawToScreen() {
-    	
     	Graphics g = getGraphics();
     	g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
     	g.dispose();

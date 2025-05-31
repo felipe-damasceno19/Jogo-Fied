@@ -9,7 +9,7 @@ public class KeyHandler implements KeyListener {
 	GamePanel gp;
 	
     // Variáveis booleanas para indicar quais teclas estão pressionadas
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, fPressed;
     
     //DEBUG
     boolean showDebugText = false; 
@@ -104,6 +104,10 @@ public class KeyHandler implements KeyListener {
          }
          if (code == KeyEvent.VK_D) {
              rightPressed = true;
+
+         }
+         if (code == KeyEvent.VK_F) {
+             fPressed = true;
 
          }
          if (code == KeyEvent.VK_C) {
@@ -289,6 +293,13 @@ public class KeyHandler implements KeyListener {
         
         if (code == KeyEvent.VK_D) {    
             rightPressed = false;
+        }
+        if (code == KeyEvent.VK_F) {    
+            fPressed = false;
+        }
+        
+        if (code == KeyEvent.VK_ENTER) {    
+            enterPressed = false;
         }
     }
 }

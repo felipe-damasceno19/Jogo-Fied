@@ -1,5 +1,8 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import entity.Entity;
 
 public class EventHandler {
 
@@ -12,7 +15,6 @@ public class EventHandler {
 	public EventHandler(GamePanel gp) {
 		
 		this.gp = gp;
-		
 		eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow]; // Inicializa a matriz de eventos com base no tamanho do mundo
 		
 		int map = 0;
@@ -40,65 +42,71 @@ public class EventHandler {
 			}
 		}
 	}
-	
+    
 	public void checkEvent() {
 		
 		// CHECA SE O PLAYER ESTÁ A MAIS DE 1 TILE DE DISTÂNCIA DO ÚLTIMO EVENTO
 		int xDistance = Math.abs(gp.player.worldX - previousEventX); // Distância horizontal
 		int yDistance = Math.abs(gp.player.worldY - previousEventY); // Distância vertical
 		int distance = Math.max(xDistance, yDistance); // Considera a maior das distâncias
-		
+		//System.out.println(gp.keyH.enterPressed);
 		if(distance > gp.tileSize) { // Se o player se afastou o suficiente
 			canTouchEvent = true; // Permite ativar novos eventos
 		}
 		
-		if(canTouchEvent == true) { // Se pode ativar eventos
-			
-			// MAPA 0
-			if(gp.currentMap == 0) {
-				// Checa se o player colidiu com algum evento e executa se sim
-				if(hit(0, 27, 15, "right") == true) {damagePit( gp.dialogueState);} // Evento de buraco
-				if(hit(0, 23, 7, "up") == true) {healingPool(gp.dialogueState);} // Evento de cura
-				
-				// Portas no mapa 0
-					if(hit(0, 33, 24, "up") == true){teleport(1,57,51);} 
-					if(hit(0, 35, 24, "up") == true){teleport(2,76,31);}
-					if(hit(0, 37, 28, "down") == true){teleport(3,22,83);}
-				
-			} else if(gp.currentMap == 1) { // MAPA 01
-			    if(hit(1, 57, 51, "down") == true){teleport(0,33,24);} 
+		if (canTouchEvent) { // Se pode ativar eventos
+	        // Verifica se a tecla F foi pressionada
+	        boolean fPressedNow = gp.keyH.fPressed; // Obtém o estado atual de F
+	        // MAPA 0
+	        if (gp.currentMap == 0) {
+	            // Checa se o player colidiu com algum evento e executa se sim
+
+	            // Portas no mapa 0
+	            if (hit(0, 33, 24, "any") && fPressedNow) {
+	                teleport(1, 57, 51); // Teleporta para o mapa 1
+	            }
+	            if (hit(0, 35, 24, "any") && fPressedNow) {
+	                teleport(2, 76, 31); // Teleporta para o mapa 2
+	            }
+	            if (hit(0, 37, 28, "any") && fPressedNow) {
+	                teleport(3, 22, 83); // Teleporta para o mapa 3
+	            }
+	        } else if(gp.currentMap == 1) { // MAPA 01
+			    if(hit(1, 57, 51, "any") && fPressedNow){teleport(0,33,24);} 
 			}
 
 			else if(gp.currentMap == 2) { // MAPA 02
-			    if(hit(2, 76, 32, "down") == true){teleport(0,35,24);} 
+			    if(hit(2, 76, 32, "any") && fPressedNow){teleport(0,35,24);} 
 			}
 			else if(gp.currentMap == 3) { // MAPA 03
 
 			    // VOLTA MAPA PRINCIPAL
-			    if(hit(3, 22, 84, "down") == true){teleport(0,37,27);}
+			    if(hit(3, 22, 84, "any") && fPressedNow){
+			    	teleport(0,37,27);
+			    	}
 
 			    // ENTRA E SAI SALA 1 - BLOCO 1
-			    if(hit(3, 24, 83, "up") == true){teleport(4,25,40);} 
+			    if(hit(3, 24, 83, "any") && fPressedNow){teleport(4,25,40);} 
 
 			    // ENTRA E SAI SALA 2 - BLOCO 1
-			    if(hit(3, 28, 83, "up") == true){teleport(6,76,32);} 
+			    if(hit(3, 28, 83, "any") && fPressedNow){teleport(6,76,32);} 
 
 			    // ENTRA E SAI SALA 2 - BLOCO 1
-			    if(hit(3, 33, 83, "up") == true){teleport(3,37,20);} 
-			    if(hit(3, 37, 20, "down") == true){teleport(3,33,83);}
+			    if(hit(3, 33, 83, "any") && fPressedNow){teleport(5,37,20);} 
+			    //if(hit(3, 37, 20, "down") == true){teleport(3,33,83);}
 			    
 			    
 			   
 			}
 			else if(gp.currentMap == 4) { // MAPA 04                
 			    // ENTRA E SAI SALA 1 - BLOCO 1
-			    if(hit(4, 25, 41, "down") == true){teleport(3,24,83);}
+			    if(hit(4, 25, 41, "any") && fPressedNow){teleport(3,24,83);}
 			}else if(gp.currentMap == 5) { // MAPA 05               
 			    // ENTRA E SAI SALA 1 - BLOCO 1
-				//if(hit(5, 37, 20, "down") == true){teleport(3,33,83);}
+				if(hit(5, 37, 20, "any") && fPressedNow){teleport(3,33,83);}
 			}else if(gp.currentMap == 6) { // MAPA 05               
 			    // ENTRA E SAI SALA 1 - BLOCO 1
-				if(hit(6, 76, 33, "up") == true){teleport(3,28,83);}
+				if(hit(6, 76, 33, "any") && fPressedNow){teleport(3,28,83);}
 			}
 
 			
@@ -123,7 +131,7 @@ public class EventHandler {
 				// Verifica se a direção do jogador é a exigida ou se qualquer direção serve
 				if(gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
 					hit = true;
-					
+					gp.player.nearInteractable = true;
 					// Armazena a posição onde o evento foi ativado
 					previousEventX = gp.player.worldX;
 					previousEventY = gp.player.worldY;
@@ -167,6 +175,14 @@ public class EventHandler {
 		previousEventX = gp.player.worldX;
 		previousEventY = gp.player.worldY;
 		canTouchEvent = false;
+		gp.player.nearInteractable = false;
 		//gp.playSE(01);
+		
+		// Atualiza a área de colisão do jogador imediatamente após o teleporte
+	    gp.player.solidArea.x = gp.player.worldX + gp.player.solidAreaDefaultX;
+	    gp.player.solidArea.y = gp.player.worldY + gp.player.solidAreaDefaultY;
+
+	    // Força a atualização da colisão do jogador após o teleporte
+	    gp.cChecker.checkTile(gp.player); // Aqui, estamos forçando uma nova checagem de colisão após o teleporte
 	}
 }

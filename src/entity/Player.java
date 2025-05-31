@@ -116,7 +116,8 @@ public class Player extends Entity {
 		int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
 		interactNPC(npcIndex);
 		gp.keyH.enterPressed = false; // Garante que o enter só seja considerado uma vez
-		
+		gp.eHandler.checkEvent();
+		gp.cChecker.checkTile(this);
 		// Verifica se alguma tecla de direção foi pressionada
 		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			moving = true;
@@ -138,7 +139,6 @@ public class Player extends Entity {
 
 			// Antes ou depois de checar NPCs/objetos
 			nearInteractable = false;
-
 			if (gp.cChecker.checkEntity(this, gp.npc) != 999) {
 			    nearInteractable = true;
 			}
@@ -148,7 +148,6 @@ public class Player extends Entity {
 
 
 			// Checa eventos no mapa (ex: teleportes, cutscenes)
-			gp.eHandler.checkEvent();
 			
 
 			// Se não houve colisão, move o jogador na direção definida
@@ -175,16 +174,16 @@ public class Player extends Entity {
 
 	// Coleta de objeto (por enquanto vazio)
 	public void pickUpObject(int i) {
-//		if(i != 999) {
-//			// lógica futura para coleta de item
-//			
-//			String objectName = gp.obj[gp.currentMap][i].name;
-//			
-//			switch(objectName) {
-//			case "Door":
-//				break;
-//			}
-//		}
+		if(i != 999) {
+			//lógica futura para coleta de item
+			
+			String objectName = gp.obj[gp.currentMap][i].name;
+			
+			switch(objectName) {
+			case "Door":
+				break;
+			}
+		}
 	}
 	
 	// Interação com NPCs
