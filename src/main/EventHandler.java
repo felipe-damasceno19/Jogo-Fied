@@ -63,7 +63,7 @@ public class EventHandler {
 				// Portas no mapa 0
 					if(hit(0, 33, 24, "up") == true){teleport(1,57,51);} 
 					if(hit(0, 35, 24, "up") == true){teleport(2,76,31);}
-					if(hit(0, 37, 28, "down") == true){teleport(3,22,84);}
+					if(hit(0, 37, 28, "down") == true){teleport(3,22,83);}
 				
 			} else if(gp.currentMap == 1) { // MAPA 01
 			    if(hit(1, 57, 51, "down") == true){teleport(0,33,24);} 
@@ -75,13 +75,13 @@ public class EventHandler {
 			else if(gp.currentMap == 3) { // MAPA 03
 
 			    // VOLTA MAPA PRINCIPAL
-			    if(hit(3, 22, 84, "down") == true){teleport(0,37,28);}
+			    if(hit(3, 22, 84, "down") == true){teleport(0,37,27);}
 
 			    // ENTRA E SAI SALA 1 - BLOCO 1
-			    if(hit(3, 24, 83, "up") == true){teleport(4,25,41);} 
+			    if(hit(3, 24, 83, "up") == true){teleport(4,25,40);} 
 
 			    // ENTRA E SAI SALA 2 - BLOCO 1
-			    if(hit(3, 28, 83, "up") == true){teleport(6,76,33);} 
+			    if(hit(3, 28, 83, "up") == true){teleport(6,76,32);} 
 
 			    // ENTRA E SAI SALA 2 - BLOCO 1
 			    if(hit(3, 33, 83, "up") == true){teleport(3,37,20);} 
