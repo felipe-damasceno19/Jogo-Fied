@@ -5,6 +5,7 @@ import entity.NPC_OldMan;
 import object.obj_Boots;
 import object.obj_Chest;
 import object.obj_Door;
+import object.obj_Gaveteiro;
 import object.obj_Key;
 
 public class AssetSetter {
@@ -30,11 +31,19 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldX = gp.tileSize*57;
 		gp.obj[mapNum][i].worldY = gp.tileSize*52;
 		i++;
+		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize*56;
+		gp.obj[mapNum][i].worldY = gp.tileSize*45;
+		i++;
 		
 		mapNum = 2;	
 		gp.obj[mapNum][i] = new obj_Door(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize*76;
 		gp.obj[mapNum][i].worldY = gp.tileSize*33;
+		i++;
+		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize*75;
+		gp.obj[mapNum][i].worldY = gp.tileSize*21;
 		i++;
 		
 	
