@@ -62,17 +62,17 @@ public class EventHandler {
 	            // Checa se o player colidiu com algum evento e executa se sim
 
 	            // Portas no mapa 0
-	            if (hit(0, 33, 24, "any") && fPressedNow) {
+	            if (hit(0, 33, 25, "any") && fPressedNow) {
 	                teleport(1, 57, 51); // Teleporta para o mapa 1
 	            }
-	            if (hit(0, 35, 24, "any") && fPressedNow) {
+	            if (hit(0, 35, 25, "any") && fPressedNow) {
 	                teleport(2, 76, 31); // Teleporta para o mapa 2
 	            }
 	            if (hit(0, 37, 28, "any") && fPressedNow) {
 	                teleport(3, 22, 83); // Teleporta para o mapa 3
 	            }
 	        } else if(gp.currentMap == 1) { // MAPA 01
-			    if(hit(1, 57, 51, "any") && fPressedNow){teleport(0,33,24);} 
+			    if(hit(1, 57, 52, "any") && fPressedNow){teleport(0,33,25);} 
 			}
 
 			else if(gp.currentMap == 2) { // MAPA 02

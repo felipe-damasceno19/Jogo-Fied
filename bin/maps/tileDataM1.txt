@@ -7,7 +7,7 @@ true
 tile004.png
 true
 tile005.png
-false
+true
 tile006.png
 true
 tile007.png
