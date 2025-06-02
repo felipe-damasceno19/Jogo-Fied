@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.imageio.ImageIO;
 
 // Importação das classes do jogo (objetos e entidades)
@@ -62,11 +65,15 @@ public class UI {
     java.util.List<String> fullTextLines = new ArrayList<>();
     int currentLineStart = 0; // Índice da primeira linha atualmente visível
     
- // Sprites de botão "F" animado
+ // Sprites de botões animados
+    BufferedImage[] enterButtonFrames;
     BufferedImage[] fButtonFrames;
-    int fFrameIndex = 0;
-    int fFrameCounter = 0;
-    int fFrameSpeed = 15;
+    Map<String, BufferedImage[]> buttonSprites = new HashMap<>();
+    public String interactKey = "f"; // tecla padrão
+    int frameIndex = 0;
+    int frameCounter = 0;
+    int frameSpeed = 15; 
+
 
     
 
@@ -99,10 +106,55 @@ public class UI {
             e.printStackTrace();
         }
         
-        fButtonFrames = loadButtonSprites("/buttons/press_enter.png", 2);
+        enterButtonFrames = loadButtonSprites("/buttons/press_enter.png", 2);
+        fButtonFrames = loadButtonSprites("/buttons/press_f.png", 2);
+        
+        buttonSprites.put("f", fButtonFrames);
+        buttonSprites.put("enter", enterButtonFrames);
+
 
 
     }
+
+    // Método principal de desenho da UI, chamado a cada frame
+    public void draw(Graphics2D g2) {
+        this.g2 = g2;
+        g2.setFont(undertaleFontSans);
+        g2.setColor(Color.white);
+
+        // Redireciona o desenho com base no estado atual do jogo
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        }
+        
+        if (gp.gameState == gp.playState) {
+        }
+        if (gp.gameState == gp.pauseState) {
+            drawPauseScreen();
+        }
+        if (gp.gameState == gp.dialogueState) {
+            drawDialogueScreen();
+        }
+        if(gp.gameState == gp.characterState) {
+        	drawCharacterScreen();
+        	drawInventory();
+        }
+        
+        if (gp.gameState == gp.playState) {
+            if (gp.player.nearInteractable) {
+            	drawInteractionPrompt();
+            }
+        }
+        if(gp.gameState == gp.optionsState) {
+        	drawOptionsScreen();
+        }
+        if(gp.gameState == gp.gameOverState) {
+        	drawGameOverScreen();
+        }
+
+    }
+    
+    
 
     // Mostra uma mensagem simples (ex: "Item coletado!")
     public void showMessage(String text) {
@@ -136,44 +188,6 @@ public class UI {
     // Define a imagem do rosto do NPC que está falando
     public void setNpcFaceImage(BufferedImage faceImage) {
         this.npcFaceImage = faceImage;
-    }
-
-    // Método principal de desenho da UI, chamado a cada frame
-    public void draw(Graphics2D g2) {
-        this.g2 = g2;
-        g2.setFont(undertaleFontSans);
-        g2.setColor(Color.white);
-
-        // Redireciona o desenho com base no estado atual do jogo
-        if (gp.gameState == gp.titleState) {
-            drawTitleScreen();
-        }
-        
-        if (gp.gameState == gp.playState) {
-        }
-        if (gp.gameState == gp.pauseState) {
-            drawPauseScreen();
-        }
-        if (gp.gameState == gp.dialogueState) {
-            drawDialogueScreen();
-        }
-        if(gp.gameState == gp.characterState) {
-        	drawCharacterScreen();
-        	drawInventory();
-        }
-        
-        if (gp.gameState == gp.playState) {
-            if (gp.player.nearInteractable) {
-                drawInteractionPrompt(); // ✅ Adiciona o prompt quando estiver perto
-            }
-        }
-        if(gp.gameState == gp.optionsState) {
-        	drawOptionsScreen();
-        }
-        if(gp.gameState == gp.gameOverState) {
-        	drawGameOverScreen();
-        }
-
     }
 
     // Desenha a tela de título (menu inicial)
@@ -691,54 +705,57 @@ public class UI {
         return frames;
     }
 
-
     public void drawInteractionPrompt() {
-        String text = "Aperte 'Enter' para interagir";
+        String text = "Aperte '" + interactKey.toUpperCase() + "' para interagir";
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22F));
         int textWidth = g2.getFontMetrics().stringWidth(text);
         int padding = 20;
-        int spriteSize = 40; // Aumentado para melhor visibilidade
+        int spriteSize = 40;
 
-        // Caixa da interface (com botão + texto)
         int boxWidth = textWidth + spriteSize + padding * 2;
         int boxHeight = 60;
 
-        // Posição no canto inferior direito
         int boxX = gp.screenWidth - boxWidth - gp.tileSize / 2;
         int boxY = gp.screenHeight - boxHeight - gp.tileSize / 4;
 
-        // ==== FUNDO ESCURO ====
+        // Fundo
         g2.setColor(new Color(0, 0, 0, 200));
         g2.fillRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
 
-        // ==== BORDA BRANCA ====
+        // Borda
         g2.setColor(Color.white);
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
 
-        // ==== SPRITE DO BOTÃO ====
-        if (fButtonFrames != null) {
-            BufferedImage currentFrame = fButtonFrames[fFrameIndex];
+        // Sprite da tecla atual
+        BufferedImage[] keyFrames = getKeyFrames(interactKey.toLowerCase());
+        if (keyFrames != null) {
+            BufferedImage currentFrame = keyFrames[frameIndex];
 
             int spriteX = boxX + padding;
-            int spriteY = boxY + (boxHeight - spriteSize) / 2; // Centraliza verticalmente
+            int spriteY = boxY + (boxHeight - spriteSize) / 2;
 
             g2.drawImage(currentFrame, spriteX, spriteY, spriteSize, spriteSize, null);
 
             // Animação
-            fFrameCounter++;
-            if (fFrameCounter > fFrameSpeed) {
-                fFrameIndex = (fFrameIndex + 1) % fButtonFrames.length;
-                fFrameCounter = 0;
+            frameCounter++;
+            if (frameCounter > frameSpeed) {
+                frameIndex = (frameIndex + 1) % keyFrames.length;
+                frameCounter = 0;
             }
         }
 
-        // ==== TEXTO ====
-        int textX = boxX + padding + spriteSize + 10;
-        int textY = boxY + (boxHeight + g2.getFontMetrics().getAscent()) / 2 - 4; // Centraliza com base na altura da fonte
-
+        // Texto
         g2.setColor(Color.white);
+        int textX = boxX + padding + spriteSize + 10;
+        int textY = boxY + boxHeight / 2 + 8;
         g2.drawString(text, textX, textY);
+    }
+
+
+    
+    public BufferedImage[] getKeyFrames(String key) {
+        return buttonSprites.getOrDefault(key, null);
     }
 
 

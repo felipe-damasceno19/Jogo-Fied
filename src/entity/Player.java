@@ -148,9 +148,13 @@ public class Player extends Entity {
 			nearInteractable = false;
 			if (gp.cChecker.checkEntity(this, gp.npc) != 999) {
 			    nearInteractable = true;
+			    gp.ui.interactKey = "enter"; // muda para tecla ENTER
+
 			}
 			if (gp.cChecker.checkObjetct(this, false) != 999) {
 			    nearInteractable = true;
+			    gp.ui.interactKey = "enter"; // muda para tecla ENTER
+
 			}
 
 

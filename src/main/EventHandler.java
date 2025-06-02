@@ -129,6 +129,8 @@ public class EventHandler {
 				if(gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
 					hit = true;
 					gp.player.nearInteractable = true;
+					gp.ui.interactKey = "f"; // muda para tecla F
+
 					// Armazena a posição onde o evento foi ativado
 					previousEventX = gp.player.worldX;
 					previousEventY = gp.player.worldY;
