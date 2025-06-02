@@ -66,7 +66,7 @@ public class EventHandler {
 	                teleport(1, 57, 51); // Teleporta para o mapa 1
 	            }
 	            if (hit(0, 35, 25, "any") && fPressedNow) {
-	                teleport(2, 76, 31); // Teleporta para o mapa 2
+	                teleport(2, 76, 32); // Teleporta para o mapa 2
 	            }
 	            if (hit(0, 37, 28, "any") && fPressedNow) {
 	                teleport(3, 22, 83); // Teleporta para o mapa 3
@@ -92,8 +92,8 @@ public class EventHandler {
 			    if(hit(3, 28, 83, "any") && fPressedNow){teleport(6,76,32);} 
 
 			    // ENTRA E SAI SALA 2 - BLOCO 1
-			    if(hit(3, 33, 83, "any") && fPressedNow){teleport(5,37,20);} 
-			    //if(hit(3, 37, 20, "down") == true){teleport(3,33,83);}
+			    if(hit(3, 33, 83, "any") && fPressedNow){teleport(3,37,19);} 
+			    if(hit(3, 37, 20, "any") && fPressedNow){teleport(3,33,83);}
 			    
 			    
 			   
@@ -101,9 +101,6 @@ public class EventHandler {
 			else if(gp.currentMap == 4) { // MAPA 04                
 			    // ENTRA E SAI SALA 1 - BLOCO 1
 			    if(hit(4, 25, 41, "any") && fPressedNow){teleport(3,24,83);}
-			}else if(gp.currentMap == 5) { // MAPA 05               
-			    // ENTRA E SAI SALA 1 - BLOCO 1
-				if(hit(5, 37, 20, "any") && fPressedNow){teleport(3,33,83);}
 			}else if(gp.currentMap == 6) { // MAPA 05               
 			    // ENTRA E SAI SALA 1 - BLOCO 1
 				if(hit(6, 76, 33, "any") && fPressedNow){teleport(3,28,83);}
