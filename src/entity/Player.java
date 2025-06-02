@@ -35,7 +35,7 @@ public class Player extends Entity {
 	public final int maxInventorySize = 20;
 	
 	public boolean nearInteractable = false;
-
+	int indexGaveteiro1 = 0;
 	
 	// Construtor do jogador
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -62,6 +62,12 @@ public class Player extends Entity {
 		loadPlayerSprites(); // carrega os sprites do jogador
 		setItems();
 	}
+	public void obterItem(Entity item) {
+	    if (inventory.size() < maxInventorySize) {
+	        inventory.add(item);
+	        System.out.println("Item cliclado");
+	    }
+	}
 	
 	// Define valores iniciais do jogador
 	public void setDefaultValues() {
@@ -87,15 +93,9 @@ public class Player extends Entity {
 	public void setItems() {
 		
 		//inventory.clear(); //LIMPA O INVENTARIO DO PLAYER CASO MORRA, E DEIXA APENAS O PADROES
-		inventory.add(new obj_Key(gp));
-		inventory.add(new obj_Letter(gp));
-		inventory.add(new obj_Letter2(gp));
-		inventory.add(new obj_Key(gp));
-		inventory.add(new obj_Key(gp));
-		inventory.add(new obj_Key(gp));
-		inventory.add(new obj_Key(gp));
-		inventory.add(new obj_Key(gp));
+
 	}
+	
 	// Carrega os sprites do jogador a partir da imagem sprite sheet
 	public void loadPlayerSprites() {
 		try {
@@ -125,10 +125,13 @@ public class Player extends Entity {
 		gp.keyH.enterPressed = false; // Garante que o enter só seja considerado uma vez
 		gp.eHandler.checkEvent();
 		gp.cChecker.checkTile(this);
+		// Checa colisão com objetos e coleta se possível
+		int objIndex = gp.cChecker.checkObjetct(this, true);
+		pickUpObject(objIndex);	
 		// Verifica se alguma tecla de direção foi pressionada
 		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			moving = true;
-
+			
 			// Define a direção com base na tecla pressionada
 			if (keyH.upPressed) direction = "up";
 			if (keyH.downPressed) direction = "down";
@@ -140,9 +143,7 @@ public class Player extends Entity {
 			// Checa colisão com tiles
 			gp.cChecker.checkTile(this);
 
-			// Checa colisão com objetos e coleta se possível
-			int objIndex = gp.cChecker.checkObjetct(this, true);
-			pickUpObject(objIndex);
+			
 
 			// Antes ou depois de checar NPCs/objetos
 			nearInteractable = false;
@@ -189,10 +190,22 @@ public class Player extends Entity {
 			//lógica futura para coleta de item
 			
 			String objectName = gp.obj[gp.currentMap][i].name;
+			gp.player.nearInteractable = true;
+            gp.ui.interactKey = "f"; // muda para tecla F
 			
 			switch(objectName) {
 			case "Door":
 				break;
+			case "Gaveteiro":
+				if(gp.keyH.fPressed) {
+					  if(gp.currentMap == 1 && indexGaveteiro1 == 0) {
+						  gp.player.obterItem(new obj_Key(gp));      
+						  gp.player.obterItem(new obj_Letter(gp));
+						  indexGaveteiro1 = 1;
+						  gp.obj[gp.currentMap][i].ObjImage = setup("/objects/Gaveteiro_aberto");;
+				}
+				break;
+			}
 			}
 		}
 	}
@@ -219,6 +232,7 @@ public class Player extends Entity {
 			case "right": dirIndex = 0; break;
 			case "up": dirIndex = 3; break;
 		}
+		
 
 		// Define se está se movendo ou parado
 		boolean isMoving = keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed;

@@ -3,6 +3,9 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import entity.Entity;
+import object.obj_Gaveteiro;
+import object.obj_Key;
+import object.obj_Letter;
 
 public class EventHandler {
 
@@ -58,9 +61,10 @@ public class EventHandler {
 	        // Verifica se a tecla F foi pressionada
 	        boolean fPressedNow = gp.keyH.fPressed; // Obtém o estado atual de F
 	        // MAPA 0
+	        
 	        if (gp.currentMap == 0) {
 	            // Checa se o player colidiu com algum evento e executa se sim
-
+	        	
 	            // Portas no mapa 0
 	            if (hit(0, 33, 25, "any") && fPressedNow) {
 	                teleport(1, 57, 51); // Teleporta para o mapa 1
@@ -71,12 +75,14 @@ public class EventHandler {
 	            if (hit(0, 37, 28, "any") && fPressedNow) {
 	                teleport(3, 22, 83); // Teleporta para o mapa 3
 	            }
+	            
 	        } else if(gp.currentMap == 1) { // MAPA 01
-			    if(hit(1, 57, 52, "any") && fPressedNow){teleport(0,33,25);} 
-			}
+			    
+	        	if(hit(1, 57, 52, "any") && fPressedNow){teleport(0,33,25);} 
+			    }
 
 			else if(gp.currentMap == 2) { // MAPA 02
-			    if(hit(2, 76, 32, "any") && fPressedNow){teleport(0,35,24);} 
+			    if(hit(2, 76, 33, "any") && fPressedNow){teleport(0,35,24);} 
 			}
 			else if(gp.currentMap == 3) { // MAPA 03
 
@@ -104,10 +110,8 @@ public class EventHandler {
 			}else if(gp.currentMap == 6) { // MAPA 05               
 			    // ENTRA E SAI SALA 1 - BLOCO 1
 				if(hit(6, 76, 33, "any") && fPressedNow){teleport(3,28,83);}
-			}
-
-			
-			
+				
+			} 			
 		}
 	}
 	
@@ -148,25 +152,6 @@ public class EventHandler {
 		return hit; // Retorna se houve colisão válida com o evento
 	}
 	
-	public void damagePit(int gameState) {
-		
-		gp.gameState = gameState; // Altera o estado do jogo para mostrar diálogo
-		gp.ui.currentDialogue = "Você caiu em um buraco"; // Mensagem para o jogador
-		gp.player.life -= 1; // Aplica dano ao jogador
-		//eventRect[col][row].eventDone = true; // (Comentado) Marcar evento como concluído, se quiser que só ocorra uma vez
-		canTouchEvent = false; // Impede ativação imediata de outro evento
-	}
-	
-	public void healingPool(int gameState) {
-		
-		if(gp.keyH.enterPressed == true) { // Só ativa o evento se o jogador pressionar ENTER
-			
-			gp.gameState = gameState; // Muda para estado de diálogo
-			gp.ui.currentDialogue = "Você bebeu a água, vida recuperada!"; // Mensagem para o jogador
-			gp.player.life = gp.player.maxLife; // Restaura a vida do jogador
-		}
-	}
-	
 	public void teleport(int map, int col, int row) {
 		gp.currentMap = map;
 		gp.player.worldX = gp.tileSize * col;
@@ -184,4 +169,5 @@ public class EventHandler {
 	    // Força a atualização da colisão do jogador após o teleporte
 	    gp.cChecker.checkTile(gp.player); // Aqui, estamos forçando uma nova checagem de colisão após o teleporte
 	}
+
 }
