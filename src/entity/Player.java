@@ -65,7 +65,7 @@ public class Player extends Entity {
 	public void obterItem(Entity item) {
 	    if (inventory.size() < maxInventorySize) {
 	        inventory.add(item);
-	        System.out.println("Item cliclado");
+	        gp.ui.showMessage("Pressione 'C' para abrir o inventário");
 	    }
 	}
 	
@@ -203,9 +203,9 @@ public class Player extends Entity {
 						  gp.player.obterItem(new obj_Letter(gp));
 						  indexGaveteiro1 = 1;
 						  gp.obj[gp.currentMap][i].ObjImage = setup("/objects/Gaveteiro_aberto");;
-				}
+					  }
 				break;
-			}
+				}
 			}
 		}
 	}

@@ -151,6 +151,16 @@ public class UI {
         if(gp.gameState == gp.gameOverState) {
         	drawGameOverScreen();
         }
+        if (messageOn) {
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 25F));
+            g2.setColor(Color.white);
+            g2.drawString(message, 30, 60); // posição da mensagem na tela (x=30, y=60)
+
+            messageCounter++;
+            if (messageCounter > 240) { // dura 2 segundos (se o jogo roda a 60 FPS)
+                messageOn = false;
+            }
+        }
 
     }
     
@@ -160,6 +170,7 @@ public class UI {
     public void showMessage(String text) {
         message = text;
         messageOn = true;
+        messageCounter = 0;
     }
     
     // Prepara o texto de diálogo para ser exibido com digitação progressiva
