@@ -114,6 +114,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void retry() {
     	
     	player.setDefaultPositions();
+    	
     	//PODE SE ADICIONAR ITENS E OBJETOS, CASO DESEJE QUE ELES VOLTEM AS POSIÇÕES INICIAIS AO TENTAR NOVAMENTE
     }
     
