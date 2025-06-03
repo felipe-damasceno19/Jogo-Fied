@@ -47,28 +47,40 @@ public class AssetSetter {
 		i++;
 		
 		mapNum = 3;	
+		
+		// Porta Corredor - Bloco 1
 		gp.obj[mapNum][i] = new obj_Door(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize*22;
-		gp.obj[mapNum][i].worldY = gp.tileSize*84;
+		gp.obj[mapNum][i].worldY = gp.tileSize*85;
 		i++;
 		
-		gp.obj[mapNum][i] = new obj_Door(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*37;
-		gp.obj[mapNum][i].worldY = gp.tileSize*20;
-		i++;
-		
-		mapNum = 4;	
-		
+		// Porta Sala 2 Bloco 1
 		gp.obj[mapNum][i] = new obj_Door(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize*25;
-		gp.obj[mapNum][i].worldY = gp.tileSize*41;
+		gp.obj[mapNum][i].worldY = gp.tileSize*42;
 		i++;
 		
-		mapNum = 6;	
-		
+		// Porta Sala 2 Bloco 1
 		gp.obj[mapNum][i] = new obj_Door(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*76;
-		gp.obj[mapNum][i].worldY = gp.tileSize*33;
+		gp.obj[mapNum][i].worldX = gp.tileSize*69;
+		gp.obj[mapNum][i].worldY = gp.tileSize*34;
+		i++;
+		
+		// Porta Sala 3 - Bloco 1
+		gp.obj[mapNum][i] = new obj_Door(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize*35;
+		gp.obj[mapNum][i].worldY = gp.tileSize*21;
+		i++;
+		
+		// Porta Consultorio - Mapa 0
+		gp.obj[mapNum][i] = new obj_Door(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize*73;
+		gp.obj[mapNum][i].worldY = gp.tileSize*78;
+		i++;
+		
+		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize*74;
+		gp.obj[mapNum][i].worldY = gp.tileSize*74;
 		i++;
 		
 		

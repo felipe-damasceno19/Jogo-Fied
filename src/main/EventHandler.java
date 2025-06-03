@@ -65,16 +65,20 @@ public class EventHandler {
 	        if (gp.currentMap == 0) {
 	            // Checa se o player colidiu com algum evento e executa se sim
 	        	
-	            // Portas no mapa 0
-	            if (hit(0, 33, 25, "any") && fPressedNow) {
-	                teleport(1, 57, 51); // Teleporta para o mapa 1
-	            }
-	            if (hit(0, 35, 25, "any") && fPressedNow) {
-	                teleport(2, 69, 33); // Teleporta para o mapa 2
-	            }
-	            if (hit(0, 37, 28, "any") && fPressedNow) {
-	                teleport(3, 22, 83); // Teleporta para o mapa 3
-	            }
+	        	
+	        	// PORTAS MAPA 0
+	        	
+	        	// Teleporta para o mapa 1 - SALA 1
+	            if (hit(0, 33, 25, "any") && fPressedNow) {teleport(1, 57, 51);}
+	           
+	            // Teleporta para o mapa 2 - SALA 2
+	            if (hit(0, 35, 25, "any") && fPressedNow) {teleport(2, 69, 33);}
+	            
+	            // Teleporta para o mapa 3 - CORREDOR
+	            if (hit(0, 37, 28, "any") && fPressedNow) {teleport(3, 22, 84);}
+	            
+	            // Teleporta para Consultorio
+	            if (hit(0, 26, 23, "any") && fPressedNow) {teleport(3, 73, 77);}
 	            
 	        } else if(gp.currentMap == 1) { // MAPA 01
 			    
@@ -87,31 +91,25 @@ public class EventHandler {
 			else if(gp.currentMap == 3) { // MAPA 03
 
 			    // VOLTA MAPA PRINCIPAL
-			    if(hit(3, 22, 84, "any") && fPressedNow){
-			    	teleport(0,37,27);
-			    	}
+			    if(hit(3, 22, 85, "any") && fPressedNow){teleport(0,37,27);}
 
 			    // ENTRA E SAI SALA 1 - BLOCO 1
-			    if(hit(3, 24, 83, "any") && fPressedNow){teleport(4,25,40);} 
-
-			    // ENTRA E SAI SALA 2 - BLOCO 1
-			    if(hit(3, 28, 83, "any") && fPressedNow){teleport(6,76,32);} 
+			    if(hit(3, 24, 83, "any") && fPressedNow){teleport(3,25,41);} 
+			    if(hit(3, 25, 42, "any") && fPressedNow){teleport(3,24,83);}
 
 			    // ENTRA E SAI SALA 2 - BLOCO 1
-			    if(hit(3, 33, 83, "any") && fPressedNow){teleport(3,37,19);} 
-			    if(hit(3, 37, 20, "any") && fPressedNow){teleport(3,33,83);}
+			    if(hit(3, 28, 83, "any") && fPressedNow){teleport(3,69,33);}
+			    if(hit(3, 69, 34, "any") && fPressedNow){teleport(3,28,83);}
+
+			    // ENTRA E SAI SALA 3 - BLOCO 1
+			    if(hit(3, 33, 83, "any") && fPressedNow){teleport(3,35,20);} 
+			    if(hit(3, 35, 21, "any") && fPressedNow){teleport(3,33,83);}
 			    
 			    
-			   
-			}
-			else if(gp.currentMap == 4) { // MAPA 04                
-			    // ENTRA E SAI SALA 1 - BLOCO 1
-			    if(hit(4, 25, 41, "any") && fPressedNow){teleport(3,24,83);}
-			}else if(gp.currentMap == 6) { // MAPA 05               
-			    // ENTRA E SAI SALA 1 - BLOCO 1
-				if(hit(6, 76, 33, "any") && fPressedNow){teleport(3,28,83);}
-				
-			} 			
+			    // Sai do Consultorio
+	            if (hit(3, 73, 78, "any") && fPressedNow) {teleport(0, 26, 23);}
+			    			   
+			}			
 		}
 	}
 	
@@ -153,11 +151,16 @@ public class EventHandler {
 	}
 	
 	public void teleport(int map, int col, int row) {
-		gp.currentMap = map;
+		
+		if(map != gp.currentMap) gp.currentMap = map;	
+		
+		
 		gp.player.worldX = gp.tileSize * col;
 		gp.player.worldY = gp.tileSize * row;
 		previousEventX = gp.player.worldX;
 		previousEventY = gp.player.worldY;
+		
+		
 		canTouchEvent = false;
 		gp.player.nearInteractable = false;
 		//gp.playSE(01);
