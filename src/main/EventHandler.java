@@ -70,7 +70,7 @@ public class EventHandler {
 	                teleport(1, 57, 51); // Teleporta para o mapa 1
 	            }
 	            if (hit(0, 35, 25, "any") && fPressedNow) {
-	                teleport(2, 76, 32); // Teleporta para o mapa 2
+	                teleport(2, 69, 33); // Teleporta para o mapa 2
 	            }
 	            if (hit(0, 37, 28, "any") && fPressedNow) {
 	                teleport(3, 22, 83); // Teleporta para o mapa 3
@@ -82,7 +82,7 @@ public class EventHandler {
 			    }
 
 			else if(gp.currentMap == 2) { // MAPA 02
-			    if(hit(2, 76, 33, "any") && fPressedNow){teleport(0,35,24);} 
+			    if(hit(2, 69, 34, "any") && fPressedNow){teleport(0,35,24);} 
 			}
 			else if(gp.currentMap == 3) { // MAPA 03
 
