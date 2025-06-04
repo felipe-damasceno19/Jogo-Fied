@@ -25,24 +25,9 @@ public class Lighting {
 		darknessFilter = new BufferedImage(gp.screenWidth, gp.screenHeight, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = (Graphics2D)darknessFilter.getGraphics();
 		
-		//CRIANDO UM RETANGULO DO TAMANHO DA TELA
-		Area screenArea = new Area(new Rectangle2D.Double(0, 0, gp.screenWidth, gp.screenHeight));
-		
 		//PEGANDO O X E O Y DO CIRCULO QUE IRÁ FICAR ILUMINADO
 		int centerX = gp.player.screenX + (gp.tileSize)/2;
 		int centerY = gp.player.screenY + (gp.tileSize)/2;
-		
-		double x = centerX - (circleSize/2);
-		double y = centerY - (circleSize/2);
-		
-		//CRIANDO O FORMATO DE UM CIRCULO DE LUZ
-		Shape circleShape = new Ellipse2D.Double(x, y, circleSize, circleSize);
-		
-		//CRIANDO UMA AREA DO CIRCULO DE LUZ
-		Area lightArea = new Area(circleShape);
-		
-		//SUBTRAINDO O CIRCULO DE LUZ DO RETANGULO DE FOG
-		screenArea.subtract(lightArea);
 		
 		//EFEITO DEGRADE 
 		Color color[] = new Color[12];
@@ -79,21 +64,14 @@ public class Lighting {
 		
 		g2.setPaint(gPaint);
 		
-		//DESENHA O CIRCULO DE LUZ
-		g2.fill(lightArea);
-		
-		//COR DO RETANGULO DA FOG
-		//g2.setColor(new Color(0, 0, 0, 0.95f));
-
-		//DESENHANDO O RETANGULO SEM O CIRCULO DE LUZ
-		g2.fill(screenArea);
+		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 		
 		g2.dispose();	
 	}
 	
 	public void draw(Graphics2D g2) {
 		
-		//g2.drawImage(darknessFilter, 0, 0, null);
+		g2.drawImage(darknessFilter, 0, 0, null);
 	}
 }
 
