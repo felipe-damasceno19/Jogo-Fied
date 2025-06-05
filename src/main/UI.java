@@ -30,6 +30,11 @@ public class UI {
 
     // Sinalizador para o término do jogo
     public boolean gameFinished = false;
+    public boolean lockPickActive = false;
+    public object.obj_Door lockPickTarget = null;
+    public int lockPickProgress = 0;
+    public int lockPickAngle = 0;  // Ângulo atual do ponteiro (0-359)
+    public int lockPickSweetSpot = 0;  // Ângulo correto para destrancar
 
     // Texto de diálogo atual
     public String currentDialogue = "";
@@ -160,6 +165,9 @@ public class UI {
             if (messageCounter > 240) { // dura 2 segundos (se o jogo roda a 60 FPS)
                 messageOn = false;
             }
+        }
+        if (lockPickActive) {
+            drawLockpickPuzzle();
         }
 
     }
@@ -324,6 +332,40 @@ public class UI {
             g2.drawString(line, textX, textY);
             textY += 40;
         }
+    }
+    public void drawLockpickPuzzle() {
+        g2.setFont(undertaleFontSans.deriveFont(Font.PLAIN, 24F));
+        g2.setColor(Color.white);
+        g2.drawString("LOCKPICKING...", gp.screenWidth/2 - 100, gp.screenHeight/2 - 100);
+
+        int centerX = gp.screenWidth / 2;
+        int centerY = gp.screenHeight / 2;
+        int radius = 80;
+
+        // Desenhar círculo
+        g2.setColor(Color.gray);
+        g2.drawOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
+
+        // Desenhar sweet spot (invisível ou, se quiser, visível)
+         g2.setColor(Color.green);
+         double sweetRadians = Math.toRadians(gp.ui.lockPickSweetSpot);
+        int sweetX = centerX + (int)(radius * Math.cos(sweetRadians));
+         int sweetY = centerY + (int)(radius * Math.sin(sweetRadians));
+         g2.drawLine(centerX, centerY, sweetX, sweetY);
+
+        lockPickAngle = (lockPickAngle + 2) % 360;  // gira automaticamente
+
+        
+        // Desenhar ponteiro giratório
+        g2.setColor(Color.red);
+        double angleRadians = Math.toRadians(lockPickAngle);
+        int pointerX = centerX + (int)(radius * Math.cos(angleRadians));
+        int pointerY = centerY + (int)(radius * Math.sin(angleRadians));
+        g2.drawLine(centerX, centerY, pointerX, pointerY);
+
+        // Instruções
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16F));
+        g2.drawString("Pressione ENTER quando achar o ângulo correto.", centerX - 130, centerY + radius + 30);
     }
     public void drawCharacterScreen() {
     	//FRAME

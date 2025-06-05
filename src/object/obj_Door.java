@@ -8,6 +8,8 @@ import main.GamePanel;
 
 public class obj_Door extends Entity {
 
+	public boolean locked = true;
+	
 	public obj_Door(GamePanel gp) {
 		
 		super(gp);

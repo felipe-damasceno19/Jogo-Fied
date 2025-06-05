@@ -60,6 +60,9 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.gameOverState) {
         	gameOverState(code);
         }
+        else if(gp.gameState == gp.lockPickState) {
+        	lockpickState(code);
+        }
         
      }
      public void titleState (int code) {
@@ -178,6 +181,29 @@ public class KeyHandler implements KeyListener {
     		}  		
     	}
      }
+     public void lockpickState(int code) {
+    	    if (code == KeyEvent.VK_ENTER) {
+    	        // Checa se ângulo está dentro da margem
+    	        int margin = 10;  // margem de acerto de 10 graus
+    	        int diff = Math.abs(gp.ui.lockPickAngle - gp.ui.lockPickSweetSpot);
+
+    	        // Correção para ângulos circulares
+    	        if (diff > 180) {
+    	            diff = 360 - diff;
+    	        }
+
+    	        if (diff <= margin) {
+    	            gp.ui.lockPickTarget.locked = false;
+    	            gp.ui.showMessage("Porta destrancada!");
+    	            gp.ui.lockPickActive = false;
+    	            gp.gameState = gp.playState;
+    	        } else {
+    	            gp.ui.showMessage("Falhou! Tente novamente.");
+    	            // Reinicia para outro sweet spot ou mesma posição
+    	            gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);
+    	        }
+    	    }
+    	}
 
      public void optionsState(int code) {
     	 if(code == KeyEvent.VK_ESCAPE) {
