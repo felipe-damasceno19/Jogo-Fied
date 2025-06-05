@@ -762,13 +762,10 @@ public class UI {
         int textY = boxY + boxHeight / 2 + 8;
         g2.drawString(text, textX, textY);
     }
-
-
-    
+   
     public BufferedImage[] getKeyFrames(String key) {
         return buttonSprites.getOrDefault(key, null);
     }
-
 
     
     // Desenha uma caixa arredondada com borda branca

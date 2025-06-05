@@ -215,7 +215,6 @@ public class Player extends Entity {
 	public void interactNPC(int i) {
 		if(i != 999) {
 			if(gp.keyH.enterPressed == true) {
-				gp.gameState = gp.dialogueState; // Muda o estado do jogo para diálogo
 				gp.npc[gp.currentMap][i].speak(); // Faz o NPC falar
 			}
 		}

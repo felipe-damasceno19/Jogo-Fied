@@ -64,10 +64,14 @@ public class Entity {
 		}
 		
 		gp.ui.startDialogue(dialogues[dialogueIndex]);
-		
+		gp.gameState = gp.dialogueState; // Muda o estado do jogo para diálogo
 	    gp.ui.setNpcFaceImage(faceImage);
 		dialogueIndex++;
 		
+		
+	}
+	
+	public void faceImage() {
 		switch(gp.player.direction) {
 		case "up":
 			direction = "down";
