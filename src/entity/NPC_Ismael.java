@@ -9,10 +9,10 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 
 // Define a classe NPC_OldMan que herda da classe Entity
-public class NPC_OldMan extends Entity {
+public class NPC_Ismael extends Entity {
 
 	// Construtor do NPC
-	public NPC_OldMan(GamePanel gp) {
+	public NPC_Ismael(GamePanel gp) {
 		super(gp); // Chama o construtor da superclasse (Entity) passando o GamePanel
 
 		direction = "down"; // Define a direção inicial do NPC como "baixo"
