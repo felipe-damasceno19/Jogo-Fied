@@ -196,7 +196,21 @@ public class Player extends Entity {
 			
 			switch(objectName) {
 			case "Door":
-				break;
+			    if(gp.keyH.fPressed) {
+			        object.obj_Door door = (object.obj_Door) gp.obj[gp.currentMap][i];
+			        if (door.locked) {
+			            gp.gameState = gp.lockPickState;
+			            gp.ui.lockPickActive = true;
+			            gp.ui.lockPickTarget = door;
+			            gp.ui.lockPickProgress = 0;
+			            gp.ui.lockPickAngle = 0;  // inicia em 0 graus
+			            gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);  // gera aleatório entre 0-359
+			        } else {
+			            gp.ui.showMessage("Porta já destrancada!");
+			        }
+			    }
+			    break;
+
 			case "Gaveteiro":
 				if(gp.keyH.fPressed) {
 					  if(gp.currentMap == 1 && indexGaveteiro1 == 0) {
@@ -206,6 +220,7 @@ public class Player extends Entity {
 						  gp.obj[gp.currentMap][i].ObjImage = setup("/objects/Gaveteiro_aberto");;
 					  }
 				break;
+			
 				}
 			}
 		}
