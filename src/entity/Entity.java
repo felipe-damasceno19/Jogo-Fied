@@ -1,5 +1,7 @@
 package entity;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -33,7 +35,7 @@ public class Entity {
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 
-	public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+	public Rectangle solidArea = new Rectangle(0, 0, 48, 60);
 	public int solidAreaDefaultX, solidAreaDefaultY;
 	public boolean collisionOn = false;
 	public int actionLockCounter = 0;
@@ -97,7 +99,6 @@ public class Entity {
 	    	collisionOn = false;
 	    	return;
 	    }
-	    
 	    collisionOn = false;
 	    gp.cChecker.checkTile(this);
 	    gp.cChecker.checkObjetct(this, false);
@@ -113,6 +114,7 @@ public class Entity {
 	            case "right": worldX += speed; moving = true; break;
 	        }
 	    }
+	    
 
 	    spriteCounter++;
 	    if (spriteCounter > 12) {
@@ -154,6 +156,18 @@ public class Entity {
             } else if (image != null) {
                 // Imagem genérica
                 imageToDraw = image;
+            }
+            
+            // Aqui desenhamos a área de colisão (solidArea)
+            if (gp.keyH.showDebugText == true) {  // Condição para desenhar apenas em modo de depuração
+                g2.setColor(Color.RED);  // Cor do retângulo (pode ser alterada)
+                g2.setStroke(new BasicStroke(2));  // Define a espessura da linha
+                g2.drawRect(
+                    screenX + solidArea.x,  // Posição X da colisão no NPC
+                    screenY + solidArea.y,  // Posição Y da colisão no NPC
+                    solidArea.width,         // Largura da colisão
+                    solidArea.height         // Altura da colisão
+                );
             }
 
             if (imageToDraw != null) {
