@@ -28,7 +28,7 @@ public class Entity {
 	public BufferedImage faceImage;
 	public BufferedImage ObjImage;
 	
-	public String direction = "down";
+	public String direction = "rigth";
 	
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
@@ -93,6 +93,11 @@ public class Entity {
 	public void update() {
 	    setAction();
 
+	    if(gp.gameStage.currentStage == 0) {
+	    	collisionOn = false;
+	    	return;
+	    }
+	    
 	    collisionOn = false;
 	    gp.cChecker.checkTile(this);
 	    gp.cChecker.checkObjetct(this, false);
@@ -132,7 +137,7 @@ public class Entity {
 
             if (npcWalkSprites[0][0] != null) {
                 // É um NPC animado
-                int dirIndex = 2; // down por padrão
+                int dirIndex = 0; // down por padrão
                 if ("right".equals(direction)) dirIndex = 0;
                 else if ("left".equals(direction)) dirIndex = 1;
                 else if ("down".equals(direction)) dirIndex = 2;

@@ -15,7 +15,7 @@ public class NPC_Nelipe extends Entity {
 	public NPC_Nelipe(GamePanel gp) {
 		super(gp); // Chama o construtor da superclasse (Entity) passando o GamePanel
 
-		direction = "down"; // Define a direção inicial do NPC como "baixo"
+		direction = "rigth"; // Define a direção inicial do NPC como "baixo"
 		speed = 1; // Define a velocidade do NPC
 
 		getImage(); // Carrega as imagens do NPC
@@ -48,15 +48,29 @@ public class NPC_Nelipe extends Entity {
 
 	public void setDialogue() {
 		
-		dialogues[0] = "Silas, você sabia que o Rio é a cidade com a maior quantidade de praias no mundo? Eu, como boa carioca, posso te garantir que sou especialista em escolher a melhor praia dependendo do clima!";
-		
+		dialogues[0] = "Estou com muito medo... Um dos meus colegas pode ser o assassino.";
+		dialogues[1] = "Caso precise de ajuda, tente conversar com os outros professores.";
+		dialogues[2] = "Espero que você já tenha começado a procurar as anotações. Isso é muito importante! Assim que encontrar alguma, venha falar comigo de novo.";
+		dialogues[3] = "Acho que vou aprovar todos os alunos... O clima está péssimo para pensar em NAF.";
+		dialogues[4] = "Você já foi na festa do arroz, a do Manhoso? É um evento bem diferenciado...";
+		dialogues[5] = "Aproveitando que você está aqui: o pessoal do TI disse que vão finalmente fazer um upgrade no roteador! Vão instalar um com duas antenas. Até que enfim!";
+		dialogues[6] = "Estava vendo um vídeo no YouTube e descobri que vale muito a pena montar um ecossistema da Positivo. Vou trocar todos os meus aparelhos!";
+		dialogues[7] = "Falei da festa do arroz porque ela me traz lembranças da minha adolescência... Que tempo bom! Me ajuda a esquecer, mesmo que por um momento, tudo o que aconteceu.";
+
 		
 	}
 	
 	// Define o comportamento do NPC (movimento aleatório)
 	@Override
 	public void setAction() {
-	    actionDuration++;
+	    // Impede o movimento aleatório enquanto o gameStage.currentStage for 0
+	    if (gp.gameStage.currentStage == 0) {
+	        moving = false; // NPC parado
+	        actionDuration = 0; // Reseta o contador de ações para garantir que não haja mudança de direção
+	        return; // Retorna sem fazer mais nada
+	    }
+
+	    actionDuration++;  // Incrementa o contador de ações
 
 	    if (moving) {
 	        if (actionDuration >= 60) { // Move por 1 segundo (ajuste se quiser)

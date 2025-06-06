@@ -79,6 +79,7 @@ public class UI {
     int frameCounter = 0;
     int frameSpeed = 15; 
 
+    public boolean showGenericBox = false;
 
     
 
@@ -137,6 +138,9 @@ public class UI {
         if (gp.gameState == gp.pauseState) {
             drawPauseScreen();
         }
+        if (showGenericBox) {
+            drawEmptyDialogueBox();
+        }
         if (gp.gameState == gp.dialogueState) {
             drawDialogueScreen();
         }
@@ -170,9 +174,9 @@ public class UI {
             drawLockpickPuzzle();
         }
 
+
+
     }
-    
-    
 
     // Mostra uma mensagem simples (ex: "Item coletado!")
     public void showMessage(String text) {
@@ -180,6 +184,12 @@ public class UI {
         messageOn = true;
         messageCounter = 0;
     }
+    
+    
+    
+    // ===============================
+    // Metódos de Dialogo
+    // ===============================
     
     // Prepara o texto de diálogo para ser exibido com digitação progressiva
     public void startDialogue(String text) {
@@ -209,57 +219,7 @@ public class UI {
         this.npcFaceImage = faceImage;
     }
 
-    // Desenha a tela de título (menu inicial)
-    public void drawTitleScreen() {
-        if (titleScreenImage != null) {
-            g2.drawImage(titleScreenImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
-        } else {
-            g2.setColor(Color.black);
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-        }
-
-        String text = "";
-        int x = getXforCenteredText(text);
-        int y = gp.tileSize * 6;
-
-        // Sombra e título
-        g2.setColor(Color.gray);
-        g2.drawString(text, x + 5, y + 5);
-        g2.setColor(Color.white);
-        g2.drawString(text, x, y);
-
-        // Menu principal com opções
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
-
-        text = "NOVO JOGO";
-        x = getXforCenteredText(text);
-        y += gp.tileSize * 3.5;
-        g2.drawString(text, x, y);
-        if (commandNum == 0 && selectorImage != null) {
-        	
-        	int iconX = x - gp.tileSize + 27;
-        	int iconY = y - gp.tileSize + 37;
-        	g2.drawImage(selectorImage, iconX, iconY, 24, 24, null);
-        }
-
-        text = "SAIR";
-        x = getXforCenteredText(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
-        if (commandNum == 1 && selectorImage != null) {
-        	
-        	int iconX = x - gp.tileSize + 27;
-        	int iconY = y - gp.tileSize + 37;
-        	g2.drawImage(selectorImage, iconX, iconY, 24, 24, null);
-        }
-    }
-    public void drawPauseScreen() {
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
-        String text = "PAUSA";
-        int x = getXforCenteredText(text);
-        int y = gp.screenHeight / 2;
-        g2.drawString(text, x, y);
-    }
+ // Desenha dialogos na tela
     public void drawDialogueScreen() {
         // Ajustando a largura da caixa e centralizando horizontalmente
         int width = gp.screenWidth / 2;  // Ajuste a largura como preferir
@@ -333,40 +293,33 @@ public class UI {
             textY += 40;
         }
     }
-    public void drawLockpickPuzzle() {
-        g2.setFont(undertaleFontSans.deriveFont(Font.PLAIN, 24F));
-        g2.setColor(Color.white);
-        g2.drawString("LOCKPICKING...", gp.screenWidth/2 - 100, gp.screenHeight/2 - 100);
-
-        int centerX = gp.screenWidth / 2;
-        int centerY = gp.screenHeight / 2;
-        int radius = 80;
-
-        // Desenhar círculo
-        g2.setColor(Color.gray);
-        g2.drawOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
-
-        // Desenhar sweet spot (invisível ou, se quiser, visível)
-         g2.setColor(Color.green);
-         double sweetRadians = Math.toRadians(gp.ui.lockPickSweetSpot);
-        int sweetX = centerX + (int)(radius * Math.cos(sweetRadians));
-         int sweetY = centerY + (int)(radius * Math.sin(sweetRadians));
-         g2.drawLine(centerX, centerY, sweetX, sweetY);
-
-        lockPickAngle = (lockPickAngle + 2) % 360;  // gira automaticamente
-
-        
-        // Desenhar ponteiro giratório
-        g2.setColor(Color.red);
-        double angleRadians = Math.toRadians(lockPickAngle);
-        int pointerX = centerX + (int)(radius * Math.cos(angleRadians));
-        int pointerY = centerY + (int)(radius * Math.sin(angleRadians));
-        g2.drawLine(centerX, centerY, pointerX, pointerY);
-
-        // Instruções
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16F));
-        g2.drawString("Pressione ENTER quando achar o ângulo correto.", centerX - 130, centerY + radius + 30);
+    
+    // Retorna até 3 linhas visíveis por vez, separadas por \n
+    private String getVisibleLinesText() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = currentLineStart; i < currentLineStart + 3 && i < fullTextLines.size(); i++) {
+            sb.append(fullTextLines.get(i)).append("\n");
+        }
+        return sb.toString();
     }
+
+    // Reage ao pressionar ENTER durante um diálogo
+    public void handleDialogueEnter() {
+        String visibleText = getVisibleLinesText();
+        if (textCharIndex < visibleText.length()) {
+            textCharIndex = visibleText.length(); // Mostra tudo
+        } else {
+            currentLineStart += 3;
+            textCharIndex = 0;
+            textCounter = 0;
+            if (currentLineStart >= fullTextLines.size()) {
+                gp.gameState = gp.playState; // Fim do diálogo
+                gp.closedDialogues++;
+            }
+        }
+    }
+    
+    // Desenha caracteres na tela
     public void drawCharacterScreen() {
     	//FRAME
     	final int frameX = gp.tileSize * 2;
@@ -375,6 +328,166 @@ public class UI {
     	final int frameHeight = gp.tileSize*10;
     	drawSubWindow(frameX, frameY, frameWidth, frameHeight);
     }
+      
+    public void drawEmptyDialogueBox() {
+        int width = gp.screenWidth / 2;
+        int height = gp.tileSize * 3;
+        int x = (gp.screenWidth - width) / 2;
+        int y = gp.tileSize / 2;
+
+        drawSubWindow(x, y, width, height);
+    }
+
+    
+    // ===============================
+    // TELAS DE INTERAÇÃO
+    // ===============================
+    
+    // Desenha a tela de título (menu inicial)
+    public void drawTitleScreen() {
+        if (titleScreenImage != null) {
+            g2.drawImage(titleScreenImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
+        } else {
+            g2.setColor(Color.black);
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        }
+
+        String text = "";
+        int x = getXforCenteredText(text);
+        int y = gp.tileSize * 6;
+
+        // Sombra e título
+        g2.setColor(Color.gray);
+        g2.drawString(text, x + 5, y + 5);
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        // Menu principal com opções
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+
+        text = "NOVO JOGO";
+        x = getXforCenteredText(text);
+        y += gp.tileSize * 3.5;
+        g2.drawString(text, x, y);
+        if (commandNum == 0 && selectorImage != null) {
+        	
+        	int iconX = x - gp.tileSize + 27;
+        	int iconY = y - gp.tileSize + 37;
+        	g2.drawImage(selectorImage, iconX, iconY, 24, 24, null);
+        }
+
+        text = "SAIR";
+        x = getXforCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if (commandNum == 1 && selectorImage != null) {
+        	
+        	int iconX = x - gp.tileSize + 27;
+        	int iconY = y - gp.tileSize + 37;
+        	g2.drawImage(selectorImage, iconX, iconY, 24, 24, null);
+        }
+    }
+    
+    // Desenha tela de pause
+    public void drawPauseScreen() {
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
+        String text = "PAUSA";
+        int x = getXforCenteredText(text);
+        int y = gp.screenHeight / 2;
+        g2.drawString(text, x, y);
+    }
+       
+    // Desenha Game over
+    public void drawGameOverScreen() {
+    	
+    	g2.setColor(new Color (0,0,0,150));
+    	g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+    	
+    	int x;
+    	int y;
+    	String text;
+    	g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
+    	
+    	text = "GAME OVER";
+    	
+    	//SOMBRA
+    	g2.setColor(Color.black);
+    	x = getXforCenteredText(text);
+    	y = gp.tileSize * 4;
+    	g2.drawString(text, x, y);
+    	
+    	//GAME OVER
+    	g2.setColor(Color.white);
+    	g2.drawString(text, x-4, y-4);
+    	
+    	//TENTE NOVAMENTE
+    	g2.setFont(g2.getFont().deriveFont(50f));
+    	text = "TENTE NOVAMENTE";
+    	x = getXforCenteredText(text);
+    	y += gp.tileSize * 4;
+    	g2.drawString(text, x, y);
+    	if(commandNum == 0) {
+    		g2.drawImage(selectorImage, x - gp.tileSize + 27, y - gp.tileSize + 37, 24, 24, null);
+    	}
+    	
+    	//VOLTAR AO MENU
+    	text = " MENU";
+    	x = getXforCenteredText(text);
+    	y += 55;
+    	g2.drawString(text, x, y);
+    	if(commandNum == 1) {
+    		g2.drawImage(selectorImage, x - gp.tileSize + 27, y - gp.tileSize + 37, 24, 24, null);
+    	}
+    }
+    
+    public void drawInteractionPrompt() {
+        String text = "Aperte '" + interactKey.toUpperCase() + "' para interagir";
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22F));
+        int textWidth = g2.getFontMetrics().stringWidth(text);
+        int padding = 20;
+        int spriteSize = 40;
+
+        int boxWidth = textWidth + spriteSize + padding * 2;
+        int boxHeight = 60;
+
+        int boxX = gp.screenWidth - boxWidth - gp.tileSize / 2;
+        int boxY = gp.screenHeight - boxHeight - gp.tileSize / 4;
+
+        // Fundo
+        g2.setColor(new Color(0, 0, 0, 200));
+        g2.fillRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
+
+        // Borda
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
+
+        // Sprite da tecla atual
+        BufferedImage[] keyFrames = getKeyFrames(interactKey.toLowerCase());
+        if (keyFrames != null) {
+            BufferedImage currentFrame = keyFrames[frameIndex];
+
+            int spriteX = boxX + padding;
+            int spriteY = boxY + (boxHeight - spriteSize) / 2;
+
+            g2.drawImage(currentFrame, spriteX, spriteY, spriteSize, spriteSize, null);
+
+            // Animação
+            frameCounter++;
+            if (frameCounter > frameSpeed) {
+                frameIndex = (frameIndex + 1) % keyFrames.length;
+                frameCounter = 0;
+            }
+        }
+
+        // Texto
+        g2.setColor(Color.white);
+        int textX = boxX + padding + spriteSize + 10;
+        int textY = boxY + boxHeight / 2 + 8;
+        g2.drawString(text, textX, textY);
+    }
+   
+    // Desnha inventario
     public void drawInventory() {
     	
     	//FRAME
@@ -434,47 +547,8 @@ public class UI {
     			}
     		}
     	}   
-    public void drawGameOverScreen() {
-    	
-    	g2.setColor(new Color (0,0,0,150));
-    	g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-    	
-    	int x;
-    	int y;
-    	String text;
-    	g2.setFont(g2.getFont().deriveFont(Font.BOLD, 110f));
-    	
-    	text = "GAME OVER";
-    	
-    	//SOMBRA
-    	g2.setColor(Color.black);
-    	x = getXforCenteredText(text);
-    	y = gp.tileSize * 4;
-    	g2.drawString(text, x, y);
-    	
-    	//GAME OVER
-    	g2.setColor(Color.white);
-    	g2.drawString(text, x-4, y-4);
-    	
-    	//TENTE NOVAMENTE
-    	g2.setFont(g2.getFont().deriveFont(50f));
-    	text = "TENTE NOVAMENTE";
-    	x = getXforCenteredText(text);
-    	y += gp.tileSize * 4;
-    	g2.drawString(text, x, y);
-    	if(commandNum == 0) {
-    		g2.drawImage(selectorImage, x - gp.tileSize + 27, y - gp.tileSize + 37, 24, 24, null);
-    	}
-    	
-    	//VOLTAR AO MENU
-    	text = " MENU";
-    	x = getXforCenteredText(text);
-    	y += 55;
-    	g2.drawString(text, x, y);
-    	if(commandNum == 1) {
-    		g2.drawImage(selectorImage, x - gp.tileSize + 27, y - gp.tileSize + 37, 24, 24, null);
-    	}
-    }
+
+    // Desenha opções menu
     public void drawOptionsScreen() {
     	
     	g2.setColor(Color.white);
@@ -627,6 +701,7 @@ public class UI {
     	}
     	
     }
+    
     public void options_control(int frameX, int frameY) {
     	
     	int textX;
@@ -712,29 +787,53 @@ public class UI {
     	int itemIndex = slotCol + (slotRow*5);
     	return itemIndex;
     }
-    // Retorna até 3 linhas visíveis por vez, separadas por \n
-    private String getVisibleLinesText() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = currentLineStart; i < currentLineStart + 3 && i < fullTextLines.size(); i++) {
-            sb.append(fullTextLines.get(i)).append("\n");
-        }
-        return sb.toString();
-    }
+    
+   
+    // ===============================
+    // PUZZLES
+    // ===============================
+    
+    // Desenha puzzle LockPick
+    public void drawLockpickPuzzle() {
+        g2.setFont(undertaleFontSans.deriveFont(Font.PLAIN, 24F));
+        g2.setColor(Color.white);
+        g2.drawString("LOCKPICKING...", gp.screenWidth/2 - 100, gp.screenHeight/2 - 100);
 
-    // Reage ao pressionar ENTER durante um diálogo
-    public void handleDialogueEnter() {
-        String visibleText = getVisibleLinesText();
-        if (textCharIndex < visibleText.length()) {
-            textCharIndex = visibleText.length(); // Mostra tudo
-        } else {
-            currentLineStart += 3;
-            textCharIndex = 0;
-            textCounter = 0;
-            if (currentLineStart >= fullTextLines.size()) {
-                gp.gameState = gp.playState; // Fim do diálogo
-            }
-        }
+        int centerX = gp.screenWidth / 2;
+        int centerY = gp.screenHeight / 2;
+        int radius = 80;
+
+        // Desenhar círculo
+        g2.setColor(Color.gray);
+        g2.drawOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
+
+        // Desenhar sweet spot (invisível ou, se quiser, visível)
+         g2.setColor(Color.green);
+         double sweetRadians = Math.toRadians(gp.ui.lockPickSweetSpot);
+        int sweetX = centerX + (int)(radius * Math.cos(sweetRadians));
+         int sweetY = centerY + (int)(radius * Math.sin(sweetRadians));
+         g2.drawLine(centerX, centerY, sweetX, sweetY);
+
+        lockPickAngle = (lockPickAngle + 2) % 360;  // gira automaticamente
+
+        
+        // Desenhar ponteiro giratório
+        g2.setColor(Color.red);
+        double angleRadians = Math.toRadians(lockPickAngle);
+        int pointerX = centerX + (int)(radius * Math.cos(angleRadians));
+        int pointerY = centerY + (int)(radius * Math.sin(angleRadians));
+        g2.drawLine(centerX, centerY, pointerX, pointerY);
+
+        // Instruções
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16F));
+        g2.drawString("Pressione ENTER quando achar o ângulo correto.", centerX - 130, centerY + radius + 30);
     }
+        
+    
+    
+    // ===============================
+    // MÉTODOS VARIADOS
+    // ===============================
     
     public BufferedImage[] loadButtonSprites(String path, int frameCount) {
         BufferedImage[] frames = new BufferedImage[frameCount];
@@ -758,57 +857,9 @@ public class UI {
         return frames;
     }
 
-    public void drawInteractionPrompt() {
-        String text = "Aperte '" + interactKey.toUpperCase() + "' para interagir";
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 22F));
-        int textWidth = g2.getFontMetrics().stringWidth(text);
-        int padding = 20;
-        int spriteSize = 40;
-
-        int boxWidth = textWidth + spriteSize + padding * 2;
-        int boxHeight = 60;
-
-        int boxX = gp.screenWidth - boxWidth - gp.tileSize / 2;
-        int boxY = gp.screenHeight - boxHeight - gp.tileSize / 4;
-
-        // Fundo
-        g2.setColor(new Color(0, 0, 0, 200));
-        g2.fillRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
-
-        // Borda
-        g2.setColor(Color.white);
-        g2.setStroke(new BasicStroke(3));
-        g2.drawRoundRect(boxX, boxY, boxWidth, boxHeight, 20, 20);
-
-        // Sprite da tecla atual
-        BufferedImage[] keyFrames = getKeyFrames(interactKey.toLowerCase());
-        if (keyFrames != null) {
-            BufferedImage currentFrame = keyFrames[frameIndex];
-
-            int spriteX = boxX + padding;
-            int spriteY = boxY + (boxHeight - spriteSize) / 2;
-
-            g2.drawImage(currentFrame, spriteX, spriteY, spriteSize, spriteSize, null);
-
-            // Animação
-            frameCounter++;
-            if (frameCounter > frameSpeed) {
-                frameIndex = (frameIndex + 1) % keyFrames.length;
-                frameCounter = 0;
-            }
-        }
-
-        // Texto
-        g2.setColor(Color.white);
-        int textX = boxX + padding + spriteSize + 10;
-        int textY = boxY + boxHeight / 2 + 8;
-        g2.drawString(text, textX, textY);
-    }
-   
     public BufferedImage[] getKeyFrames(String key) {
         return buttonSprites.getOrDefault(key, null);
     }
-
     
     // Desenha uma caixa arredondada com borda branca
     public void drawSubWindow(int x, int y, int width, int height) {

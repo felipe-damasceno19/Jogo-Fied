@@ -50,7 +50,8 @@ public class GamePanel extends JPanel implements Runnable {
     public int currentMap = 0;
 
     int FPS = 60;                                 // Taxa de quadros por segundo
-
+    
+    public GameStage gameStage = new GameStage(this);; // Instância da classe GameStage
     
     
     public KeyHandler keyH = new KeyHandler(this);   // Manipulador de teclas
@@ -82,6 +83,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gameOverState = 6;
     public final int lockPickState = 7;
 
+    // Flags
+    int closedDialogues = 0;
+    int currentTeleport = 0;
     
     // Construtor: configurações iniciais do painel
     public GamePanel() {
@@ -90,8 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setBackground(Color.black);         // Cor de fundo da tela
         this.setDoubleBuffered(true);            // Otimiza o desenho dos gráficos
         this.addKeyListener(keyH);               // Adiciona escutador de teclado
-        this.setFocusable(true);  
-        // Permite que o painel receba foco do teclado
+        this.setFocusable(true);  				 // Permite que o painel receba foco do teclado
     }
 
     public void setupGame() {
@@ -189,8 +192,14 @@ public class GamePanel extends JPanel implements Runnable {
     	
     	if(gameState == playState) {
     		
-    		player.update();       // Atualiza posição e estado do jogador
+    		// Atualiza posição e estado do jogador
+    		player.update();       
     		
+            // Verifica a parte do Jogo;
+            if(gameStage.currentStage == 0) {
+            	 gameStage.checkStage();
+            }
+            
     		//NPC
     		for(int i = 0; i < npc[1].length; i++) {
     			
