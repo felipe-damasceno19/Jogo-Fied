@@ -203,6 +203,10 @@ public class Player extends Entity {
 			            gp.gameState = gp.lockPickState;
 			            gp.ui.lockPickActive = true;
 			            gp.ui.lockPickTarget = door;
+			            gp.ui.lockPickStage = 1;
+			            gp.ui.lockPickSpeed = 2;
+			            gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);
+			            gp.ui.lockPickAngle = 0;
 			            gp.ui.lockPickProgress = 0;
 			            gp.ui.lockPickAngle = 0;  // inicia em 0 graus
 			            gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);  // gera aleatório entre 0-359
@@ -220,11 +224,15 @@ public class Player extends Entity {
 						  indexGaveteiro1 = 1;
 						  gp.obj[gp.currentMap][i].ObjImage = setup("/objects/Gaveteiro_aberto");;
 					  }
-				break;
-			
 				}
+			    break;			
 			}
 		}
+	}
+	
+	public void lockPicking(GamePanel gp) {
+		
+		
 	}
 	
 	// Interação com NPCs

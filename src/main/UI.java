@@ -32,7 +32,11 @@ public class UI {
     public boolean gameFinished = false;
     public boolean lockPickActive = false;
     public object.obj_Door lockPickTarget = null;
+    public object.obj_Gaveteiro lockPickTarget2 = null;
     public int lockPickProgress = 0;
+    public int lockPickStage = 1;
+    public int lockPickSpeed = 2;
+    public boolean lockPickSucess = false;
     public int lockPickAngle = 0;  // Ângulo atual do ponteiro (0-359)
     public int lockPickSweetSpot = 0;  // Ângulo correto para destrancar
 
@@ -787,50 +791,7 @@ public class UI {
     	int itemIndex = slotCol + (slotRow*5);
     	return itemIndex;
     }
-    
-   
-    // ===============================
-    // PUZZLES
-    // ===============================
-    
-    // Desenha puzzle LockPick
-    public void drawLockpickPuzzle() {
-        g2.setFont(undertaleFontSans.deriveFont(Font.PLAIN, 24F));
-        g2.setColor(Color.white);
-        g2.drawString("LOCKPICKING...", gp.screenWidth/2 - 100, gp.screenHeight/2 - 100);
-
-        int centerX = gp.screenWidth / 2;
-        int centerY = gp.screenHeight / 2;
-        int radius = 80;
-
-        // Desenhar círculo
-        g2.setColor(Color.gray);
-        g2.drawOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
-
-        // Desenhar sweet spot (invisível ou, se quiser, visível)
-         g2.setColor(Color.green);
-         double sweetRadians = Math.toRadians(gp.ui.lockPickSweetSpot);
-        int sweetX = centerX + (int)(radius * Math.cos(sweetRadians));
-         int sweetY = centerY + (int)(radius * Math.sin(sweetRadians));
-         g2.drawLine(centerX, centerY, sweetX, sweetY);
-
-        lockPickAngle = (lockPickAngle + 2) % 360;  // gira automaticamente
-
-        
-        // Desenhar ponteiro giratório
-        g2.setColor(Color.red);
-        double angleRadians = Math.toRadians(lockPickAngle);
-        int pointerX = centerX + (int)(radius * Math.cos(angleRadians));
-        int pointerY = centerY + (int)(radius * Math.sin(angleRadians));
-        g2.drawLine(centerX, centerY, pointerX, pointerY);
-
-        // Instruções
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16F));
-        g2.drawString("Pressione ENTER quando achar o ângulo correto.", centerX - 130, centerY + radius + 30);
-    }
-        
-    
-    
+  
     // ===============================
     // MÉTODOS VARIADOS
     // ===============================
@@ -872,6 +833,82 @@ public class UI {
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
     }
+    
+    
+    
+    // ===============================
+    // PUZZLES
+    // ===============================
+    
+    
+    // Desenha puzzle LockPick
+    public void drawLockpickPuzzle() {
+    	
+    	int centerX = gp.screenWidth / 2;
+    	int centerY = gp.screenHeight / 2;
+    	int radius = 80;
+    	int margin = 40;
+
+    	int boxX = centerX - (radius + margin);
+    	int boxY = centerY - (radius + margin + 40); // sobe um pouco pra título caber
+    	int boxW = (radius + margin) * 2;
+    	int boxH = (radius + margin) * 2 + 60; // altura ajustada pro texto
+
+    	// Fundo preto com borda branca ajustado ao círculo
+    	g2.setColor(new Color(0, 0, 0, 220));
+    	g2.fillRoundRect(boxX, boxY, boxW, boxH, 35, 35);
+    	g2.setColor(Color.white);
+    	g2.setStroke(new BasicStroke(5));
+    	g2.drawRoundRect(boxX, boxY, boxW, boxH, 35, 35);
+
+
+    	// Título centralizado
+    	String title = "LOCKPICKING - ETAPA " + lockPickStage;
+    	g2.setFont(undertaleFontSans.deriveFont(Font.PLAIN, 48F));
+    	int titleWidth = g2.getFontMetrics().stringWidth(title);
+    	g2.setColor(Color.white);
+    	g2.drawString(title, centerX - titleWidth / 2, boxY - 10); // alinhado ao topo da caixa
+
+    	// Círculo
+    	g2.setColor(Color.gray);
+    	g2.drawOval(centerX - radius, centerY - radius, radius * 2, radius * 2);
+
+    	// 🔰 Sweet spot VISÍVEL (verde) — MAIS LONGO
+    	g2.setColor(Color.green);
+    	double sweetRadians = Math.toRadians(lockPickSweetSpot);
+    	int sweetLength = radius - 5; // linha um pouco menor que o raio
+    	int sweetX = centerX + (int)(sweetLength * Math.cos(sweetRadians));
+    	int sweetY = centerY + (int)(sweetLength * Math.sin(sweetRadians));
+
+    	g2.setStroke(new BasicStroke(4));
+    	g2.drawLine(centerX, centerY, sweetX, sweetY);
+
+    	// 🔁 Ponteiro giratório (vermelho)
+    	lockPickAngle = (lockPickAngle + lockPickSpeed) % 360;
+    	g2.setColor(Color.red);
+    	double angleRadians = Math.toRadians(lockPickAngle);
+    	int pointerX = centerX + (int)(radius * Math.cos(angleRadians));
+    	int pointerY = centerY + (int)(radius * Math.sin(angleRadians));
+    	g2.setStroke(new BasicStroke(3));
+    	g2.drawLine(centerX, centerY, pointerX, pointerY);
+
+    	// Instruções centralizadas
+    	String instr1 = "Pressione ENTER quando o ponteiro";
+    	String instr2 = "alinhar com o marcador verde";
+
+    	g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+    	int instr1Width = g2.getFontMetrics().stringWidth(instr1);
+    	int instr2Width = g2.getFontMetrics().stringWidth(instr2);
+
+    	g2.setColor(Color.white);
+    	g2.drawString(instr1, centerX - instr1Width / 2, centerY + radius + 90);
+    	g2.drawString(instr2, centerX - instr2Width / 2, centerY + radius + 125);
+
+    }
+
+
+        
+    
 	
 	//METODO PARA CENTRALIZAR ELEMENTOS
 	public int getXforCenteredText(String text) {
