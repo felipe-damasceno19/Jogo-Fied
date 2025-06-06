@@ -690,6 +690,10 @@ public class UI {
             textCounter = 0;
             if (currentLineStart >= fullTextLines.size()) {
                 gp.gameState = gp.playState; // Fim do diálogo
+                if(gp.gameStage.currentStage == 1) {
+                	
+                }
+                gp.closedDialogues++;
             }
         }
     }

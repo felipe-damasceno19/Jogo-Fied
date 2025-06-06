@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     int FPS = 60;                                 // Taxa de quadros por segundo
 
-    
+    public GameStage gameStage; // Instância da classe GameStage
     
     public KeyHandler keyH = new KeyHandler(this);   // Manipulador de teclas
     TileManager tileM = new TileManager(this);   // Gerenciador de tiles
@@ -81,6 +81,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int optionsState = 5;
     public final int gameOverState = 6;
     
+    // Flags
+    int closedDialogues = 0;
+    
     // Construtor: configurações iniciais do painel
     public GamePanel() {
         
@@ -88,8 +91,11 @@ public class GamePanel extends JPanel implements Runnable {
         this.setBackground(Color.black);         // Cor de fundo da tela
         this.setDoubleBuffered(true);            // Otimiza o desenho dos gráficos
         this.addKeyListener(keyH);               // Adiciona escutador de teclado
-        this.setFocusable(true);  
-        // Permite que o painel receba foco do teclado
+        this.setFocusable(true);   				 // Permite que o painel receba foco do teclado
+        
+
+        // Inicializa o GameStage
+        gameStage = new GameStage(this);
     }
 
     public void setupGame() {
@@ -184,26 +190,24 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Atualiza o estado do jogo
     public void update() {
-    	
-    	if(gameState == playState) {
-    		
-    		player.update();       // Atualiza posição e estado do jogador
-    		
-    		//NPC
-    		for(int i = 0; i < npc[1].length; i++) {
-    			
-    			if(npc[currentMap][i] != null) {
-    				
-    				npc[currentMap][i].update();
-    				
-    			}
-    		}
-    	}
-    	if(gameState == pauseState) {
-    		
-    	}
-                          
+        if (gameState == playState) {
+            player.update();  // Atualiza o jogador
+        	
+            // Verifica a parte do Jogo;
+            gameStage.checkStage();  
+                     
+            // Atualiza NPCs
+            for (int i = 0; i < npc[1].length; i++) {
+                if (npc[currentMap][i] != null) {
+                    npc[currentMap][i].update();
+                }
+            }
+        }
+        if (gameState == pauseState) {
+            // Lógica de pausa
+        }
     }
+
 
     public void drawToTempScreen() {
         
@@ -216,6 +220,7 @@ public class GamePanel extends JPanel implements Runnable {
         //TELA INICIAL
         if (gameState == titleState) {
             ui.draw(g2);
+            
         } else {
             tileM.draw(g2); // Desenha o mapa (tiles)
 
@@ -290,6 +295,7 @@ public class GamePanel extends JPanel implements Runnable {
  
  
     public void drawToScreen() {
+    	
     	Graphics g = getGraphics();
     	g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
     	g.dispose();

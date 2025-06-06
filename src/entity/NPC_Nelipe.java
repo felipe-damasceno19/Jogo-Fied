@@ -15,7 +15,7 @@ public class NPC_Nelipe extends Entity {
 	public NPC_Nelipe(GamePanel gp) {
 		super(gp); // Chama o construtor da superclasse (Entity) passando o GamePanel
 
-		direction = "down"; // Define a direção inicial do NPC como "baixo"
+		direction = "rigth"; // Define a direção inicial do NPC como "baixo"
 		speed = 1; // Define a velocidade do NPC
 
 		getImage(); // Carrega as imagens do NPC
@@ -56,7 +56,14 @@ public class NPC_Nelipe extends Entity {
 	// Define o comportamento do NPC (movimento aleatório)
 	@Override
 	public void setAction() {
-	    actionDuration++;
+	    // Impede o movimento aleatório enquanto o gameStage.currentStage for 0
+	    if (gp.gameStage.currentStage == 0) {
+	        moving = false; // NPC parado
+	        actionDuration = 0; // Reseta o contador de ações para garantir que não haja mudança de direção
+	        return; // Retorna sem fazer mais nada
+	    }
+
+	    actionDuration++;  // Incrementa o contador de ações
 
 	    if (moving) {
 	        if (actionDuration >= 60) { // Move por 1 segundo (ajuste se quiser)
