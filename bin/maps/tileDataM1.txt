@@ -93,7 +93,7 @@ true
 tile047.png
 false
 tile048.png
-true
+false
 tile049.png
 false
 tile050.png

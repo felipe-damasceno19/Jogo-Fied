@@ -70,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH); // Instância do jogador
     public Entity obj[][] = new Entity[maxMap][10];
     public Entity npc[][] = new Entity[maxMap][10];
+    public Entity tilesOver[][] = new Entity[maxMap][10];
     ArrayList<Entity> entityList = new ArrayList<>();
     
     //GAME STATE
@@ -100,6 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
     	
     	aSetter.setObject();
+    	aSetter.setTilesOver();
     	aSetter.setNpc();
     	playMusic(1);
     	eManager.setup();
@@ -131,6 +133,7 @@ public class GamePanel extends JPanel implements Runnable {
     	player.setItems();
 
     	aSetter.setObject();
+    	aSetter.setTilesOver();
     	aSetter.setNpc();
     }
     
@@ -241,6 +244,12 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < obj[1].length; i++) {
                 if (obj[currentMap][i] != null) {
                     entityList.add(obj[currentMap][i]);
+                }
+            }
+            
+            for (int i = 0; i < tilesOver[1].length; i++) {
+                if (tilesOver[currentMap][i] != null) {
+                    entityList.add(tilesOver[currentMap][i]);
                 }
             }
 

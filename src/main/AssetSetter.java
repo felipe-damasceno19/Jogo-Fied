@@ -8,6 +8,9 @@ import object.obj_Chest;
 import object.obj_Door;
 import object.obj_Gaveteiro;
 import object.obj_Key;
+import tilesOverlay.over_Teto01;
+import tilesOverlay.over_Teto02;
+import tilesOverlay.over_Teto03;
 
 public class AssetSetter {
 
@@ -113,6 +116,28 @@ public class AssetSetter {
 		gp.npc[mapNum][i].worldY = gp.tileSize * 21;
 		i++;
 		
+		
+	}
+	
+	public void setTilesOver() {
+		
+		// SETA NPC NO MAPA 0
+		int mapNum = 0;	
+		int i = 0;
+		gp.tilesOver[mapNum][i] = new over_Teto01(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 24;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 24;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_Teto02(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 25;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 24;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_Teto03(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 26;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 24;
+		i++;
 		
 	}
 }
