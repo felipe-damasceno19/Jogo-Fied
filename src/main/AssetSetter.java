@@ -11,6 +11,9 @@ import object.obj_Key;
 import tilesOverlay.over_Teto01;
 import tilesOverlay.over_Teto02;
 import tilesOverlay.over_Teto03;
+import tilesOverlay.over_Teto04;
+import tilesOverlay.over_Teto05;
+import tilesOverlay.over_Teto06;
 
 public class AssetSetter {
 
@@ -137,6 +140,21 @@ public class AssetSetter {
 		gp.tilesOver[mapNum][i] = new over_Teto03(gp);
 		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 26;
 		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 24;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_Teto04(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 24;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 25;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_Teto05(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 25;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 25;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_Teto06(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 26;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 25;
 		i++;
 		
 	}

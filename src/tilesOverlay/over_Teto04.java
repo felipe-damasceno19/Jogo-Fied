@@ -3,18 +3,18 @@ package tilesOverlay;
 import entity.Entity;
 import main.GamePanel;
 
-public class over_Teto01 extends Entity {
+public class over_Teto04 extends Entity {
 
-	public over_Teto01 (GamePanel gp) {
+	public over_Teto04 (GamePanel gp) {
 		
 		super(gp);
-		ObjImage = setup("/tiles_over/teto01");
+		ObjImage = setup("/tiles_over/teto04");
 		collision = true;
 		
 		solidArea.x = 32;
-		solidArea.y = 48;
-		solidArea.width = 24;
-		solidArea.height = 6;
+		solidArea.y = 8;
+		solidArea.width = 32;
+		solidArea.height = 70;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 		

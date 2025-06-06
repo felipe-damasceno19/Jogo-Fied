@@ -129,6 +129,7 @@ public class Player extends Entity {
 		// Checa colisão com objetos e coleta se possível
 		int objIndex = gp.cChecker.checkObjetct(this, true);
 		pickUpObject(objIndex);	
+
 		// Verifica se alguma tecla de direção foi pressionada
 		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			moving = true;
@@ -144,7 +145,7 @@ public class Player extends Entity {
 			// Checa colisão com tiles
 			gp.cChecker.checkTile(this);
 
-			
+			int tilesIndex = gp.cChecker.checkTileOver(this, true);
 
 			// Antes ou depois de checar NPCs/objetos
 			nearInteractable = false;

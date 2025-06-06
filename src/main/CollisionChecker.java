@@ -206,6 +206,83 @@ public class CollisionChecker {
 		}
 		return index; // Retorna o índice do objeto colidido (ou 999 se não colidiu)
 	}
+	
+	
+	public int checkTileOver(Entity entity, boolean player) {
+
+		int index = 999; // Valor padrão (sem colisão encontrada)
+
+		for(int i = 0; i < gp.obj[1].length; i++) {
+
+			if(gp.tilesOver[gp.currentMap][i] != null) { // Se existe um objeto na posição i
+
+				// Ajusta a área sólida da entidade com base na posição no mundo
+				entity.solidArea.x = entity.worldX + entity.solidArea.x;
+				entity.solidArea.y = entity.worldY + entity.solidArea.y;
+
+				// Ajusta a área sólida do objeto com base na posição no mundo
+				gp.tilesOver[gp.currentMap][i].solidArea.x = gp.tilesOver[gp.currentMap][i].worldX + gp.tilesOver[gp.currentMap][i].solidArea.x;
+				gp.tilesOver[gp.currentMap][i].solidArea.y = gp.tilesOver[gp.currentMap][i].worldY + gp.tilesOver[gp.currentMap][i].solidArea.y;
+
+				switch(entity.direction) {
+				case "up": // Se a entidade está indo pra cima
+					entity.solidArea.y -= entity.speed; // Move a área sólida pra onde ela estaria
+					if(entity.solidArea.intersects(gp.tilesOver[gp.currentMap][i].solidArea)) { // Se colidiu com o objeto
+						if(gp.tilesOver[gp.currentMap][i].collision == true) {
+							entity.collisionOn = true; // Marca que houve colisão
+						}
+						if(player == true) {
+							index = i; // Salva o índice do objeto colidido
+						}
+					}
+					break;
+
+				case "down":
+					entity.solidArea.y += entity.speed;
+					if(entity.solidArea.intersects(gp.tilesOver[gp.currentMap][i].solidArea)) {
+						if(gp.tilesOver[gp.currentMap][i].collision == true) {
+							entity.collisionOn = true;
+						}
+						if(player == true) {
+							index = i;
+						}
+					}
+					break;
+
+				case "left":
+					entity.solidArea.x -= entity.speed;
+					if(entity.solidArea.intersects(gp.tilesOver[gp.currentMap][i].solidArea)) {
+						if(gp.tilesOver[gp.currentMap][i].collision == true) {
+							entity.collisionOn = true;
+						}
+						if(player == true) {
+							index = i;
+						}
+					}
+					break;
+
+				case "right":
+					entity.solidArea.x += entity.speed;
+					if(entity.solidArea.intersects(gp.tilesOver[gp.currentMap][i].solidArea)) {
+						if(gp.tilesOver[gp.currentMap][i].collision == true) {
+							entity.collisionOn = true;
+						}
+						if(player == true) {
+							index = i;
+						}
+					}
+					break;
+				}
+
+				// Reseta a área sólida pros valores padrão depois do teste
+				entity.solidArea.x = entity.solidAreaDefaultX;
+				entity.solidArea.y = entity.solidAreaDefaultY;
+				gp.tilesOver[gp.currentMap][i].solidArea.x = gp.tilesOver[gp.currentMap][i].solidAreaDefaultX;
+				gp.tilesOver[gp.currentMap][i].solidArea.y = gp.tilesOver[gp.currentMap][i].solidAreaDefaultY;
+			}
+		}
+		return index; // Retorna o índice do objeto colidido (ou 999 se não colidiu)
+	}
 
 	//COLISAO DE MONSTROS E NPCS
 	public int checkEntity(Entity entity, Entity[][] target) {

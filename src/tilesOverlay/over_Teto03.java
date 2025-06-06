@@ -12,9 +12,9 @@ public class over_Teto03 extends Entity {
 		collision = true;
 		
 		solidArea.x = 0;
-		solidArea.y = 40;
-		solidArea.width = 48;
-		solidArea.height = 24;
+		solidArea.y = 48;
+		solidArea.width = 24;
+		solidArea.height = 6;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 		

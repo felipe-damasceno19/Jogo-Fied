@@ -200,7 +200,7 @@ public class GamePanel extends JPanel implements Runnable {
     		
             // Verifica a parte do Jogo;
             if(gameStage.currentStage == 0) {
-            	 gameStage.checkStage();
+            	 //gameStage.checkStage();
             }
             
     		//NPC
