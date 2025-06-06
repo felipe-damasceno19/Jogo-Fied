@@ -83,6 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
     
     // Flags
     int closedDialogues = 0;
+    int currentTeleport = 0;
     
     // Construtor: configurações iniciais do painel
     public GamePanel() {
@@ -194,7 +195,11 @@ public class GamePanel extends JPanel implements Runnable {
             player.update();  // Atualiza o jogador
         	
             // Verifica a parte do Jogo;
-            gameStage.checkStage();  
+            if(gameStage.currentStage == 0) {
+            	 gameStage.checkStage();
+            }
+            
+            System.out.println(gameStage.currentStage);
                      
             // Atualiza NPCs
             for (int i = 0; i < npc[1].length; i++) {

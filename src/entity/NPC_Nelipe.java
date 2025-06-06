@@ -48,7 +48,11 @@ public class NPC_Nelipe extends Entity {
 
 	public void setDialogue() {
 		
-		dialogues[0] = "Silas, você sabia que o Rio é a cidade com a maior quantidade de praias no mundo? Eu, como boa carioca, posso te garantir que sou especialista em escolher a melhor praia dependendo do clima!";
+		dialogues[0] = "Estou com muito medo, espero que isso se resolva o quanto antes...";
+		dialogues[1] = "Já conseguiu encontrar todas as notas?";
+		dialogues[2] = "Será que o assassino frequentou a festa do Arroz do Manhoso?";
+		dialogues[3] = "Vou ter que passar todos os alunos, está sem clima para ter NAF";
+		dialogues[4] = "Silas, finalmente vão trocar o roteador daqui, vai ser um de duas antenas agora. Que também vai ser dessa execlente marca Nacional TPLINK";
 		
 		
 	}

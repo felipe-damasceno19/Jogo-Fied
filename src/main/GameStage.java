@@ -19,6 +19,8 @@ public class GameStage {
     private String[] dialogMessages;
     String dialogues[][] = new String[10][20];
     BufferedImage face[] = new BufferedImage[10];
+    int countFrames = 0;
+    int time = 2;
     
     
     
@@ -32,9 +34,13 @@ public class GameStage {
     public void checkStage() {
     	switch(currentStage) {
     		case 0:
-    			 initialStage(); 
+    			// Espera passar alguns milesimos de segundo pra rodar o primeiro dialogo;    			
+    			if(countFrames >= time) {initialStage(); }
+    			countFrames++;
     			break;
     		case 1:
+    			break;
+    		case 2:
     			break;
     	}
     }
@@ -61,7 +67,7 @@ public class GameStage {
     }
 
 
-    // Método para controlar os diálogos
+    // Método para iniciar com Dialogo Nelipe
     public void initialStage() {
     	
            // Chama o método apenas após 1 segundo
@@ -74,6 +80,8 @@ public class GameStage {
             }
 		
     }
+    
+    
 
     // Exibe o diálogo
     public void openDialog(String text, BufferedImage faceImage) {

@@ -171,6 +171,8 @@ public class EventHandler {
 
 	    // Força a atualização da colisão do jogador após o teleporte
 	    gp.cChecker.checkTile(gp.player); // Aqui, estamos forçando uma nova checagem de colisão após o teleporte
+	    
+	    gp.gameStage.checkStage();
 	}
 
 }
