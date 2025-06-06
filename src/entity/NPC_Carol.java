@@ -48,16 +48,10 @@ public class NPC_Carol extends Entity {
 
 	public void setDialogue() {
 		
-		dialogues[0] = "Silas, você sabia que o Rio é a cidade com a maior quantidade de praias no mundo? Eu, como boa carioca, posso te garantir que sou especialista em escolher a melhor praia dependendo do clima!";
-		dialogues[1] = "Outro dia, eu estava pensando... você já experimentou aquele 'açaí com granola' que o pessoal vende na rua? Aqui nos EUA, eles chamam isso de 'superfood', mas, pra gente, é só comida de rua mesmo, né?";
-		dialogues[2] = "Eu sou suspeita, mas eu adoro a mistura de culturas que tem no Rio. Você já reparou que a gente consegue ouvir funk, samba, rock e até música clássica nas ruas? É tipo uma trilha sonora da diversidade!";
-		dialogues[3] = "Ah, e falando em diversidade... Sabia que em algumas partes da Europa, o conceito de 'saudade' é meio difícil de entender? Acho que é porque lá as pessoas não têm aquele ‘feeling’ de quem sente falta de um calor humano carioca!";
-		dialogues[4] = "Você já foi a alguma reunião pedagógica que parecia mais uma sessão de terapia? Eu juro que, às vezes, a gente acaba mais cansado do que se tivesse dado aula o dia inteiro!";
-		dialogues[5] = "Silas, sério... você já passou por aquele momento em que você tenta resolver um problema e acaba criando outro? Eu já fiz isso tantas vezes que até tenho um 'checklist de como não fazer as coisas'!";
-		dialogues[6] = "Eu sou apaixonada pela minha experiência na ONG, Silas. Trabalhar com causas sociais me fez entender muito sobre o ser humano, sabe? Às vezes, a gente precisa sair da nossa bolha para realmente enxergar o mundo.";
-		dialogues[7] = "Eu morava nos EUA e tinha uma rotina tão diferente. Uma coisa que me marcou foi como lá as pessoas valorizam demais a pontualidade, mas sempre com uma pitada de ‘calma, tudo vai dar certo’. Aqui no Brasil, é mais ‘cheguei, tô chegando’!";
-		dialogues[8] = "Eu nunca vou esquecer da viagem à Europa, Silas. O choque de cultura foi enorme! Mas, sério, as melhores lembranças que eu trouxe de lá foram as conversas com as pessoas. Elas realmente têm uma visão de mundo tão diferente!";
-		dialogues[9] = "Silas, você já reparou como o tempo passa rápido? Parece que foi ontem que eu estava organizando minha mala para viajar para os EUA e agora cá estou, com histórias de praia, viagens e muitas risadas para contar!";
+		dialogues[0] = "Eu fui a primeira a ver... o corpo. Achei que fosse só mais um dia comum. Entrei na enfermaria e... Os olhos dela ainda estavam abertos.";
+		dialogues[1] = "Desde aquele dia, não consigo passar perto do pátio sem me arrepiar. E pensar que ele estava sempre por ali, como se nada fosse...";
+		dialogues[2] = "Eu li parte das anotações que ela deixou... Havia algo sombrio nelas, mas o nome do culpado estava apagado.";
+		dialogues[3] = "Na Itália, dizem: 'Il diavolo si nasconde nei dettagli'... O diabo se esconde nos detalhes. E olha... aqui tem muito detalhe estranho.";
 
 		
 	}
