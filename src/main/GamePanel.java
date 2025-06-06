@@ -83,6 +83,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int optionsState = 5;
     public final int gameOverState = 6;
     public final int lockPickState = 7;
+    
+    //FUNDO BORRADO
+    BufferedImage blurredBackground;
 
     // Flags
     int closedDialogues = 0;

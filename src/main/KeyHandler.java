@@ -182,28 +182,44 @@ public class KeyHandler implements KeyListener {
     	}
      }
      public void lockpickState(int code) {
+    	 	if (code == KeyEvent.VK_ESCAPE) {
+    		    gp.ui.lockPickActive = false;
+    		    gp.gameState = gp.playState;
+    		    gp.ui.showMessage("Lockpicking cancelado.");
+    		    return;
+    		}
     	    if (code == KeyEvent.VK_ENTER) {
-    	        // Checa se ângulo está dentro da margem
-    	        int margin = 10;  // margem de acerto de 10 graus
+    	        int margin = 10;
     	        int diff = Math.abs(gp.ui.lockPickAngle - gp.ui.lockPickSweetSpot);
-
-    	        // Correção para ângulos circulares
-    	        if (diff > 180) {
-    	            diff = 360 - diff;
-    	        }
+    	        if (diff > 180) diff = 360 - diff;
 
     	        if (diff <= margin) {
-    	            gp.ui.lockPickTarget.locked = false;
-    	            gp.ui.showMessage("Porta destrancada!");
-    	            gp.ui.lockPickActive = false;
-    	            gp.gameState = gp.playState;
+    	            // Acertou!
+    	            if (gp.ui.lockPickStage < 3) {
+    	                gp.ui.lockPickStage++;
+    	                gp.ui.lockPickSpeed += 1; // aumenta dificuldade
+    	                gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);
+    	                gp.playSE(2);
+    	                gp.ui.showMessage("Etapa " + (gp.ui.lockPickStage - 1) + " concluída!");
+    	            } else {
+    	                // Última fase completa!
+    	                gp.ui.lockPickTarget.locked = false;
+    	                gp.ui.lockPickActive = false;
+    	                gp.ui.lockPickSucess = true;
+    	                gp.gameState = gp.playState;
+    	                gp.playSE(3);
+    	                gp.ui.showMessage("Porta destrancada!");
+    	            }
     	        } else {
-    	            gp.ui.showMessage("Falhou! Tente novamente.");
-    	            // Reinicia para outro sweet spot ou mesma posição
+    	            // Errou
+    	            gp.ui.showMessage("Falhou! Começando de novo.");
+    	            gp.ui.lockPickStage = 1;
+    	            gp.ui.lockPickSpeed = 2;
     	            gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);
     	        }
     	    }
     	}
+
 
      public void optionsState(int code) {
     	 if(code == KeyEvent.VK_ESCAPE) {

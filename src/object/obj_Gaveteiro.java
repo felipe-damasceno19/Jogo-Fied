@@ -5,6 +5,7 @@ import main.GamePanel;
 
 public class obj_Gaveteiro extends Entity {
 
+	public boolean locked = true;
 	public obj_Gaveteiro(GamePanel gp) {
 		
 		super(gp);
