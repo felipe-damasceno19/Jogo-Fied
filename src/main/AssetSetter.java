@@ -37,12 +37,12 @@ public class AssetSetter {
 		
 		mapNum = 1;	
 		gp.obj[mapNum][i] = new obj_Door(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*57;
-		gp.obj[mapNum][i].worldY = gp.tileSize*52;
-		i++;
-		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize*56;
 		gp.obj[mapNum][i].worldY = gp.tileSize*45;
+		i++;
+		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize*55;
+		gp.obj[mapNum][i].worldY = gp.tileSize*37;
 		i++;
 		
 		mapNum = 2;	
@@ -51,7 +51,7 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldY = gp.tileSize*34;
 		i++;
 		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*75;
+		gp.obj[mapNum][i].worldX = gp.tileSize*76;
 		gp.obj[mapNum][i].worldY = gp.tileSize*21;
 		i++;
 		
@@ -114,8 +114,8 @@ public class AssetSetter {
 		// SETA NPC NO MAPA 1
 		mapNum = 1;	
 		gp.npc[mapNum][i] = new NPC_Ismael(gp);
-		gp.npc[mapNum][i].worldX = gp.tileSize * 56;
-		gp.npc[mapNum][i].worldY = gp.tileSize * 44;
+		gp.npc[mapNum][i].worldX = gp.tileSize * 53;
+		gp.npc[mapNum][i].worldY = gp.tileSize * 36;
 		i++;
 		
 		

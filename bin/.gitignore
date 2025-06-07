@@ -1,6 +1,5 @@
+/sound/
+/tiles/
 /maps/
-/entity/
 /main/
-/tilesOverlay/
-/tiles_over/
-/object/
+/tile/

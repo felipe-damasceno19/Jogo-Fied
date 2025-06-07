@@ -79,7 +79,7 @@ public class TileManager {
 		
 		// Carrega o mapa a partir de um arquivo de texto e diz qual numero do mapa
 		loadMap("/maps/sampleM1.txt", 0);
-		loadMap("/maps/sampleM2.txt", 1);
+		loadMap("/maps/sampleM4.txt", 1);
 		loadMap("/maps/sampleM4.txt", 2);
 		loadMap("/maps/sampleM4.txt", 3);	
 		

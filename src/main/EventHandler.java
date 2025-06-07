@@ -69,7 +69,7 @@ public class EventHandler {
 	        	// PORTAS MAPA 0
 	        	
 	        	// Teleporta para o mapa 1 - SALA 1
-	            if (hit(0, 33, 25, "any") && fPressedNow) {teleport(1, 57, 51);}
+	            if (hit(0, 33, 25, "any") && fPressedNow) {teleport(1, 56, 44);}
 	           
 	            // Teleporta para o mapa 2 - SALA 2
 	            if (hit(0, 35, 25, "any") && fPressedNow) {teleport(2, 69, 33);}
@@ -80,13 +80,26 @@ public class EventHandler {
 	            // Teleporta para Consultorio
 	            if (hit(0, 26, 23, "any") && fPressedNow) {teleport(3, 73, 77);}
 	            
+	            
+	            // Teleporta para Banheiro
+	            	if (hit(0, 26, 29, "any") && fPressedNow) {teleport(3, 73, 53);} // Masculino ENTRADA
+	            	if (hit(0, 24, 29, "any") && fPressedNow) {teleport(3, 48, 19);} // Feminino ENTRADA
+	            	
+	            	if (hit(0, 39, 24, "any") && fPressedNow) {teleport(3, 28, 69);} // Feminino Cantina
+	            	if (hit(0, 40, 24, "any") && fPressedNow) {teleport(3, 18, 56);} // Masculino Cantina
+	            	if (hit(0, 42, 24, "any") && fPressedNow) {teleport(2, 73, 64);} // PCD Cantina
+	            	
+	            	if (hit(0, 44, 37, "any") && fPressedNow) {teleport(3, 73, 64);} // Banheiro Auditório
+	            
+	            
 	        } else if(gp.currentMap == 1) { // MAPA 01
 			    
-	        	if(hit(1, 57, 52, "any") && fPressedNow){teleport(0,33,25);} 
+	        	if (hit(1, 56, 45, "any") && fPressedNow){teleport(0,33,25);} 
 			    }
 
 			else if(gp.currentMap == 2) { // MAPA 02
-			    if(hit(2, 69, 34, "any") && fPressedNow){teleport(0,35,24);} 
+			    if (hit(2, 69, 34, "any") && fPressedNow){teleport(0,35,24);} 
+			    if (hit(2, 73, 65, "any") && fPressedNow) {teleport(0, 42, 24);} // PCD Cantina
 			}
 			else if(gp.currentMap == 3) { // MAPA 03
 
@@ -98,7 +111,7 @@ public class EventHandler {
 			    if(hit(3, 25, 42, "any") && fPressedNow){teleport(3,24,83);}
 
 			    // ENTRA E SAI SALA 2 - BLOCO 1
-			    if(hit(3, 28, 83, "any") && fPressedNow){teleport(3,69,33);}
+			    if(hit(3, 28, 82, "any") && fPressedNow){teleport(3,69,33);}
 			    if(hit(3, 69, 34, "any") && fPressedNow){teleport(3,28,83);}
 
 			    // ENTRA E SAI SALA 3 - BLOCO 1
@@ -108,6 +121,16 @@ public class EventHandler {
 			    
 			    // Sai do Consultorio
 	            if (hit(3, 73, 78, "any") && fPressedNow) {teleport(0, 26, 23);}
+	            
+	            
+	            // SAIDA BANHEIROS
+	            if (hit(3, 73, 54, "any") && fPressedNow) {teleport(0, 26, 29);} // MASCULINO ENTRADA
+	            if (hit(3, 48, 20, "any") && fPressedNow) {teleport(0, 24, 29);} // FEMININO ENTRADA
+	            
+	            if (hit(3, 28, 70, "any") && fPressedNow) {teleport(0, 39, 24);} // Feminino Cantina
+            	if (hit(3, 18, 57, "any") && fPressedNow) {teleport(0, 40, 24);} // Masculino Cantina
+            	
+            	if (hit(3, 73, 65, "any") && fPressedNow) {teleport(0, 44, 37);} // Banheiro Auditório
 			    			   
 			}			
 		}
