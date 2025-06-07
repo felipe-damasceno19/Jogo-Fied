@@ -111,7 +111,7 @@ public class EventHandler {
 			    if(hit(3, 25, 42, "any") && fPressedNow){teleport(3,24,83);}
 
 			    // ENTRA E SAI SALA 2 - BLOCO 1
-			    if(hit(3, 28, 82, "any") && fPressedNow){teleport(3,69,33);}
+			    if(hit(3, 28, 83, "any") && fPressedNow){teleport(3,69,33);}
 			    if(hit(3, 69, 34, "any") && fPressedNow){teleport(3,28,83);}
 
 			    // ENTRA E SAI SALA 3 - BLOCO 1

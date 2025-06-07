@@ -3,6 +3,7 @@ package main;
 import entity.NPC_Carol;
 import entity.NPC_Nelipe;
 import entity.NPC_Ismael;
+import entity.NPC_Nelder;
 import object.obj_Boots;
 import object.obj_Chest;
 import object.obj_Door;
@@ -123,6 +124,12 @@ public class AssetSetter {
 		gp.npc[mapNum][i] = new NPC_Carol(gp);
 		gp.npc[mapNum][i].worldX = gp.tileSize * 74;
 		gp.npc[mapNum][i].worldY = gp.tileSize * 21;
+		i++;
+		
+		mapNum = 3;	
+		gp.npc[mapNum][i] = new NPC_Nelder(gp);
+		gp.npc[mapNum][i].worldX = gp.tileSize * 27;
+		gp.npc[mapNum][i].worldY = gp.tileSize * 36;
 		i++;
 		
 		
