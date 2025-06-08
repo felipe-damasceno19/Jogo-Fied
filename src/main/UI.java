@@ -371,16 +371,6 @@ public class UI {
             }
         }
     }
-    
-    // Desenha caracteres na tela
-    public void drawCharacterScreen() {
-    	//FRAME
-    	final int frameX = gp.tileSize * 2;
-    	final int frameY = gp.tileSize;
-    	final int frameWidth = gp.tileSize*5;
-    	final int frameHeight = gp.tileSize*10;
-    	drawSubWindow(frameX, frameY, frameWidth, frameHeight);
-    }
       
     public void drawEmptyDialogueBox() {
         int width = gp.screenWidth / 2;
@@ -540,7 +530,30 @@ public class UI {
         g2.drawString(text, textX, textY);
     }
    
-    // Desnha inventario
+    // Conteúdo dos itens
+    public void drawCharacterScreen() {
+    	//FRAME
+    	final int frameX = gp.tileSize * 2;
+    	final int frameY = gp.tileSize;
+    	final int frameWidth = gp.tileSize*7;
+    	final int frameHeight = gp.tileSize*10;
+    	drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+    	
+    	int textX = frameX + 25;
+    	int textY = frameY + 50;
+    	g2.setFont(g2.getFont().deriveFont(28F)); 
+    	
+    	int itemIndex = getItemIndexOnSlot();
+    	
+    	if(itemIndex < gp.player.inventory.size()) {
+    			for(String line: gp.player.inventory.get(itemIndex).conteudo.split("\n")) {
+    			g2.drawString(line, textX, textY);
+    			textY += 32;
+    			}
+    	}
+    }
+    
+    // Desenha inventario
     public void drawInventory() {
     	
     	//FRAME
@@ -557,7 +570,7 @@ public class UI {
     	int slotY = slotYstart;
     	int slotSize = gp.tileSize+3;
     	
-    	//DESENHANDO INTENS
+    	//DESENHANDO ITENS
     	for(int i = 0; i < gp.player.inventory.size(); i++) {
     		g2.drawImage(gp.player.inventory.get(i).ObjImage, slotX, slotY, null );
     		slotX += slotSize;
