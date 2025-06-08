@@ -146,7 +146,7 @@ public class Player extends Entity {
 			// Checa colisão com tiles
 			gp.cChecker.checkTile(this);
 
-			int tilesIndex = gp.cChecker.checkTileOver(this, true);
+			gp.cChecker.checkTileOver(this, true);
 
 			// Antes ou depois de checar NPCs/objetos
 			nearInteractable = false;

@@ -68,9 +68,9 @@ public class GamePanel extends JPanel implements Runnable {
     
     //ENTIDADES E OBJETOS
     public Player player = new Player(this, keyH); // Instância do jogador
-    public Entity obj[][] = new Entity[maxMap][10];
-    public Entity npc[][] = new Entity[maxMap][10];
-    public Entity tilesOver[][] = new Entity[maxMap][10];
+    public Entity obj[][] = new Entity[maxMap][100];
+    public Entity npc[][] = new Entity[maxMap][100];
+    public Entity tilesOver[][] = new Entity[maxMap][100];
     ArrayList<Entity> entityList = new ArrayList<>();
     
     //GAME STATE

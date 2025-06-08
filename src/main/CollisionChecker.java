@@ -212,7 +212,7 @@ public class CollisionChecker {
 
 		int index = 999; // Valor padrão (sem colisão encontrada)
 
-		for(int i = 0; i < gp.obj[1].length; i++) {
+		for(int i = 0; i < gp.tilesOver[1].length; i++) {
 
 			if(gp.tilesOver[gp.currentMap][i] != null) { // Se existe um objeto na posição i
 

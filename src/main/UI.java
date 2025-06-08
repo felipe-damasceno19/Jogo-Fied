@@ -533,9 +533,9 @@ public class UI {
     // Conteúdo dos itens
     public void drawCharacterScreen() {
     	//FRAME
-    	final int frameX = gp.tileSize * 2;
+    	final int frameX = gp.tileSize-20;
     	final int frameY = gp.tileSize;
-    	final int frameWidth = gp.tileSize*7;
+    	final int frameWidth = gp.tileSize*(12);
     	final int frameHeight = gp.tileSize*10;
     	drawSubWindow(frameX, frameY, frameWidth, frameHeight);
     	
@@ -557,7 +557,7 @@ public class UI {
     public void drawInventory() {
     	
     	//FRAME
-    	int frameX = gp.tileSize * 12;
+    	int frameX = (gp.tileSize * 13)+20;
     	int frameY = gp.tileSize;
     	int frameWidth = gp.tileSize*6;
     	int frameHeight = gp.tileSize*5;
@@ -568,7 +568,7 @@ public class UI {
     	final int slotYstart = frameY + 20;
     	int slotX = slotXstart;
     	int slotY = slotYstart;
-    	int slotSize = gp.tileSize+3;
+    	int slotSize = gp.tileSize+6;
     	
     	//DESENHANDO ITENS
     	for(int i = 0; i < gp.player.inventory.size(); i++) {
