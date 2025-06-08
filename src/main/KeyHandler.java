@@ -63,6 +63,9 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.lockPickState) {
         	lockpickState(code);
         }
+        else if(gp.gameState == gp.powerBoxState) {
+        	powerBoxState(code);
+        }
         
      }
      public void titleState (int code) {
@@ -216,6 +219,71 @@ public class KeyHandler implements KeyListener {
     	            gp.ui.lockPickStage = 1;
     	            gp.ui.lockPickSpeed = 2;
     	            gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);
+    	        }
+    	    }
+    	}
+   
+     public void powerBoxState(int code) {
+    	    if (code == KeyEvent.VK_ESCAPE) {
+    	        gp.ui.powerPuzzleActive = false;
+    	        gp.gameState = gp.playState;
+    	        gp.ui.showMessage("Puzzle cancelado.");
+    	        return;
+    	    }
+
+    	    if (code == KeyEvent.VK_W) {
+    	        if (gp.ui.choosingLeft && gp.ui.wireCursorLeft > 0) gp.ui.wireCursorLeft--;
+    	        if (!gp.ui.choosingLeft && gp.ui.wireCursorRight > 0) gp.ui.wireCursorRight--;
+    	    }
+    	    if (code == KeyEvent.VK_S) {
+    	        if (gp.ui.choosingLeft && gp.ui.wireCursorLeft < 3) gp.ui.wireCursorLeft++;
+    	        if (!gp.ui.choosingLeft && gp.ui.wireCursorRight < 3) gp.ui.wireCursorRight++;
+    	    }
+
+    	    if (code == KeyEvent.VK_A || code == KeyEvent.VK_D) {
+    	        gp.ui.choosingLeft = !gp.ui.choosingLeft;
+    	    }
+
+    	    if (code == KeyEvent.VK_ENTER) {
+    	        if (gp.ui.choosingLeft) {
+    	            if (!gp.ui.wireConnected[gp.ui.wireCursorLeft]) {
+    	                gp.ui.wireSelectedLeft = gp.ui.wireCursorLeft;
+    	                gp.ui.choosingLeft = false;
+    	            }
+    	        } else {
+    	            int left = gp.ui.wireSelectedLeft;
+    	            int right = gp.ui.wireCursorRight;
+
+    	            if (left != -1 && !gp.ui.wireConnected[left]) {
+    	                int expectedRight = gp.ui.wireMatches[left];
+    	                if (expectedRight == right) {
+    	                    gp.ui.playerConnections[left] = right;
+    	                    gp.ui.wireConnected[left] = true;
+    	                    gp.playSE(3);
+    	                } else {
+    	                    gp.playSE(2);
+    	                    gp.ui.showMessage("Ligação errada!");
+    	                }
+    	                gp.ui.wireSelectedLeft = -1;
+    	                gp.ui.choosingLeft = true;
+    	            }
+
+    	            boolean allConnected = true;
+    	            for (boolean b : gp.ui.wireConnected) {
+    	                if (!b) {
+    	                    allConnected = false;
+    	                    break;
+    	                }
+    	            }
+
+    	            if (allConnected) {
+    	                gp.ui.powerPuzzleActive = false;
+    	                gp.ui.powerRestored = true;
+    	                gp.eManager.lighting = null;
+    	                gp.ui.showMessage("Energia restaurada!");
+    	                gp.playSE(3);
+    	                gp.gameState = gp.playState;
+    	            }
     	        }
     	    }
     	}

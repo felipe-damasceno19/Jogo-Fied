@@ -8,8 +8,10 @@ import entity.NPC_Nelder;
 import object.obj_Boots;
 import object.obj_Chest;
 import object.obj_Door;
+import object.obj_Fuse;
 import object.obj_Gaveteiro;
 import object.obj_Key;
+import object.obj_PowerBox;
 import tilesOverlay.over_Teto01;
 import tilesOverlay.over_Teto02;
 import tilesOverlay.over_Teto03;
@@ -36,6 +38,29 @@ public class AssetSetter {
 		//gp.obj[mapNum][i].worldY = gp.tileSize*38;
 		//i++;
 		
+		//PUZZLE CAIXA DE ENERGIA
+		
+		//gp.obj[mapNum][i] = new obj_Fuse(gp);
+		//gp.obj[mapNum][i].worldX = gp.tileSize * 25;  // coluna 10
+		//gp.obj[mapNum][i].worldY = gp.tileSize * 29;   // linha 8
+		//i++;
+		
+		//gp.obj[mapNum][i] = new obj_Fuse(gp);
+		//gp.obj[mapNum][i].worldX = gp.tileSize * 21;  // coluna 10
+		//gp.obj[mapNum][i].worldY = gp.tileSize * 25;   // linha 8
+		//i++;
+		
+		//gp.obj[mapNum][i] = new obj_Fuse(gp);
+		//gp.obj[mapNum][i].worldX = gp.tileSize * 25;  // coluna 10
+		//gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
+		//i++;
+		
+		//gp.obj[mapNum][i] = new obj_PowerBox(gp);
+		//gp.obj[mapNum][i].worldX = gp.tileSize * 44;  // coluna 10
+		//gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
+		//i++;
+
+
 		
 		mapNum = 1;	
 		gp.obj[mapNum][i] = new obj_Door(gp);

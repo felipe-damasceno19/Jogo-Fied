@@ -7,7 +7,7 @@ import main.GamePanel;
 public class EnvironmentManager {
 
 	GamePanel gp;
-	Lighting lighting;
+	public Lighting lighting;
 	
 	public EnvironmentManager(GamePanel gp) {
 		
@@ -21,6 +21,8 @@ public class EnvironmentManager {
 	
 	public void draw(Graphics2D g2) {
 		
-		lighting.draw(g2);
+		if(lighting != null) {
+				lighting.draw(g2);
+		}
 	}
 }

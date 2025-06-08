@@ -36,6 +36,7 @@ public class Player extends Entity {
 	
 	public boolean nearInteractable = false;
 	int indexGaveteiro1 = 0;
+	public int fuseCount = 0; // FUSIVEL
 	
 	// Construtor do jogador
 	public Player(GamePanel gp, KeyHandler keyH) {
@@ -225,7 +226,29 @@ public class Player extends Entity {
 						  gp.obj[gp.currentMap][i].ObjImage = setup("/objects/Gaveteiro_aberto");;
 					  }
 				}
-			    break;			
+			    break;		
+			case "Fuse":
+				if(gp.keyH.fPressed) {
+					gp.obj[gp.currentMap][i] = null;
+					fuseCount++;
+					gp.ui.showMessage("Fusível coletado! [" + fuseCount + "/3]" );
+					gp.playSE(3);
+				}
+				break;
+			case "Power_Box":
+				if(gp.keyH.fPressed) {
+					if(fuseCount >= 3 && !gp.ui.powerRestored) {
+						gp.ui.startPowerPuzzle();
+						gp.gameState = gp.powerBoxState;
+					}
+					else if(gp.ui.powerRestored) {
+						gp.ui.showMessage("A energia já foi restaurada!");
+					}
+					else {
+						gp.ui.showMessage("Faltam fusíveis! [" + fuseCount + "/3]" );
+					}
+				}
+				break;
 			}
 		}
 	}

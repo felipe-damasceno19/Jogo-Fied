@@ -31,6 +31,8 @@ public class UI {
     // Sinalizador para o término do jogo
     public boolean gameFinished = false;
     public boolean lockPickActive = false;
+
+    //LOCKPICK PUZZLE
     public object.obj_Door lockPickTarget = null;
     public object.obj_Gaveteiro lockPickTarget2 = null;
     public int lockPickProgress = 0;
@@ -39,6 +41,25 @@ public class UI {
     public boolean lockPickSucess = false;
     public int lockPickAngle = 0;  // Ângulo atual do ponteiro (0-359)
     public int lockPickSweetSpot = 0;  // Ângulo correto para destrancar
+    
+    //POWERBOX PUZZLE
+    public int[][] energyGrid = new int[4][4]; // códigos de peças
+    public int[][] rotationGrid = new int[4][4]; // rotação de cada peça
+    public int energyRow = 0, energyCol = 0;
+    public boolean powerPuzzleActive = false;
+    public boolean powerRestored = false;
+    
+ // Puzzle de fios
+    public int wireSelectedLeft = -1;
+    public boolean[] wireConnected = new boolean[4];     // status de cada fio
+    public int[] wireMatches = new int[4];               // posição embaralhada dos fios
+    public int[] playerConnections = new int[4];         // conexões feitas pelo jogador
+    public Color[] wireColors = { Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN };
+    public int wireCursorLeft = 0;
+    public int wireCursorRight = 0;
+    public boolean choosingLeft = true;
+
+
 
     // Texto de diálogo atual
     public String currentDialogue = "";
@@ -177,6 +198,9 @@ public class UI {
         if (lockPickActive) {
             drawLockpickPuzzle();
         }
+        if (powerPuzzleActive) {
+        	drawPowerPuzzle(g2);
+        }
 
 
 
@@ -217,6 +241,31 @@ public class UI {
             text = text.substring(endIndex).trim();
         }
     }
+    
+    public void startPowerPuzzle() {
+        powerPuzzleActive = true;
+        powerRestored = false;
+        wireSelectedLeft = -1;
+        wireCursorLeft = 0;
+        wireCursorRight = 0;
+        choosingLeft = true;
+
+        for (int i = 0; i < 4; i++) {
+            wireConnected[i] = false;
+            playerConnections[i] = -1;
+        }
+
+        // Embaralha os fios da direita
+        java.util.List<Integer> indices = new java.util.ArrayList<>();
+        for (int i = 0; i < 4; i++) indices.add(i);
+        java.util.Collections.shuffle(indices);
+        for (int i = 0; i < 4; i++) {
+            wireMatches[i] = indices.get(i);
+        }
+    }
+
+
+
 
     // Define a imagem do rosto do NPC que está falando
     public void setNpcFaceImage(BufferedImage faceImage) {
@@ -906,9 +955,44 @@ public class UI {
 
     }
 
+    public void drawPowerPuzzle(Graphics2D g2) {
+        int x1 = gp.screenWidth / 4;
+        int x2 = gp.screenWidth * 3 / 4;
+        int yStart = gp.screenHeight / 4;
+        int spacing = 80;
 
-        
-    
+        g2.setColor(new Color(0, 0, 0, 220));
+        g2.fillRoundRect(gp.screenWidth / 2 - 250, yStart - 60, 500, 400, 30, 30);
+
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(28f));
+        g2.drawString("Ligue os fios", gp.screenWidth / 2 - 80, yStart - 20);
+
+        for (int i = 0; i < 4; i++) {
+            int yLeft = yStart + i * spacing;
+            int yRight = yStart + wireMatches[i] * spacing;
+
+            // Linhas desenhadas com base nas conexões do jogador
+            if (playerConnections[i] != -1) {
+                g2.setColor(wireColors[i]);
+                g2.setStroke(new BasicStroke(5));
+                g2.drawLine(x1 + 20, yLeft + 20, x2 - 20, yStart + playerConnections[i] * spacing + 20);
+            }
+
+            // Bolinhas
+            g2.setColor(wireColors[i]);
+            g2.fillOval(x1 - 20, yLeft, 40, 40); // esquerda
+            g2.fillOval(x2 - 20, yRight, 40, 40); // direita
+        }
+
+        // Cursor
+        int cursorY = yStart + (choosingLeft ? wireCursorLeft : wireCursorRight) * spacing;
+        int cursorX = choosingLeft ? x1 - 10 : x2 - 10;
+        g2.setColor(Color.YELLOW);
+        g2.setStroke(new BasicStroke(2));
+        g2.drawRect(cursorX, cursorY, 40, 40);
+    }
+
 	
 	//METODO PARA CENTRALIZAR ELEMENTOS
 	public int getXforCenteredText(String text) {
