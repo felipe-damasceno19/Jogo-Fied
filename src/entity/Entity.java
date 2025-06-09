@@ -52,6 +52,7 @@ public class Entity {
 	//Atributos dos Itens
 	public String description = "";
 	public String conteudo = "";
+	public BufferedImage imagemCarta;
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;

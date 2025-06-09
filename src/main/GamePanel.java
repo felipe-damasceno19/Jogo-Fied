@@ -11,10 +11,12 @@ import java.awt.Graphics2D;         // Contexto gráfico mais avançado (2D)
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;          // Componente Swing que permite desenhar elementos gráficos
 
 import entity.Entity;
@@ -337,4 +339,17 @@ public class GamePanel extends JPanel implements Runnable {
     	se.setFile(i);
     	se.play();
     }
+    public BufferedImage setup(String imagePath) {
+		
+		UtilityTool uTool = new UtilityTool();
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+			image = uTool.scaleImage(image, tileSize, tileSize);
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return image;
+	}
 }

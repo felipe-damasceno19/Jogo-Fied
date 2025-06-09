@@ -535,14 +535,13 @@ public class UI {
     	//FRAME
     	final int frameX = gp.tileSize-20;
     	final int frameY = gp.tileSize;
-    	final int frameWidth = gp.tileSize*(12);
+    	final int frameWidth = gp.tileSize*12;
     	final int frameHeight = gp.tileSize*10;
     	drawSubWindow(frameX, frameY, frameWidth, frameHeight);
     	
-    	int textX = frameX + 25;
+    	int textX = frameX *9;
     	int textY = frameY + 50;
     	g2.setFont(g2.getFont().deriveFont(28F)); 
-    	
     	int itemIndex = getItemIndexOnSlot();
     	
     	if(itemIndex < gp.player.inventory.size()) {
@@ -607,9 +606,14 @@ public class UI {
     	int itemIndex = getItemIndexOnSlot();
     	
     	if(itemIndex < gp.player.inventory.size()) {
+    		final int tframeX = gp.tileSize+10;
+        	final int tframeY = gp.tileSize+30;
+        	final int tframeWidth = gp.tileSize*5;
+        	final int tframeHeight = gp.tileSize*8;
+    			drawSubWindowImg(tframeX, tframeY, tframeWidth, tframeHeight, gp.player.inventory.get(itemIndex).imagemCarta);
     			for(String line: gp.player.inventory.get(itemIndex).description.split("\n")) {
-    			g2.drawString(line, textX, textY);
-    			textY += 32;
+    				g2.drawString(line, textX, textY);
+    				textY += 32;
     			}
     		}
     	}   
@@ -894,6 +898,13 @@ public class UI {
         g2.setColor(c);
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
+    }
+    
+    public void drawSubWindowImg(int x, int y, int width, int height, BufferedImage caminhoImg) {
+        Color c = new Color(0, 0, 0, 240); // preto com transparência
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+        g2.drawImage(caminhoImg, x, y, null );
     }
     
     

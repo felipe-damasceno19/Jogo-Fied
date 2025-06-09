@@ -16,5 +16,6 @@ public class obj_Letter extends Entity{
 				+ "Durante a sessão, comentou que \n“a cabeça não desliga nem quando \nacaba o turno”. Quando questionei \nse se referia ao trabalho aqui ou em \noutro lugar, ele desviou o olhar. \r\n"
 				+ "\r\n"
 				+ "Apresenta sinais claros de privação \nde descanso. Há sobreposição de \nturnos em sua rotina semanal. ";
+		imagemCarta = setup("/objects/Letter");
 	}
 }
