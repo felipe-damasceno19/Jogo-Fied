@@ -66,6 +66,10 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.powerBoxState) {
         	powerBoxState(code);
         }
+        else if (gp.gameState == gp.culpritSelectionState) {
+            culpritSelectionState(code);
+        }
+
         
      }
      public void titleState (int code) {
@@ -114,6 +118,11 @@ public class KeyHandler implements KeyListener {
          }
          if (code == KeyEvent.VK_F) {
              fPressed = true;
+
+         }
+         
+         if (code == KeyEvent.VK_V) {
+        	 gp.gameState = gp.culpritSelectionState;
 
          }
          if (code == KeyEvent.VK_C) {
@@ -355,6 +364,27 @@ public class KeyHandler implements KeyListener {
     	 
     	 
      }
+     
+     public void culpritSelectionState(int code) {
+    	    if (code == KeyEvent.VK_A) {
+    	        gp.ui.selectedCulpritIndex--;
+    	        if (gp.ui.selectedCulpritIndex < 0) gp.ui.selectedCulpritIndex = 4;
+    	        gp.playSE(3);
+    	    }
+    	    if (code == KeyEvent.VK_D) {
+    	        gp.ui.selectedCulpritIndex++;
+    	        if (gp.ui.selectedCulpritIndex > 4) gp.ui.selectedCulpritIndex = 0;
+    	        gp.playSE(3);
+    	    }
+    	    if (code == KeyEvent.VK_ENTER) {
+    	        gp.ui.culpritChosen = gp.ui.selectedCulpritIndex;
+
+    	        // Agora você tem a flag: gp.ui.culpritChosen
+    	        // Pode tratar em outro lugar conforme desejado
+    	    }
+    	}
+
+
      public void gameOverState(int code) {
     	 if(code == KeyEvent.VK_W) {
     		 gp.ui.commandNum--;

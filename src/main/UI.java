@@ -107,6 +107,12 @@ public class UI {
     public boolean showGenericBox = false;
 
     
+    public int selectedCulpritIndex = 0;
+    public int culpritChosen = -1;
+    public BufferedImage[] culpritSprites = new BufferedImage[5];
+    public String[] culpritNames = { "Nelipe", "Ismael", "Carol", "Vilson", "Nelder" };
+
+    
 
     // ===============================
     // CONSTRUTOR DA CLASSE
@@ -136,6 +142,16 @@ public class UI {
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
+        
+        
+        try {
+            for (int i = 0; i < 5; i++) {
+                culpritSprites[i] = ImageIO.read(getClass().getResourceAsStream("/culprit/npc_" + i + ".png"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         
         enterButtonFrames = loadButtonSprites("/buttons/press_enter.png", 2);
         fButtonFrames = loadButtonSprites("/buttons/press_f.png", 2);
@@ -201,8 +217,9 @@ public class UI {
         if (powerPuzzleActive) {
         	drawPowerPuzzle(g2);
         }
-
-
+        if (gp.gameState == gp.culpritSelectionState) {
+            drawCulpritSelectionScreen();
+        }
 
     }
 
@@ -212,6 +229,58 @@ public class UI {
         messageOn = true;
         messageCounter = 0;
     }
+    
+    
+    public void drawCulpritSelectionScreen() {
+        g2.setColor(new Color(0, 0, 0, 220));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        // Título no topo
+        String title = "Faça sua acusação! Quem é o assassino?";
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48f));
+        int titleX = getXforCenteredText(title);
+        g2.setColor(Color.white);
+        g2.drawString(title, titleX, gp.tileSize * 2);
+
+        // Instrução embaixo
+        String hint = "Use A e D para mover. ENTER para confirmar.";
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20f));
+        int hintX = getXforCenteredText(hint);
+        int hintY = gp.screenHeight - gp.tileSize;
+        g2.drawString(hint, hintX, hintY);
+
+        // Espaçamento e posicionamento
+        int totalNPCs = 5;
+        int spacing = gp.tileSize * 3;
+        int spriteSize = gp.tileSize * 4;
+
+        int middleY = (gp.tileSize * 2 + hintY) / 2;  // meio entre o título e o texto
+        int startX = (gp.screenWidth - (spacing * (totalNPCs - 1))) / 2;
+
+        for (int i = 0; i < totalNPCs; i++) {
+            int x = startX + i * spacing;
+            int spriteY = middleY - spriteSize / 2;
+
+            if (i == selectedCulpritIndex) {
+                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36f));
+                String arrow = "^";
+                int arrowWidth = g2.getFontMetrics().stringWidth(arrow);
+                g2.drawString(arrow, x - arrowWidth / 2, spriteY - 15); // 15 pixels acima do sprite
+            }
+
+
+
+            // Desenha o sprite
+            g2.drawImage(culpritSprites[i], x - spriteSize / 2, spriteY, spriteSize, spriteSize, null);
+
+            // Nome abaixo do sprite
+            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 20f));
+            String name = culpritNames[i];
+            int nameWidth = g2.getFontMetrics().stringWidth(name);
+            g2.drawString(name, x - nameWidth / 2, spriteY + spriteSize + 20);
+        }
+    }
+
     
     
     
