@@ -112,11 +112,12 @@ public class UI {
     public BufferedImage[] culpritSprites = new BufferedImage[5];
     public String[] culpritNames = { "Nelipe", "Ismael", "Carol", "Vilson", "Nelder" };
 
-    
 
     // ===============================
     // CONSTRUTOR DA CLASSE
     // ===============================
+    
+    
     public UI(GamePanel gp) {
         this.gp = gp;
 
@@ -282,11 +283,10 @@ public class UI {
     }
 
     
-    
-    
     // ===============================
     // Metódos de Dialogo
     // ===============================
+    
     
     // Prepara o texto de diálogo para ser exibido com digitação progressiva
     public void startDialogue(String text) {
@@ -332,8 +332,6 @@ public class UI {
             wireMatches[i] = indices.get(i);
         }
     }
-
-
 
 
     // Define a imagem do rosto do NPC que está falando
@@ -454,6 +452,7 @@ public class UI {
     // ===============================
     // TELAS DE INTERAÇÃO
     // ===============================
+    
     
     // Desenha a tela de título (menu inicial)
     public void drawTitleScreen() {
@@ -927,9 +926,11 @@ public class UI {
     	return itemIndex;
     }
   
+    
     // ===============================
     // MÉTODOS VARIADOS
     // ===============================
+    
     
     public BufferedImage[] loadButtonSprites(String path, int frameCount) {
         BufferedImage[] frames = new BufferedImage[frameCount];
@@ -975,8 +976,6 @@ public class UI {
         g2.fillRoundRect(x, y, width, height, 35, 35);
         g2.drawImage(caminhoImg, x, y, null );
     }
-    
-    
     
     // ===============================
     // PUZZLES

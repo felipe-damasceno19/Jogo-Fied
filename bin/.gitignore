@@ -1,6 +1,8 @@
-/sound/
-/notes/
-/object/
-/guilty/
-/culprit/
+/entity/
+/environment/
 /main/
+/object/
+/tile/
+/tilesOverlay/
+/culprit/
+/notes/
