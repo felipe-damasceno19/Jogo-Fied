@@ -62,6 +62,7 @@ public class CutsceneManager {
                             "Ou pior",
                             "...e se ele não souber o que fez."
                         ));
+                 
                     break;
                 // Adicione mais cutscenes aqui
             }
@@ -176,7 +177,8 @@ public class CutsceneManager {
 
 
     public void next() {
-    	String visibleText = getVisibleLinesTextForCutscene();
+        String visibleText = getVisibleLinesTextForCutscene();
+        
         if (gp.ui.textCharIndex < visibleText.length()) {
             gp.ui.textCharIndex = visibleText.length(); // mostra tudo de uma vez
             return;
@@ -195,12 +197,18 @@ public class CutsceneManager {
                 if (currentSegment < segments.size()) {
                     playCurrentDialogue();
                 } else {
+                    // Cutscene terminou!
                     active = false;
                     gp.gameState = gp.playState;
+
+                    // Avança para o próximo estágio da narrativa
+                    gp.gameStage.currentStage = 1;
+                    gp.gameStage.countFrames = 0;
                 }
             }
         }
     }
+
 
     public boolean isActive() {
         return active;

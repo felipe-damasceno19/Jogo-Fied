@@ -19,7 +19,7 @@ public class GameStage {
     private String[] dialogMessages;
     String dialogues[][] = new String[10][20];
     BufferedImage face[] = new BufferedImage[10];
-    int countFrames = 0;
+    public int countFrames = 0;
     int time = 2;
     
     
@@ -34,12 +34,13 @@ public class GameStage {
     public void checkStage() {
     	switch(currentStage) {
     		case 0:
+    			gp.cutsceneManager.startCutscene("intro");
+    			break;
+    		case 1:
     			// Espera passar alguns milesimos de segundo pra rodar o primeiro dialogo;    			
     			if(countFrames >= time) {initialStage(); }
     			countFrames++;
-    			break;
-    		case 1:
-    			if(gp.currentTeleport == 1) {currentStage++;}
+    			
     			break;
     		case 2:
     			
