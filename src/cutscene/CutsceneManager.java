@@ -16,6 +16,8 @@ public class CutsceneManager {
     private List<CutsceneSegment> segments = new ArrayList<>();
     private int currentSegment = 0;
     private int currentDialogueIndex = 0;
+    private List<String> cutsceneTextLines = new ArrayList<>();
+
 
     public CutsceneManager(GamePanel gp) {
         this.gp = gp;
@@ -33,17 +35,33 @@ public class CutsceneManager {
                 case "intro":
                     segments.add(new CutsceneSegment(
                         ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena1.png")),
-                        "Em uma noite sombria,", 
-                        "algo estranho aconteceu na mansão.",
-                        "As luzes piscaram por um instante...",
-                        "e então, tudo ficou em silêncio."
+                        "Naquela manhã, nada parecia diferente.", 
+                        "Até que a professora Carol abriu a porta da enfermaria",
+                        "E encontrou algo que jamais esqueceria."
                     ));
                     segments.add(new CutsceneSegment(
                         ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena2.png")),
-                        "Você acorda com um ruído distante...",
-                        "Será que foi apenas um sonho?",
-                        "Ou um aviso do que está por vir?"
+                        "Ali, no chão frio, jazia o corpo da psicóloga da faculdade.",
+                        "Sem testemunhas.",
+                        "Sem som.",
+                        "Só o silêncio e o sangue...",                       
+                        "A investigação inicial foi rápida",
+                        "Demais."
                     ));
+                    segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena3.png")),
+                            "Silas, o coordenador do curso, foi chamado com urgência.",
+                            "Disseram que o assassino pode estar entre os professores.",
+                            "E que pistas foram encontradas…?",
+                            "Como o lendário coordenador, seu dever é descobrir a verdade. Antes que alguém mais se machuque."
+                        ));
+                    segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena4.png")),
+                            "Enquanto dirige, uma dúvida o persegue, como o nevoeiro que cobre o caminho...",
+                            "E se o culpado estiver te esperando?",
+                            "Ou pior",
+                            "...e se ele não souber o que fez."
+                        ));
                     break;
                 // Adicione mais cutscenes aqui
             }
@@ -53,12 +71,50 @@ public class CutsceneManager {
 
         playCurrentDialogue();
     }
+    
+    private String getVisibleLinesTextForCutscene() {
+        StringBuilder sb = new StringBuilder();
+        int maxLines = 4;
+
+        for (int i = 0; i < maxLines && i < cutsceneTextLines.size(); i++) {
+            sb.append(cutsceneTextLines.get(i)).append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    
+    private void prepareCutsceneDialogue(String text) {
+        cutsceneTextLines.clear();
+
+        int maxCharsPerLine = 60; // você pode ajustar isso para caber melhor na sua caixa
+
+        while (text.length() > 0) {
+            int endIndex = Math.min(maxCharsPerLine, text.length());
+            String line = text.substring(0, endIndex);
+            int lastSpace = line.lastIndexOf(" ");
+
+            if (endIndex == maxCharsPerLine && lastSpace > 0) {
+                line = text.substring(0, lastSpace);
+                endIndex = lastSpace;
+            }
+
+            cutsceneTextLines.add(line);
+            text = text.substring(endIndex).trim();
+        }
+
+        gp.ui.textCharIndex = 0;
+        gp.ui.textCounter = 0;
+    }
+
+
 
     private void playCurrentDialogue() {
         if (currentSegment < segments.size()) {
             CutsceneSegment seg = segments.get(currentSegment);
             if (currentDialogueIndex < seg.dialogues.length) {
-                gp.ui.startDialogue(seg.dialogues[currentDialogueIndex]);
+            	prepareCutsceneDialogue(seg.dialogues[currentDialogueIndex]);
+
             }
         }
     }
@@ -73,31 +129,51 @@ public class CutsceneManager {
             }
         }
 
-        // Caixa de diálogo na parte inferior
-        gp.ui.drawSubWindow(80, gp.screenHeight - gp.tileSize * 3 - 40, gp.screenWidth - 160, gp.tileSize * 3);
-        g2.setFont(gp.ui.undertaleFontSans.deriveFont(26f));
+        
+        int boxX = 150;
+        int boxHeight = (int)(gp.tileSize * 3); 
+        int boxY = gp.screenHeight - boxHeight - 20;
+        int boxWidth = gp.screenWidth - 300;
+
+        gp.ui.drawSubWindow(boxX, boxY, boxWidth, boxHeight);
+
+        // 🔠 Fonte continua confortável
+        g2.setFont(gp.ui.undertaleFontSans.deriveFont(32f));
         g2.setColor(java.awt.Color.white);
 
-        // Animação de digitação
-        if (gp.ui.textCharIndex < gp.ui.getVisibleLinesText().length()) {
+        // ✍️ Tipagem com bip
+
+        String visibleText = getVisibleLinesTextForCutscene();
+
+        if (gp.ui.textCharIndex < visibleText.length()) {
             gp.ui.textCounter++;
             if (gp.ui.textCounter > gp.ui.textDisplaySpeed) {
+                char nextChar = visibleText.charAt(gp.ui.textCharIndex);
+                if (Character.isLetterOrDigit(nextChar)) {
+                    gp.playSE(5);
+                }
                 gp.ui.textCharIndex++;
                 gp.ui.textCounter = 0;
             }
         }
 
-        // Texto atual visível
-        String visibleText = gp.ui.getVisibleLinesText();
         String toDraw = visibleText.substring(0, Math.min(gp.ui.textCharIndex, visibleText.length()));
-        int x = 100;
-        int y = gp.screenHeight - gp.tileSize * 2;
+
+
+        // 📍 Posicionamento ajustado
+        int textX = boxX + 24;
+        int textY = boxY + 40; // deslocamento interno vertical inicial
+
+        // ↕️ Espaçamento maior entre linhas para preencher melhor a caixa
+        int lineSpacing = 42;
 
         for (String line : toDraw.split("\n")) {
-            g2.drawString(line, x, y);
-            y += 32;
+            g2.drawString(line, textX, textY);
+            textY += lineSpacing;
         }
+       
     }
+
 
     public void next() {
         String visibleText = gp.ui.getVisibleLinesText();
