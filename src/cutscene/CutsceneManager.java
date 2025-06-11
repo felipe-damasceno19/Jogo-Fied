@@ -131,14 +131,14 @@ public class CutsceneManager {
 
         
         int boxX = 150;
-        int boxHeight = (int)(gp.tileSize * 3); 
-        int boxY = gp.screenHeight - boxHeight - 20;
+        int boxHeight = (int)(gp.tileSize * 2); 
+        int boxY = gp.screenHeight - boxHeight - 30;
         int boxWidth = gp.screenWidth - 300;
 
         gp.ui.drawSubWindow(boxX, boxY, boxWidth, boxHeight);
 
         // 🔠 Fonte continua confortável
-        g2.setFont(gp.ui.undertaleFontSans.deriveFont(32f));
+        g2.setFont(gp.ui.undertaleFontSans.deriveFont(38f));
         g2.setColor(java.awt.Color.white);
 
         // ✍️ Tipagem com bip
@@ -165,7 +165,7 @@ public class CutsceneManager {
         int textY = boxY + 40; // deslocamento interno vertical inicial
 
         // ↕️ Espaçamento maior entre linhas para preencher melhor a caixa
-        int lineSpacing = 42;
+        int lineSpacing = 48;
 
         for (String line : toDraw.split("\n")) {
             g2.drawString(line, textX, textY);
@@ -176,7 +176,7 @@ public class CutsceneManager {
 
 
     public void next() {
-        String visibleText = gp.ui.getVisibleLinesText();
+    	String visibleText = getVisibleLinesTextForCutscene();
         if (gp.ui.textCharIndex < visibleText.length()) {
             gp.ui.textCharIndex = visibleText.length(); // mostra tudo de uma vez
             return;
