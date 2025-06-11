@@ -14,6 +14,10 @@ public class KeyHandler implements KeyListener {
     //DEBUG
     public boolean showDebugText = false; 
     
+    private long lastMoveTime = 0;  // Último tempo que a seleção foi movida
+    private final long moveCooldown = 200;  // Tempo de espera (em milissegundos) entre as movimentações
+
+    
     public KeyHandler(GamePanel gp) {
     	this.gp = gp;
     	
@@ -366,24 +370,34 @@ public class KeyHandler implements KeyListener {
      }
      
      public void culpritSelectionState(int code) {
-    	    if (code == KeyEvent.VK_A) {
-    	        gp.ui.selectedCulpritIndex--;
-    	        if (gp.ui.selectedCulpritIndex < 0) gp.ui.selectedCulpritIndex = 4;
-    	        gp.playSE(3);
-    	    }
-    	    if (code == KeyEvent.VK_D) {
-    	        gp.ui.selectedCulpritIndex++;
-    	        if (gp.ui.selectedCulpritIndex > 4) gp.ui.selectedCulpritIndex = 0;
-    	        gp.playSE(3);
-    	    }
-    	    if (code == KeyEvent.VK_ENTER) {
-    	        gp.ui.culpritChosen = gp.ui.selectedCulpritIndex;
+    	    long currentTime = System.currentTimeMillis();
 
-    	        // Agora você tem a flag: gp.ui.culpritChosen
-    	        // Pode tratar em outro lugar conforme desejado
+    	    // Verifica se o tempo de cooldown já passou
+    	    if (currentTime - lastMoveTime > moveCooldown) {
+    	        if (code == KeyEvent.VK_A) {
+    	            gp.ui.selectedCulpritIndex--;
+    	            if (gp.ui.selectedCulpritIndex < 0) {
+    	                gp.ui.selectedCulpritIndex = 4; // Lógica para voltar ao final se o índice for negativo
+    	            }
+    	            gp.playSE(3); // Toca o som de seleção
+    	            lastMoveTime = currentTime; // Atualiza o tempo do último movimento
+    	        }
+
+    	        if (code == KeyEvent.VK_D) {
+    	            gp.ui.selectedCulpritIndex++;
+    	            if (gp.ui.selectedCulpritIndex > 4) {
+    	                gp.ui.selectedCulpritIndex = 0; // Lógica para voltar ao início se o índice ultrapassar 4
+    	            }
+    	            gp.playSE(3); // Toca o som de seleção
+    	            lastMoveTime = currentTime; // Atualiza o tempo do último movimento
+    	        }
+    	        
+    	        if (code == KeyEvent.VK_ENTER) {
+    	            gp.ui.culpritChosen = gp.ui.selectedCulpritIndex;
+    	            // Aqui você pode adicionar o que acontece quando o jogador confirma a escolha
+    	        }
     	    }
     	}
-
 
      public void gameOverState(int code) {
     	 if(code == KeyEvent.VK_W) {

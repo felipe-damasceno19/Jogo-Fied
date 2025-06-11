@@ -40,25 +40,25 @@ public class AssetSetter {
 		
 		//PUZZLE CAIXA DE ENERGIA
 		
-		//gp.obj[mapNum][i] = new obj_Fuse(gp);
-		//gp.obj[mapNum][i].worldX = gp.tileSize * 25;  // coluna 10
-		//gp.obj[mapNum][i].worldY = gp.tileSize * 29;   // linha 8
-		//i++;
+		gp.obj[mapNum][i] = new obj_Fuse(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize * 25;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 29;   // linha 8
+		i++;
 		
-		//gp.obj[mapNum][i] = new obj_Fuse(gp);
-		//gp.obj[mapNum][i].worldX = gp.tileSize * 21;  // coluna 10
-		//gp.obj[mapNum][i].worldY = gp.tileSize * 25;   // linha 8
-		//i++;
+		gp.obj[mapNum][i] = new obj_Fuse(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize * 21;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 25;   // linha 8
+		i++;
 		
-		//gp.obj[mapNum][i] = new obj_Fuse(gp);
-		//gp.obj[mapNum][i].worldX = gp.tileSize * 25;  // coluna 10
-		//gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
-		//i++;
+		gp.obj[mapNum][i] = new obj_Fuse(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize * 25;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
+		i++;
 		
-		//gp.obj[mapNum][i] = new obj_PowerBox(gp);
-		//gp.obj[mapNum][i].worldX = gp.tileSize * 44;  // coluna 10
-		//gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
-		//i++;
+		gp.obj[mapNum][i] = new obj_PowerBox(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize * 46;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 34;   // linha 8
+		i++;
 
 
 		

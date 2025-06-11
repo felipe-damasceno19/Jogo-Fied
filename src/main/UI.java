@@ -110,7 +110,9 @@ public class UI {
     public int selectedCulpritIndex = 0;
     public int culpritChosen = -1;
     public BufferedImage[] culpritSprites = new BufferedImage[5];
-    public String[] culpritNames = { "Nelipe", "Ismael", "Carol", "Vilson", "Nelder" };
+    public String[] culpritNames = { "Carol", "Ismael", "Nelder", "Nelipe", "Vilson" };
+    private long lastMoveTime = 0;  // Última vez que o movimento foi realizado
+    private final long moveCooldown = 200;  // Tempo de espera entre movimentos (em milissegundos)
 
 
     // ===============================
@@ -258,6 +260,19 @@ public class UI {
         int middleY = (gp.tileSize * 2 + hintY) / 2;  // meio entre o título e o texto
         int startX = (gp.screenWidth - (spacing * (totalNPCs - 1))) / 2;
 
+        // Verifica o tempo atual para permitir a movimentação
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastMoveTime > moveCooldown) {
+            if (gp.keyH.leftPressed) {
+                selectedCulpritIndex = Math.max(0, selectedCulpritIndex - 1);  // Move para a esquerda
+                lastMoveTime = currentTime;  // Atualiza o tempo do último movimento
+            } 
+            if (gp.keyH.rightPressed) {
+                selectedCulpritIndex = Math.min(totalNPCs - 1, selectedCulpritIndex + 1);  // Move para a direita
+                lastMoveTime = currentTime;  // Atualiza o tempo do último movimento
+            }
+        }
+
         for (int i = 0; i < totalNPCs; i++) {
             int x = startX + i * spacing;
             int spriteY = middleY - spriteSize / 2;
@@ -269,8 +284,6 @@ public class UI {
                 g2.drawString(arrow, x - arrowWidth / 2, spriteY - 15); // 15 pixels acima do sprite
             }
 
-
-
             // Desenha o sprite
             g2.drawImage(culpritSprites[i], x - spriteSize / 2, spriteY, spriteSize, spriteSize, null);
 
@@ -281,7 +294,6 @@ public class UI {
             g2.drawString(name, x - nameWidth / 2, spriteY + spriteSize + 20);
         }
     }
-
     
     // ===============================
     // Metódos de Dialogo

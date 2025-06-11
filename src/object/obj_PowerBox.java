@@ -10,7 +10,7 @@ public class obj_PowerBox extends Entity{
 	
 		super(gp);
 		name = "Power_Box";
-		ObjImage = setup("/objects/chest");
+		ObjImage = setup("/objects/powerBox");
 		collision = true;
 		
 		solidArea.x = 0;
