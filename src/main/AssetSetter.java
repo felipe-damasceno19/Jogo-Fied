@@ -12,6 +12,8 @@ import object.obj_Fuse;
 import object.obj_Gaveteiro;
 import object.obj_Key;
 import object.obj_Letter;
+import object.obj_Letter2;
+import object.obj_Letter3;
 import object.obj_PowerBox;
 import tilesOverlay.over_Teto01;
 import tilesOverlay.over_Teto02;
@@ -85,7 +87,7 @@ public class AssetSetter {
 		obj_Gaveteiro gav2 = new obj_Gaveteiro(gp);
 		gav2.worldX = 74 * gp.tileSize;
 		gav2.worldY = 21 * gp.tileSize;
-		gav2.storedItems.add(new obj_Letter(gp));
+		gav2.storedItems.add(new obj_Letter2(gp));
 		gp.obj[2][1] = gav2;
 		
 		//Mapa Helder, Vilson
@@ -123,7 +125,7 @@ public class AssetSetter {
 		obj_Gaveteiro gav3 = new obj_Gaveteiro(gp);
 		gav3.worldX = 26 * gp.tileSize;
 		gav3.worldY = 37 * gp.tileSize;
-		gav3.storedItems.add(new obj_Key(gp));
+		gav3.storedItems.add(new obj_Letter3(gp));
 		gp.obj[3][2] = gav3;
 		
 		obj_Gaveteiro gav4 = new obj_Gaveteiro(gp);

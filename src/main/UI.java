@@ -621,7 +621,7 @@ public class UI {
     	
     	int textX = frameX *9;
     	int textY = frameY + 50;
-    	g2.setFont(g2.getFont().deriveFont(28F)); 
+    	g2.setFont(g2.getFont().deriveFont(21F)); 
     	int itemIndex = getItemIndexOnSlot();
     	
     	if(itemIndex < gp.player.inventory.size()) {

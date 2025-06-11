@@ -11,11 +11,18 @@ public class obj_Letter extends Entity{
 		name = "Anotação sala 1";
 		ObjImage = setup("/objects/letter");
 		description = "[" + name + "]\nUma carta misteriosa.";
-		conteudo = "[" + name + "]\nO paciente tem evitado discussões \nprolongadas sobre sua rotina \nfora da instituição. Demonstra um \ncansaço crônico, mas se recusa a \nfalar sobre a origem exata. \r\n"
-				+ "\r\n"
-				+ "Durante a sessão, comentou que \n“a cabeça não desliga nem quando \nacaba o turno”. Quando questionei \nse se referia ao trabalho aqui ou em \noutro lugar, ele desviou o olhar. \r\n"
-				+ "\r\n"
-				+ "Apresenta sinais claros de privação \nde descanso. Há sobreposição de \nturnos em sua rotina semanal. ";
+		conteudo = "[" + name + "]\nO paciente tem evitado discussões\n" +
+				"prolongadas sobre sua rotina fora da\n" +
+				"instituição. Demonstra um cansaço\n" +
+				"crônico, mas se recusa a falar sobre a\n" +
+				"origem exata.\n" +
+				"Durante a sessão, comentou que “a cabeça\n" +
+				"não desliga nem quando acaba o turno”.\n" +
+				"Quando questionei se se referia ao trabalho\n" +
+				"aqui ou em outro lugar, ele desviou o olhar.\n" +
+				"Apresenta sinais claros de privação de\n" +
+				"descanso. Há sobreposição de turnos em\n" +
+				"sua rotina semanal.";
 		imagemCarta = gp.setupImg("/notes/nota_01", 300, 400);
 	}
 }
