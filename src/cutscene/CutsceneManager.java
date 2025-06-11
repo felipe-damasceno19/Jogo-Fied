@@ -35,12 +35,14 @@ public class CutsceneManager {
                 case "intro":
                     segments.add(new CutsceneSegment(
                         ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena1.png")),
+                        2,
                         "Naquela manhã, nada parecia diferente.", 
                         "Até que a professora Carol abriu a porta da enfermaria",
                         "E encontrou algo que jamais esqueceria."
                     ));
                     segments.add(new CutsceneSegment(
                         ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena2.png")),
+                        6,
                         "Ali, no chão frio, jazia o corpo da psicóloga da faculdade.",
                         "Sem testemunhas.",
                         "Sem som.",
@@ -50,6 +52,7 @@ public class CutsceneManager {
                     ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena3.png")),
+                            6,
                             "Silas, o coordenador do curso, foi chamado com urgência.",
                             "Disseram que o assassino pode estar entre os professores.",
                             "E que pistas foram encontradas…?",
@@ -57,6 +60,7 @@ public class CutsceneManager {
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena4.png")),
+                            7,
                             "Enquanto dirige, uma dúvida o persegue, como o nevoeiro que cobre o caminho...",
                             "E se o culpado estiver te esperando?",
                             "Ou pior",
@@ -116,6 +120,10 @@ public class CutsceneManager {
             if (currentDialogueIndex < seg.dialogues.length) {
             	prepareCutsceneDialogue(seg.dialogues[currentDialogueIndex]);
 
+            }
+
+            if (currentDialogueIndex == 0) {
+                gp.playSE(seg.soundIndex); // toca o som do segmento no início
             }
         }
     }
@@ -218,10 +226,13 @@ public class CutsceneManager {
     private static class CutsceneSegment {
         public BufferedImage image;
         public String[] dialogues;
+        public int soundIndex;
 
-        public CutsceneSegment(BufferedImage image, String... dialogues) {
+        public CutsceneSegment(BufferedImage image, int soundIndex, String... dialogues) {
             this.image = image;
+            this.soundIndex = soundIndex;
             this.dialogues = dialogues;
+            
         }
     }
 }
