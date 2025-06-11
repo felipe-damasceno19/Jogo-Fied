@@ -39,8 +39,10 @@ public class GameStage {
     			countFrames++;
     			break;
     		case 1:
+    			if(gp.currentTeleport == 1) {currentStage++;}
     			break;
     		case 2:
+    			
     			break;
     	}
     }

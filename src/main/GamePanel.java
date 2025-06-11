@@ -63,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    public cutscene.CutsceneManager cutsceneManager = new cutscene.CutsceneManager(this);
     public EventHandler eHandler = new EventHandler(this);
     Config config = new Config(this);
     EnvironmentManager eManager = new EnvironmentManager(this);
@@ -87,6 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int lockPickState = 7;
     public final int powerBoxState = 8;
     public final int culpritSelectionState = 9;
+    public final int cutsceneState = 10;
 
     
     //FUNDO BORRADO
@@ -110,7 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
     	
     	aSetter.setObject();
     	aSetter.setTilesOver();
-    	aSetter.setNpc();
+   		aSetter.setNpc();
     	playMusic(1);
     	eManager.setup();
     	gameState = titleState;
@@ -237,6 +239,11 @@ public class GamePanel extends JPanel implements Runnable {
         }   
         
         //TELA INICIAL
+        if (gameState == cutsceneState) {
+            cutsceneManager.draw(g2);
+            return; // impede que o jogo continue desenhando por cima
+        }
+
         if (gameState == titleState) {
             ui.draw(g2);
         } else {

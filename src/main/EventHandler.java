@@ -184,9 +184,14 @@ public class EventHandler {
 		previousEventY = gp.player.worldY;
 		
 		
+		if(gp.gameStage.currentStage == 1) {
+			gp.currentTeleport++;
+		}
+		
+		
 		canTouchEvent = false;
 		gp.player.nearInteractable = false;
-		//gp.playSE(01);
+		gp.playSE(03);
 		
 		// Atualiza a área de colisão do jogador imediatamente após o teleporte
 	    gp.player.solidArea.x = gp.player.worldX + gp.player.solidAreaDefaultX;

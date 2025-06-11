@@ -150,9 +150,10 @@ public class AssetSetter {
 		// SETA NPC NO MAPA 0
 		int mapNum = 0;	
 		int i = 0;
+		
 		gp.npc[mapNum][i] = new NPC_Nelipe(gp);
 		gp.npc[mapNum][i].worldX = gp.tileSize * 27;
-		gp.npc[mapNum][i].worldY = gp.tileSize * 25;
+		gp.npc[mapNum][i].worldY = gp.tileSize * 25;	
 		i++;
 		
 		

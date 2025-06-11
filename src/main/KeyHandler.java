@@ -33,6 +33,14 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         
         int code = e.getKeyCode(); // Obtém o código da tecla pressionada
+        
+        if (gp.gameState == gp.cutsceneState) {
+            if (code == KeyEvent.VK_ENTER) {
+                gp.cutsceneManager.next();
+            }
+            return;
+        }
+        
         //TELA DE INICIO
         if(gp.gameState == gp.titleState) {
         	titleState(code);        	
@@ -73,6 +81,7 @@ public class KeyHandler implements KeyListener {
         else if (gp.gameState == gp.culpritSelectionState) {
             culpritSelectionState(code);
         }
+
 
         
      }
@@ -126,7 +135,7 @@ public class KeyHandler implements KeyListener {
          }
          
          if (code == KeyEvent.VK_V) {
-        	 gp.gameState = gp.culpritSelectionState;
+        	 gp.cutsceneManager.startCutscene("intro");
 
          }
          if (code == KeyEvent.VK_C) {

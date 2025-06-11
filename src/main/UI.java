@@ -21,7 +21,7 @@ public class UI {
     Graphics2D g2; // Objeto gráfico para desenhar na tela
 
     // Fontes do estilo Undertale para títulos e diálogos
-    Font undertaleFontSans, undertaleFontRegular;
+    public Font undertaleFontSans, undertaleFontRegular;
 
     // Sistema de mensagens temporárias na tela
     public boolean messageOn = false;
@@ -85,15 +85,15 @@ public class UI {
     boolean npcFaceToggle = false;
 
     // Sistema de digitação progressiva de texto
-    String fullText = "";         // Texto completo a ser exibido
-    String displayedText = "";    // Parte já exibida na tela
-    int textCharIndex = 0;        // Quantos caracteres já foram mostrados
-    int textDisplaySpeed = 2;     // Velocidade de digitação (menor = mais rápido)
-    int textCounter = 0;          // Contador para controlar o tempo entre cada letra
+    public String fullText = "";         // Texto completo a ser exibido
+    public String displayedText = "";    // Parte já exibida na tela
+    public int textCharIndex = 0;        // Quantos caracteres já foram mostrados
+    public int textDisplaySpeed = 2;     // Velocidade de digitação (menor = mais rápido)
+    public int textCounter = 0;          // Contador para controlar o tempo entre cada letra
 
     // Lista com todas as linhas do texto, quebradas automaticamente
-    java.util.List<String> fullTextLines = new ArrayList<>();
-    int currentLineStart = 0; // Índice da primeira linha atualmente visível
+    public java.util.List<String> fullTextLines = new ArrayList<>();
+    public int currentLineStart = 0; // Índice da primeira linha atualmente visível
     
  // Sprites de botões animados
     BufferedImage[] enterButtonFrames;
@@ -224,6 +224,7 @@ public class UI {
             drawCulpritSelectionScreen();
         }
 
+
     }
 
     // Mostra uma mensagem simples (ex: "Item coletado!")
@@ -233,7 +234,7 @@ public class UI {
         messageCounter = 0;
     }
     
-    
+        
     public void drawCulpritSelectionScreen() {
         g2.setColor(new Color(0, 0, 0, 220));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
@@ -427,7 +428,7 @@ public class UI {
     }
     
     // Retorna até 3 linhas visíveis por vez, separadas por \n
-    private String getVisibleLinesText() {
+    public String getVisibleLinesText() {
         StringBuilder sb = new StringBuilder();
         for (int i = currentLineStart; i < currentLineStart + 3 && i < fullTextLines.size(); i++) {
             sb.append(fullTextLines.get(i)).append("\n");
