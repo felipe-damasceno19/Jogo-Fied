@@ -264,6 +264,19 @@ public class Player extends Entity {
 		}
 	}
 	
+	public void refreshSurroundingCollision() {
+	    String[] directions = {"up", "down", "left", "right"};
+	    String oldDir = direction;
+
+	    for (String dir : directions) {
+	        direction = dir;
+	        gp.cChecker.checkTile(this);
+	    }
+
+	    direction = oldDir;
+	}
+
+	
 	// Desenha o jogador na tela
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;

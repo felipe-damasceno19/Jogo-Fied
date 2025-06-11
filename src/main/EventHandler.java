@@ -193,6 +193,7 @@ public class EventHandler {
 	    gp.player.solidArea.y = gp.player.worldY + gp.player.solidAreaDefaultY;
 
 	    // Força a atualização da colisão do jogador após o teleporte
+	    gp.player.refreshSurroundingCollision();
 	    gp.cChecker.checkTile(gp.player); // Aqui, estamos forçando uma nova checagem de colisão após o teleporte
 	}
 
