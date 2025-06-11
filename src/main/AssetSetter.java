@@ -11,6 +11,7 @@ import object.obj_Door;
 import object.obj_Fuse;
 import object.obj_Gaveteiro;
 import object.obj_Key;
+import object.obj_Letter;
 import object.obj_PowerBox;
 import tilesOverlay.over_Teto01;
 import tilesOverlay.over_Teto02;
@@ -59,30 +60,35 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldX = gp.tileSize * 46;  // coluna 10
 		gp.obj[mapNum][i].worldY = gp.tileSize * 34;   // linha 8
 		i++;
-
-
 		
+		//Mapa Ismael
 		mapNum = 1;	
 		gp.obj[mapNum][i] = new obj_Door(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize*56;
 		gp.obj[mapNum][i].worldY = gp.tileSize*45;
 		i++;
-		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*55;
-		gp.obj[mapNum][i].worldY = gp.tileSize*37;
-		i++;
 		
+		obj_Gaveteiro gav1 = new obj_Gaveteiro(gp);
+		gav1.worldX = 55 * gp.tileSize;
+		gav1.worldY = 37 * gp.tileSize;
+		gav1.storedItems.add(new obj_Key(gp));
+		gav1.storedItems.add(new obj_Letter(gp));
+		gp.obj[1][0] = gav1;
+		
+		//Mapa Carol
 		mapNum = 2;	
 		gp.obj[mapNum][i] = new obj_Door(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize*69;
 		gp.obj[mapNum][i].worldY = gp.tileSize*34;
 		i++;
-		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*74;
-		gp.obj[mapNum][i].worldY = gp.tileSize*21;
-		i++;
 		
+		obj_Gaveteiro gav2 = new obj_Gaveteiro(gp);
+		gav2.worldX = 74 * gp.tileSize;
+		gav2.worldY = 21 * gp.tileSize;
+		gav2.storedItems.add(new obj_Letter(gp));
+		gp.obj[2][1] = gav2;
 		
+		//Mapa Helder, Vilson
 		mapNum = 3;			
 		// Porta Corredor - Bloco 1
 		gp.obj[mapNum][i] = new obj_Door(gp);
@@ -94,12 +100,7 @@ public class AssetSetter {
 		gp.obj[mapNum][i] = new obj_Door(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize*25;
 		gp.obj[mapNum][i].worldY = gp.tileSize*42;
-		i++;
-		
-		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*26;
-		gp.obj[mapNum][i].worldY = gp.tileSize*37;
-		i++;
+		i++;	
 		
 		// Porta Sala 2 Bloco 1
 		gp.obj[mapNum][i] = new obj_Door(gp);
@@ -119,23 +120,24 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldY = gp.tileSize*78;
 		i++;
 		
-		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*74;
-		gp.obj[mapNum][i].worldY = gp.tileSize*74;
-		i++;
+		obj_Gaveteiro gav3 = new obj_Gaveteiro(gp);
+		gav3.worldX = 26 * gp.tileSize;
+		gav3.worldY = 37 * gp.tileSize;
+		gav3.storedItems.add(new obj_Key(gp));
+		gp.obj[3][2] = gav3;
 		
-		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*74;
-		gp.obj[mapNum][i].worldY = gp.tileSize*21;
-		i++;
+		obj_Gaveteiro gav4 = new obj_Gaveteiro(gp);
+		gav4.worldX = 74 * gp.tileSize;
+		gav4.worldY = 21 * gp.tileSize;
+		gav4.storedItems.add(new obj_Key(gp));
+		gp.obj[3][3] = gav4;
 		
-		gp.obj[mapNum][i] = new obj_Gaveteiro(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize*35;
-		gp.obj[mapNum][i].worldY = gp.tileSize*14;
-		i++;
+		obj_Gaveteiro gav5 = new obj_Gaveteiro(gp);
+		gav5.worldX = 35 * gp.tileSize;
+		gav5.worldY = 14 * gp.tileSize;
+		gav5.storedItems.add(new obj_Key(gp));
+		gp.obj[3][4] = gav3;
 		
-		
-	
 	}
 	public void setNpc() {
 		

@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.obj_Gaveteiro;
 import object.obj_Key;
 import object.obj_Letter;
 import object.obj_Letter2;
@@ -218,15 +219,11 @@ public class Player extends Entity {
 			    break;
 
 			case "Gaveteiro":
-				if(gp.keyH.fPressed) {
-					  if(gp.currentMap == 1 && indexGaveteiro1 == 0) {
-						  gp.player.obterItem(new obj_Key(gp));      
-						  gp.player.obterItem(new obj_Letter(gp));
-						  indexGaveteiro1 = 1;
-						  gp.obj[gp.currentMap][i].ObjImage = setup("/objects/Gaveteiro_aberto");;
-					  }
-				}
-			    break;		
+			    if (gp.keyH.fPressed) {
+			        obj_Gaveteiro gav = (obj_Gaveteiro) gp.obj[gp.currentMap][i];
+			        gav.open();
+			    }
+			    break;	
 			case "Fuse":
 				if(gp.keyH.fPressed) {
 					gp.obj[gp.currentMap][i] = null;
