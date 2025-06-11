@@ -208,11 +208,7 @@ public class GamePanel extends JPanel implements Runnable {
     		// Atualiza posição e estado do jogador
     		player.update();       
     		
-            // Verifica a parte do Jogo;
-            if(gameStage.currentStage == 0) {
-            	gameStage.currentStage = 2; 
-            	//gameStage.checkStage();
-            }
+    		gameStage.checkStage();
             
     		//NPC
     		for(int i = 0; i < npc[1].length; i++) {
