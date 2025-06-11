@@ -11,7 +11,7 @@ public class obj_Fuse extends Entity {
 		
 		name = "Fuse";
 	
-		ObjImage = setup("/objects/blueheart");
+		ObjImage = setup("/objects/fuse");
 		description = "[" + name + "]\nUse isto para restaurar a energia da faculdade.";
 		
 		collision = true;

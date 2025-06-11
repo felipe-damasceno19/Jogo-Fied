@@ -21,6 +21,9 @@ import tilesOverlay.over_Teto03;
 import tilesOverlay.over_Teto04;
 import tilesOverlay.over_Teto05;
 import tilesOverlay.over_Teto06;
+import tilesOverlay.over_chair;
+import tilesOverlay.over_wallace01;
+import tilesOverlay.over_wallace02;
 
 public class AssetSetter {
 
@@ -217,5 +220,87 @@ public class AssetSetter {
 		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 25;
 		i++;
 		
+		gp.tilesOver[mapNum][i] = new over_wallace02(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 63;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 29;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_wallace01(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 63;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 30;
+		i++;
+		
+		
+		// CADEIRAS
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 38;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 26;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 40;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 26;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 39;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 27;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 44;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 26;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 46;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 26;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 45;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 27;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 47;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 27;
+		i++;
+		
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 65;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 34;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 65;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 36;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 65;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 38;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 65;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 40;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 65;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 42;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 65;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 44;
+		i++;
+		
+		gp.tilesOver[mapNum][i] = new over_chair(gp);
+		gp.tilesOver[mapNum][i].worldX = gp.tileSize * 65;
+		gp.tilesOver[mapNum][i].worldY = gp.tileSize * 46;
+		i++;
 	}
 }
