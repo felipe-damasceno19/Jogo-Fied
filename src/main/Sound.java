@@ -21,6 +21,9 @@ public class Sound {
         soundURL[3] = getClass().getResource("/sound/unlock.wav");
         soundURL[4] = getClass().getResource("/sound/endMusic.wav");
         soundURL[5] = getClass().getResource("/sound/snd_txt_ismael.wav");
+        soundURL[6] = getClass().getResource("/sound/grito.wav");
+        soundURL[7] = getClass().getResource("/sound/telefone.wav");
+        soundURL[8] = getClass().getResource("/sound/batida-na-porta.wav");
     }
 
     public void setFile(int i) {
