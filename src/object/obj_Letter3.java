@@ -9,7 +9,7 @@ public class obj_Letter3 extends Entity{
 			super(gp);
 			
 			name = "Anotação Sala 3";
-			ObjImage = setup("/objects/letterS");
+			ObjImage = setup("/objects/letter3");
 			conteudo = "[" + name + "]\nPela primeira vez, notei um pequeno sinal\n" +
 					"de instabilidade dissociativa. O paciente\n" +
 					"referiu-se a si mesmo como “ele” brevemente,\n" +

@@ -6,6 +6,7 @@ import entity.NPC_Vilson;
 import entity.NPC_Ismael;
 import entity.NPC_Nelder;
 import object.obj_Boots;
+import object.obj_Caderno;
 import object.obj_Chest;
 import object.obj_Clip;
 import object.obj_Door;
@@ -48,8 +49,7 @@ public class AssetSetter {
 		//i++;
 		
 		//PUZZLE CAIXA DE ENERGIA
-		
-	    gp.obj[mapNum][i] = new obj_Fuse(gp);
+		gp.obj[mapNum][i] = new obj_Fuse(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize * 66;  // coluna 10
 		gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
 		i++;
@@ -85,7 +85,6 @@ public class AssetSetter {
 		obj_Gaveteiro gav1 = new obj_Gaveteiro(gp);
 		gav1.worldX = 55 * gp.tileSize;
 		gav1.worldY = 37 * gp.tileSize;
-		gav1.storedItems.add(new obj_Key(gp));
 		gav1.storedItems.add(new obj_Letter(gp));
 		gp.obj[1][0] = gav1;
 		
@@ -155,6 +154,7 @@ public class AssetSetter {
 		obj_Gaveteiro gav6 = new obj_Gaveteiro(gp);
 		gav6.worldX = 74 * gp.tileSize;
 		gav6.worldY = 74 * gp.tileSize;
+		gav6.storedItems.add(new obj_Caderno(gp));
 		gp.obj[3][5] = gav6;
 		
 	}

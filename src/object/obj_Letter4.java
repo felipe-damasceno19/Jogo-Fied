@@ -9,7 +9,7 @@ public class obj_Letter4 extends Entity{
 			super(gp);
 			
 			name = "Anotação Sala 4";
-			ObjImage = setup("/objects/letterS");
+			ObjImage = setup("/objects/letter4");
 			conteudo = "[" + name + "\nO paciente demonstrou sensibilidade incomum\n"+
 					"a críticas sutis. Quando mencionei a\n"+
 					"possibilidade de um afastamento temporário,\n"+

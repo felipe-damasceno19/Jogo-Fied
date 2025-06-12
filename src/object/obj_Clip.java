@@ -9,7 +9,7 @@ public class obj_Clip extends Entity {
         super(gp);
 
         name = "Clip";
-        ObjImage = setup("/objects/key"); // certifique-se de que essa imagem existe em /resources/objects
+        ObjImage = setup("/objects/clipe"); // certifique-se de que essa imagem existe em /resources/objects
         description = "[" + name + "]\nPode ser usado para arrombar gaveteiros.";
 
         collision = true;

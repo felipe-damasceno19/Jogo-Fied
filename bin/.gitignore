@@ -9,6 +9,8 @@
 /player/
 /sound/
 /tiles/
+/tiles_over/
+/title/
 /cutscene/
 /entity/
 /environment/
@@ -16,5 +18,3 @@
 /object/
 /tile/
 /tilesOverlay/
-/tiles_over/
-/title/
