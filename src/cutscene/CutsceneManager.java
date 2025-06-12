@@ -192,14 +192,12 @@ public class CutsceneManager {
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/CenaFinalFalso.png")),
                             -1,
                             true,
-                            "Você chama seu nome, mas ele não responde.", 
-                            "O som dos passos dele ecoa no corredor vazio.", 
-                            "E então... só o silêncio." 
+                            "Você chama seu nome, mas ele não responde."
                     
                         ));
                 	segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/CenaFinalFalso.png")),
-                            -1,
+                            18,
                             true, 
                             "O som dos passos dele ecoa no corredor vazio.", 
                             "E então... só o silêncio." 
