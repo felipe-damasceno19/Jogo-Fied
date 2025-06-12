@@ -617,7 +617,7 @@ true
 tile308.png
 true
 tile309.png
-false
+true
 tile310.png
 true
 tile311.png

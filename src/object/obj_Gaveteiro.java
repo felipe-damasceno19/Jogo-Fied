@@ -17,10 +17,10 @@ public class obj_Gaveteiro extends Entity {
         name = "Gaveteiro";
         collision = true;
         ObjImage = setup("/objects/Gaveteiro");
-        solidArea.x = 0;
-        solidArea.y = 0;
+        solidArea.x = 16;
+        solidArea.y = 16;
         solidArea.width = 48;
-        solidArea.height = 48;
+        solidArea.height = 60;
     }
 
     public void open() {

@@ -116,7 +116,19 @@ public class UI {
     
     public int currentNpcBeepIndex = 9; // 5 = som padrão
 
+    
+    // sistema de escolha final
+    
+    public boolean choiceActive = false;
+    public String choiceQuestion = "";
+    public String[] choiceOptions = {"Sim", "Não"};
+    public int selectedChoiceIndex = 0;
+    public Boolean choiceResult = null;
+    public long lastChoiceMoveTime = 0;
+    public final long choiceMoveCooldown = 200; // milissegundos
 
+
+    
 
     // ===============================
     // CONSTRUTOR DA CLASSE
@@ -226,6 +238,10 @@ public class UI {
         if (gp.gameState == gp.culpritSelectionState) {
             drawCulpritSelectionScreen();
         }
+        if (choiceActive) {
+            drawChoiceScreen(g2);
+        }
+
 
 
     }
@@ -237,6 +253,61 @@ public class UI {
         messageCounter = 0;
     }
     
+    
+    public void startChoice(String question) {
+        choiceActive = true;
+        choiceQuestion = question;
+        selectedChoiceIndex = 0;
+        choiceResult = null;
+        gp.gameState = gp.choiceState;
+        lastChoiceMoveTime = System.currentTimeMillis(); // previne avanço imediato
+
+
+    }
+    
+    public void drawChoiceScreen(Graphics2D g2) {
+        // Fundo preto com leve transparência
+        g2.setColor(new Color(0, 0, 0, 180));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        int boxWidth = gp.screenWidth - gp.tileSize * 4;
+        int boxHeight = gp.tileSize * 4;
+        int x = gp.tileSize * 2;
+        int y = gp.screenHeight / 2 - boxHeight / 2;
+
+        drawSubWindow(x, y, boxWidth, boxHeight);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28F));
+        g2.setColor(Color.white);
+
+        // === Centraliza a pergunta na vertical da caixa ===
+        FontMetrics fm = g2.getFontMetrics();
+        int textHeight = fm.getHeight();
+        int questionY = y + (boxHeight / 2) - textHeight;
+        int questionX = getXforCenteredText(choiceQuestion);
+        g2.drawString(choiceQuestion, questionX, questionY);
+
+        // === Opções abaixo da pergunta ===
+        int optionY = questionY + gp.tileSize;
+        int spacing = 150;
+        int baseX = gp.screenWidth / 2 - ((choiceOptions.length - 1) * spacing / 2);
+
+        for (int i = 0; i < choiceOptions.length; i++) {
+            // Define a cor baseada na seleção
+            if (i == selectedChoiceIndex) {
+                g2.setColor(Color.YELLOW);
+            } else {
+                g2.setColor(Color.WHITE);
+            }
+
+            String option = choiceOptions[i];
+            int optionWidth = fm.stringWidth(option);
+            int optionX = baseX + i * spacing - optionWidth / 2;
+            g2.drawString(option, optionX, optionY);
+        }
+    }
+
+
         
     public void drawCulpritSelectionScreen() {
         g2.setColor(new Color(0, 0, 0, 220));

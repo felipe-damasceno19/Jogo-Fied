@@ -65,7 +65,7 @@ public class NPC_Nelipe extends Entity {
 	@Override
 	public void setAction() {
 	    // Impede o movimento aleatório enquanto o gameStage.currentStage for 0
-	    if (gp.gameStage.currentStage == 0) {
+	    if (gp.gameStage.currentStage < 2) {
 	        moving = false; // NPC parado
 	        actionDuration = 0; // Reseta o contador de ações para garantir que não haja mudança de direção
 	        return; // Retorna sem fazer mais nada

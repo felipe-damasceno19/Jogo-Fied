@@ -17,6 +17,12 @@ public class CutsceneManager {
     private int currentSegment = 0;
     private int currentDialogueIndex = 0;
     private List<String> cutsceneTextLines = new ArrayList<>();
+    private boolean fadeIn = false;
+    private boolean fadeOut = false;
+    private int fadeAlpha = 255; // começa com tela preta
+    private int fadeSpeed = 5;   // quanto menor, mais suave
+    private Runnable onFadeComplete = null;
+
 
 
     public CutsceneManager(GamePanel gp) {
@@ -109,6 +115,10 @@ public class CutsceneManager {
         }
 
         playCurrentDialogue();
+        fadeIn = true;
+        fadeAlpha = 255;
+        fadeOut = false;
+
     }
     
     private String getVisibleLinesTextForCutscene() {
@@ -214,6 +224,32 @@ public class CutsceneManager {
             g2.drawString(line, textX, textY);
             textY += lineSpacing;
         }
+        
+     // FADE EFFECT
+        if (fadeIn || fadeOut) {
+            if (fadeIn) {
+                fadeAlpha -= fadeSpeed;
+                if (fadeAlpha <= 0) {
+                    fadeAlpha = 0;
+                    fadeIn = false;
+                }
+            }
+            if (fadeOut) {
+                fadeAlpha += fadeSpeed;
+                if (fadeAlpha >= 255) {
+                    fadeAlpha = 255;
+                    fadeOut = false;
+                    if (onFadeComplete != null) {
+                        onFadeComplete.run(); // executa ação pós-fade
+                        onFadeComplete = null;
+                    }
+                }
+            }
+
+            g2.setColor(new java.awt.Color(0, 0, 0, fadeAlpha));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        }
+
        
     }
 
@@ -239,13 +275,18 @@ public class CutsceneManager {
                 if (currentSegment < segments.size()) {
                     playCurrentDialogue();
                 } else {
-                    // Cutscene terminou!
-                    active = false;
-                    gp.gameState = gp.playState;
+                	fadeOut = true;
+                	fadeAlpha = 0;
+                	fadeIn = false;
 
-                    // Avança para o próximo estágio da narrativa
-                    gp.gameStage.currentStage = 1;
-                    gp.gameStage.countFrames = 0;
+                	onFadeComplete = () -> {
+                	    active = false;
+                	    gp.gameState = gp.playState;
+
+                	    gp.gameStage.currentStage = 1;
+                	    gp.gameStage.countFrames = 0;
+                	};
+
                 }
             }
         }

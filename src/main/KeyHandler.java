@@ -35,10 +35,8 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode(); // Obtém o código da tecla pressionada
         
         if (gp.gameState == gp.cutsceneState) {
-            if (code == KeyEvent.VK_ENTER) {
-                gp.cutsceneManager.next();
-            }
-            return;
+        	cutsceneState(code);
+        	return;
         }
         
         //TELA DE INICIO
@@ -80,7 +78,11 @@ public class KeyHandler implements KeyListener {
         }
         else if (gp.gameState == gp.culpritSelectionState) {
             culpritSelectionState(code);
+        }        
+        else if (gp.gameState == gp.choiceState) {
+            choiceState(code);
         }
+
 
 
         
@@ -135,7 +137,8 @@ public class KeyHandler implements KeyListener {
          }
          
          if (code == KeyEvent.VK_V) {
-        	 gp.cutsceneManager.startCutscene("intro");
+        	 gp.ui.startChoice("O que você escolhe fazer? Quer comprar bolo, sim ou não?");
+
 
          }
          if (code == KeyEvent.VK_C) {
@@ -244,7 +247,6 @@ public class KeyHandler implements KeyListener {
     	        }
     	    }
     	}
-   
      public void powerBoxState(int code) {
     	    if (code == KeyEvent.VK_ESCAPE) {
     	        gp.ui.powerPuzzleActive = false;
@@ -309,8 +311,6 @@ public class KeyHandler implements KeyListener {
     	        }
     	    }
     	}
-
-
      public void optionsState(int code) {
     	 if(code == KeyEvent.VK_ESCAPE) {
     		 gp.gameState = gp.playState;
@@ -378,6 +378,39 @@ public class KeyHandler implements KeyListener {
     	 
      }
      
+     public void cutsceneState(int code) {
+    	    // Só chama o next() se não estiver em uma escolha
+    	    if (code == KeyEvent.VK_ENTER) {
+    	        gp.cutsceneManager.next();
+    	    }
+     }
+     
+     public void choiceState(int code) {
+    	    long currentTime = System.currentTimeMillis();
+
+    	    if (currentTime - gp.ui.lastChoiceMoveTime > gp.ui.choiceMoveCooldown) {
+    	        if (code == KeyEvent.VK_A) {
+    	            gp.ui.selectedChoiceIndex = (gp.ui.selectedChoiceIndex + gp.ui.choiceOptions.length - 1) % gp.ui.choiceOptions.length;
+    	            gp.ui.lastChoiceMoveTime = currentTime;
+    	            gp.playSE(3);
+    	        }
+    	        if (code == KeyEvent.VK_D) {
+    	            gp.ui.selectedChoiceIndex = (gp.ui.selectedChoiceIndex + 1) % gp.ui.choiceOptions.length;
+    	            gp.ui.lastChoiceMoveTime = currentTime;
+    	            gp.playSE(3);
+    	        }
+    	    }
+
+    	    if (code == KeyEvent.VK_ENTER) {
+    	        gp.ui.choiceResult = (gp.ui.selectedChoiceIndex == 0); // true = Sim, false = Não
+    	        gp.ui.choiceActive = false;
+    	        gp.gameState = gp.playState;
+    	        gp.playSE(3);
+    	    }
+    	}
+
+
+
      public void culpritSelectionState(int code) {
     	    long currentTime = System.currentTimeMillis();
 
@@ -407,7 +440,6 @@ public class KeyHandler implements KeyListener {
     	        }
     	    }
     	}
-
      public void gameOverState(int code) {
     	 if(code == KeyEvent.VK_W) {
     		 gp.ui.commandNum--;

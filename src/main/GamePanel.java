@@ -89,6 +89,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int powerBoxState = 8;
     public final int culpritSelectionState = 9;
     public final int cutsceneState = 10;
+    public final int choiceState = 11;
+
 
     
     //FUNDO BORRADO
