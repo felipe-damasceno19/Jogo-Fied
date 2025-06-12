@@ -35,36 +35,70 @@ public class CutsceneManager {
                 case "intro":
                     segments.add(new CutsceneSegment(
                         ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena1.png")),
-                        2,
-                        "Naquela manhã, nada parecia diferente.", 
-                        "Até que a professora Carol abriu a porta da enfermaria",
-                        "E encontrou algo que jamais esqueceria."
+                        -1,
+                        "Parecia mais uma noite comum, nada parecia diferente." 
                     ));
                     segments.add(new CutsceneSegment(
                         ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena2.png")),
-                        6,
-                        "Ali, no chão frio, jazia o corpo da psicóloga da faculdade.",
-                        "Sem testemunhas.",
-                        "Sem som.",
-                        "Só o silêncio e o sangue...",                       
-                        "A investigação inicial foi rápida",
-                        "Demais."
+                        -1,
+                        "Professora Carol estava indo buscar alguns papéis na enfermaria."
+                        
                     ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena3.png")),
-                            6,
-                            "Silas, o coordenador do curso, foi chamado com urgência.",
-                            "Disseram que o assassino pode estar entre os professores.",
-                            "E que pistas foram encontradas…?",
-                            "Como o lendário coordenador, seu dever é descobrir a verdade. Antes que alguém mais se machuque."
+                            -1,
+                            "Ao abrir a porta..."
+
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena4.png")),
+                            6,
+                            "...Ela se depara com algo que jamais esqueceria."
+                            
+                        ));
+                    segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena5.png")),
+                            -1,
+                            "Ali, no chão frio, jazia o corpo da psicóloga da faculdade.",
+                            "Sem testemunhas.",
+                            "Sem som.",
+                            "Só o silêncio e o sangue...",                       
+                            "A investigação inicial foi rápida",
+                            "Demais..."
+
+                        ));
+                    segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena6.png")),
                             7,
+                            "Silas, o coordenador do curso, foi chamado com urgência."
+
+                        ));
+                    segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena6.1.png")),
+                            -1,
+                            "Disseram que o assassino pode estar entre os professores.",
+                            "E que pistas foram encontradas…?"
+
+                        ));
+                    segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena7.png")),
+                            -1,
+                            "Como o lendário coordenador, seu dever é descobrir a verdade. Antes que alguém mais se machuque!"
+   
+                        ));
+                    segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena8.png")),
+                            -1,
                             "Enquanto dirige, uma dúvida o persegue, como o nevoeiro que cobre o caminho...",
                             "E se o culpado estiver te esperando?",
-                            "Ou pior",
+                            "Ou pior..."
+                            
+                        ));
+                    segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena9.png")),
+                            -1,
                             "...e se ele não souber o que fez."
+                           
                         ));
                  
                     break;
@@ -122,8 +156,8 @@ public class CutsceneManager {
 
             }
 
-            if (currentDialogueIndex == 0) {
-                gp.playSE(seg.soundIndex); // toca o som do segmento no início
+            if (currentDialogueIndex == 0 && seg.soundIndex >= 0) {
+                gp.playSE(seg.soundIndex); // só toca se for um índice válido
             }
         }
     }
