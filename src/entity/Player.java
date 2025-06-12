@@ -201,29 +201,51 @@ public class Player extends Entity {
 			case "Door":
 			    if(gp.keyH.fPressed) {
 			        object.obj_Door door = (object.obj_Door) gp.obj[gp.currentMap][i];
-			        if (door.locked) {
-			            gp.gameState = gp.lockPickState;
-			            gp.ui.lockPickActive = true;
-			            gp.ui.lockPickTarget = door;
-			            gp.ui.lockPickStage = 1;
-			            gp.ui.lockPickSpeed = 2;
-			            gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);
-			            gp.ui.lockPickAngle = 0;
-			            gp.ui.lockPickProgress = 0;
-			            gp.ui.lockPickAngle = 0;  // inicia em 0 graus
-			            gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);  // gera aleatório entre 0-359
-			        } else {
-			            gp.ui.showMessage("Porta já destrancada!");
-			        }
+			    }
+			    break;
+			    
+			case "Clip":
+			    if (gp.keyH.fPressed) {
+			        inventory.add(gp.obj[gp.currentMap][i]);
+			        gp.obj[gp.currentMap][i] = null; // Remove do mapa
+			        gp.ui.showMessage("Clipe coletado!");
+			        gp.playSE(3); // Som de item, se desejar
 			    }
 			    break;
 
 			case "Gaveteiro":
 			    if (gp.keyH.fPressed) {
+
+			        // ✅ Verifica se tem clipe no inventário
+			        boolean hasClip = false;
+			        for (Entity e : inventory) {
+			            if (e instanceof object.obj_Clip) {
+			                hasClip = true;
+			                break;
+			            }
+			        }
+
+			        if (!hasClip) {
+			            gp.ui.showMessage("Você precisa de um clipe para arrombar isso!");
+			            return;
+			        }
+
 			        obj_Gaveteiro gav = (obj_Gaveteiro) gp.obj[gp.currentMap][i];
-			        gav.open();
+			        if (gav.locked) {
+			            gp.gameState = gp.lockPickState;
+			            gp.ui.lockPickActive = true;
+			            gp.ui.lockPickTarget = gav;
+			            gp.ui.lockPickStage = 1;
+			            gp.ui.lockPickSpeed = 2;
+			            gp.ui.lockPickSweetSpot = (int)(Math.random() * 360);
+			            gp.ui.lockPickAngle = 0;
+			            gp.ui.lockPickProgress = 0;
+			        } else {
+			            gav.open();
+			        }
 			    }
-			    break;	
+			    break;
+
 			case "Fuse":
 				if(gp.keyH.fPressed) {
 					gp.obj[gp.currentMap][i] = null;

@@ -33,8 +33,8 @@ public class UI {
     public boolean lockPickActive = false;
 
     //LOCKPICK PUZZLE
-    public object.obj_Door lockPickTarget = null;
-    public object.obj_Gaveteiro lockPickTarget2 = null;
+    public object.obj_Gaveteiro lockPickTarget = null;
+ 
     public int lockPickProgress = 0;
     public int lockPickStage = 1;
     public int lockPickSpeed = 2;
