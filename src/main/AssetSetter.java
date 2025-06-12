@@ -14,6 +14,8 @@ import object.obj_Key;
 import object.obj_Letter;
 import object.obj_Letter2;
 import object.obj_Letter3;
+import object.obj_Letter4;
+import object.obj_Letter5;
 import object.obj_PowerBox;
 import tilesOverlay.over_Teto01;
 import tilesOverlay.over_Teto02;
@@ -47,17 +49,17 @@ public class AssetSetter {
 		//PUZZLE CAIXA DE ENERGIA
 		
 		gp.obj[mapNum][i] = new obj_Fuse(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 25;  // coluna 10
-		gp.obj[mapNum][i].worldY = gp.tileSize * 29;   // linha 8
+		gp.obj[mapNum][i].worldX = gp.tileSize * 66;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
 		i++;
 		
 		gp.obj[mapNum][i] = new obj_Fuse(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 21;  // coluna 10
-		gp.obj[mapNum][i].worldY = gp.tileSize * 25;   // linha 8
+		gp.obj[mapNum][i].worldX = gp.tileSize * 43;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 54;   // linha 8
 		i++;
 		
 		gp.obj[mapNum][i] = new obj_Fuse(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 25;  // coluna 10
+		gp.obj[mapNum][i].worldX = gp.tileSize * 44;  // coluna 10
 		gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
 		i++;
 		
@@ -134,14 +136,19 @@ public class AssetSetter {
 		obj_Gaveteiro gav4 = new obj_Gaveteiro(gp);
 		gav4.worldX = 74 * gp.tileSize;
 		gav4.worldY = 21 * gp.tileSize;
-		gav4.storedItems.add(new obj_Key(gp));
+		gav4.storedItems.add(new obj_Letter4(gp));
 		gp.obj[3][3] = gav4;
 		
 		obj_Gaveteiro gav5 = new obj_Gaveteiro(gp);
 		gav5.worldX = 35 * gp.tileSize;
 		gav5.worldY = 14 * gp.tileSize;
-		gav5.storedItems.add(new obj_Key(gp));
-		gp.obj[3][4] = gav3;
+		gav5.storedItems.add(new obj_Letter5(gp));
+		gp.obj[3][4] = gav5;
+		
+		obj_Gaveteiro gav6 = new obj_Gaveteiro(gp);
+		gav6.worldX = 74 * gp.tileSize;
+		gav6.worldY = 74 * gp.tileSize;
+		gp.obj[3][5] = gav6;
 		
 	}
 	public void setNpc() {

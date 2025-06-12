@@ -9,7 +9,8 @@ public class obj_Gaveteiro extends Entity {
 	GamePanel gp;
     public ArrayList<Entity> storedItems = new ArrayList<>();
     public boolean opened = false;
-
+    public boolean locked = true;
+    
     public obj_Gaveteiro(GamePanel gp) {
         super(gp);
         this.gp = gp;
