@@ -22,6 +22,8 @@ public class CutsceneManager {
     private int fadeAlpha = 255; // começa com tela preta
     private int fadeSpeed = 5;   // quanto menor, mais suave
     private Runnable onFadeComplete = null;
+    private String currentCutsceneID = "";
+
 
 
 
@@ -30,7 +32,8 @@ public class CutsceneManager {
     }
 
     public void startCutscene(String cutsceneID) {
-        gp.gameState = gp.cutsceneState;
+    	currentCutsceneID = cutsceneID;
+    	gp.gameState = gp.cutsceneState;
         active = true;
         segments.clear();
         currentSegment = 0;
@@ -196,7 +199,7 @@ public class CutsceneManager {
                         ));
                 	segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/CenaFinalFalso.png")),
-                            18,
+                            -1,
                             true, 
                             "O som dos passos dele ecoa no corredor vazio.", 
                             "E então... só o silêncio." 
@@ -400,22 +403,38 @@ public class CutsceneManager {
                 if (currentSegment < segments.size()) {
                     playCurrentDialogue();
                 } else {
-                	fadeOut = true;
-                	fadeAlpha = 0;
-                	fadeIn = false;
+                    fadeOut = true;
+                    fadeAlpha = 0;
+                    fadeIn = false;
 
-                	onFadeComplete = () -> {
-                	    active = false;
-                	    gp.gameState = gp.playState;
+                    onFadeComplete = () -> {
+                        active = false;
 
-                	    gp.gameStage.currentStage = 1;
-                	    gp.gameStage.countFrames = 0;
-                	};
-
+                        if (currentCutsceneID.equals("end1")) {
+                            gp.gameState = gp.titleState;
+                            gp.gameStage.currentStage = 0;
+                            gp.gameStage.countFrames = 0;
+                            gp.stopMusic();
+                            gp.playMusic(1);
+                        } 
+                        else if(currentCutsceneID.equals("end2")) {
+                        	 gp.gameState = gp.titleState;
+                             gp.gameStage.currentStage = 0;
+                             gp.gameStage.countFrames = 0;
+                             gp.stopMusic();
+                             gp.playMusic(1);
+                        }
+                        else {
+                            gp.gameState = gp.playState;
+                            gp.gameStage.currentStage = 1;
+                            gp.gameStage.countFrames = 0;
+                        }
+                    };
                 }
             }
         }
     }
+
 
 
     public boolean isActive() {
