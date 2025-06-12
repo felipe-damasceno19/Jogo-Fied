@@ -28,10 +28,11 @@ public class Sound {
         soundURL[10] = getClass().getResource("/sound/snd_txtasg.wav"); //voz sergio
         soundURL[11] = getClass().getResource("/sound/snd_txtasr.wav"); //voz carol
         soundURL[12] = getClass().getResource("/sound/snd_txtpap.wav"); //voz Wilson
-        soundURL[12] = getClass().getResource("/sound/door.wav"); 
-        soundURL[13]= getClass().getResource("/sound/car_running.wav"); 
-        soundURL[14]= getClass().getResource("/sound/audio-suspense.wav"); 
-        soundURL[15]= getClass().getResource("/sound/carro parando.wav"); 
+        soundURL[13] = getClass().getResource("/sound/door.wav"); 
+        soundURL[14]= getClass().getResource("/sound/car_running.wav"); 
+        soundURL[15] = getClass().getResource("/sound/horror.wav"); 
+        soundURL[16]= getClass().getResource("/sound/carro parando.wav"); 
+        soundURL[17]= getClass().getResource("/sound/gritoFim.wav"); 
     }
 
     public void setFile(int i) {
