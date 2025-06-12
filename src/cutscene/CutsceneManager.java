@@ -42,29 +42,34 @@ public class CutsceneManager {
                     segments.add(new CutsceneSegment(
                         ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena1.png")),
                         -1,
+                        true,
                         "Parecia mais uma noite comum, nada parecia diferente." 
                     ));
                     segments.add(new CutsceneSegment(
                         ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena2.png")),
                         -1,
+                        true,
                         "Professora Carol estava indo buscar alguns papéis na enfermaria."
                         
                     ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena3.png")),
-                            12,
+                            13,
+                            true,
                             "Ao abrir a porta..."
 
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena4.png")),
                             6,
+                            true,
                             "...Ela se depara com algo que jamais esqueceria."
                             
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena5.png")),
-                            14,
+                            15,
+                            true,
                             "Ali, no chão frio, jazia o corpo da psicóloga da faculdade.",
                             "Sem testemunhas.",
                             "Sem som.",
@@ -76,12 +81,14 @@ public class CutsceneManager {
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena6.png")),
                             7,
+                            true,
                             "Silas, o coordenador do curso, foi chamado com urgência."
 
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena6.1.png")),
                             -1,
+                            true,
                             "Disseram que o assassino pode estar entre os professores.",
                             "E que pistas foram encontradas…?"
 
@@ -89,12 +96,14 @@ public class CutsceneManager {
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena7.png")),
                             -1,
+                            true,
                             "Como o lendário coordenador, seu dever é descobrir a verdade. Antes que alguém mais se machuque!"
    
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena8.png")),
-                            13,
+                            14,
+                            true,
                             "Enquanto dirige, uma dúvida o persegue, como o nevoeiro que cobre o caminho...",
                             "E se o culpado estiver te esperando?",
                             "Ou pior..."
@@ -102,13 +111,52 @@ public class CutsceneManager {
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena9.png")),
-                            15,
+                            16,
+                            true,
                             "...e se ele não souber o que fez?"
                            
                         ));
                  
                     break;
-                // Adicione mais cutscenes aqui
+                case "end1":
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cenaFinal.png")),
+                            -1,
+                            true,
+                            "Silas segura o objeto com força.",
+                            "Felipe permanece em silêncio.", 
+                            "Ele não tenta fugir.", 
+                            "Apenas sussurra, como um último pedido:" 
+                        ));
+                 	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/tela_preta.png")),
+                            17,
+                            false
+                    
+                        ));
+                 	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/Creditos1.png")),
+                            -1,
+                            false
+                    
+                        ));
+                 	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/Creditos2.png")),
+                            -1,
+                            false
+                    
+                        ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/posCreditos.png")),
+                            -1,                           
+                            true,
+                            "Cara das câmeras falando:", 
+                            "O que aquele cara tá fazendo ali sozinho?",
+                            "E por que ele tá segurando uma faca?"
+                    
+                        ));
+                	
+                	
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -177,55 +225,51 @@ public class CutsceneManager {
 
         if (currentSegment < segments.size()) {
             CutsceneSegment seg = segments.get(currentSegment);
+
+            // ✅ SEMPRE desenha a imagem
             if (seg.image != null) {
                 g2.drawImage(seg.image, 0, 0, gp.screenWidth, gp.screenHeight, null);
             }
-        }
 
-        
-        int boxX = 150;
-        int boxHeight = (int)(gp.tileSize * 2); 
-        int boxY = gp.screenHeight - boxHeight - 30;
-        int boxWidth = gp.screenWidth - 300;
+            // ✅ SOMENTE desenha caixa de diálogo se necessário
+            if (seg.showDialogue) {
+                int boxX = 150;
+                int boxHeight = (int)(gp.tileSize * 2); 
+                int boxY = gp.screenHeight - boxHeight - 30;
+                int boxWidth = gp.screenWidth - 300;
 
-        gp.ui.drawSubWindow(boxX, boxY, boxWidth, boxHeight);
+                gp.ui.drawSubWindow(boxX, boxY, boxWidth, boxHeight);
 
-        // 🔠 Fonte continua confortável
-        g2.setFont(gp.ui.undertaleFontSans.deriveFont(38f));
-        g2.setColor(java.awt.Color.white);
+                g2.setFont(gp.ui.undertaleFontSans.deriveFont(38f));
+                g2.setColor(java.awt.Color.white);
 
-        // ✍️ Tipagem com bip
-
-        String visibleText = getVisibleLinesTextForCutscene();
-
-        if (gp.ui.textCharIndex < visibleText.length()) {
-            gp.ui.textCounter++;
-            if (gp.ui.textCounter > gp.ui.textDisplaySpeed) {
-                char nextChar = visibleText.charAt(gp.ui.textCharIndex);
-                if (Character.isLetterOrDigit(nextChar)) {
-                    gp.playSE(9);
+                String visibleText = getVisibleLinesTextForCutscene();
+                if (gp.ui.textCharIndex < visibleText.length()) {
+                    gp.ui.textCounter++;
+                    if (gp.ui.textCounter > gp.ui.textDisplaySpeed) {
+                        char nextChar = visibleText.charAt(gp.ui.textCharIndex);
+                        if (Character.isLetterOrDigit(nextChar)) {
+                            gp.playSE(9);
+                        }
+                        gp.ui.textCharIndex++;
+                        gp.ui.textCounter = 0;
+                    }
                 }
-                gp.ui.textCharIndex++;
-                gp.ui.textCounter = 0;
+
+                String toDraw = visibleText.substring(0, Math.min(gp.ui.textCharIndex, visibleText.length()));
+
+                int textX = boxX + 24;
+                int textY = boxY + 40;
+                int lineSpacing = 48;
+
+                for (String line : toDraw.split("\n")) {
+                    g2.drawString(line, textX, textY);
+                    textY += lineSpacing;
+                }
             }
         }
 
-        String toDraw = visibleText.substring(0, Math.min(gp.ui.textCharIndex, visibleText.length()));
-
-
-        // 📍 Posicionamento ajustado
-        int textX = boxX + 24;
-        int textY = boxY + 40; // deslocamento interno vertical inicial
-
-        // ↕️ Espaçamento maior entre linhas para preencher melhor a caixa
-        int lineSpacing = 48;
-
-        for (String line : toDraw.split("\n")) {
-            g2.drawString(line, textX, textY);
-            textY += lineSpacing;
-        }
-        
-     // FADE EFFECT
+        // 🎬 FADE EFFECT
         if (fadeIn || fadeOut) {
             if (fadeIn) {
                 fadeAlpha -= fadeSpeed;
@@ -249,8 +293,6 @@ public class CutsceneManager {
             g2.setColor(new java.awt.Color(0, 0, 0, fadeAlpha));
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
         }
-
-       
     }
 
 
@@ -302,11 +344,13 @@ public class CutsceneManager {
         public BufferedImage image;
         public String[] dialogues;
         public int soundIndex;
+        public boolean showDialogue;
 
-        public CutsceneSegment(BufferedImage image, int soundIndex, String... dialogues) {
+        public CutsceneSegment(BufferedImage image, int soundIndex, boolean showDialogue, String... dialogues) {
             this.image = image;
             this.soundIndex = soundIndex;
             this.dialogues = dialogues;
+            this.showDialogue = showDialogue;
             
         }
     }
