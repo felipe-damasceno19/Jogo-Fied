@@ -73,6 +73,7 @@ public class GameStage {
     // Método para iniciar com Dialogo Nelipe
     public void initialStage() {
     		gp.ui.showGenericBox = true;
+   
 
            // Chama o método apenas após 1 segundo
             if (gp.closedDialogues < dialogues[0].length && dialogues[0][gp.closedDialogues] != null && !dialogues[0][gp.closedDialogues].isEmpty()) {

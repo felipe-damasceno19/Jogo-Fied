@@ -15,6 +15,7 @@ public class NPC_Nelder extends Entity {
 	public NPC_Nelder(GamePanel gp) {
 		super(gp); // Chama o construtor da superclasse (Entity) passando o GamePanel
 
+		npcBeepIndex = 10;
 		direction = "down"; // Define a direção inicial do NPC como "baixo"
 		speed = 1; // Define a velocidade do NPC
 
@@ -90,7 +91,7 @@ public class NPC_Nelder extends Entity {
 	public void speak() {
 		
 		
-		
+		gp.ui.setNpcFace(this.faceImage, npcBeepIndex);
 		//Faz coisas especificas do personagem
 		
 		super.speak();

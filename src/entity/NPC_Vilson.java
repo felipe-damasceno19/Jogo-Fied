@@ -15,6 +15,7 @@ public class NPC_Vilson extends Entity {
 	public NPC_Vilson(GamePanel gp) {
 		super(gp); // Chama o construtor da superclasse (Entity) passando o GamePanel
 
+		npcBeepIndex = 12;
 		direction = "down"; // Define a direção inicial do NPC como "baixo"
 		speed = 1; // Define a velocidade do NPC
 
@@ -87,6 +88,7 @@ public class NPC_Vilson extends Entity {
 	
 	public void speak() {	
 		
+		gp.ui.setNpcFace(this.faceImage, npcBeepIndex);
 		//Faz coisas especificas do personagem
 		
 		super.speak();

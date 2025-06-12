@@ -113,6 +113,9 @@ public class UI {
     public String[] culpritNames = { "Carol", "Ismael", "Nelder", "Nelipe", "Vilson" };
     private long lastMoveTime = 0;  // Última vez que o movimento foi realizado
     private final long moveCooldown = 200;  // Tempo de espera entre movimentos (em milissegundos)
+    
+    public int currentNpcBeepIndex = 9; // 5 = som padrão
+
 
 
     // ===============================
@@ -351,6 +354,12 @@ public class UI {
     public void setNpcFaceImage(BufferedImage faceImage) {
         this.npcFaceImage = faceImage;
     }
+    
+    public void setNpcFace(BufferedImage faceImage, int beepIndex) {
+        this.npcFaceImage = faceImage;
+        this.currentNpcBeepIndex = beepIndex;
+    }
+
 
  // Desenha dialogos na tela
     public void drawDialogueScreen() {
@@ -411,7 +420,7 @@ public class UI {
 
                 // ✅ Toca som apenas para letras e números (evita espaços e pontuação)
                 if (Character.isLetterOrDigit(nextChar)) {
-                    gp.playSE(5); // índice 5 = som "talk.wav" registrado na classe Sound
+                	gp.playSE(currentNpcBeepIndex);
                 }
 
                 textCharIndex++;

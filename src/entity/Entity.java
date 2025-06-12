@@ -30,6 +30,7 @@ public class Entity {
 	public BufferedImage faceImage;
 	public BufferedImage ObjImage;
 	
+	
 	public String direction = "rigth";
 	
 	public int spriteCounter = 0;
@@ -53,6 +54,8 @@ public class Entity {
 	public String description = "";
 	public String conteudo = "";
 	public BufferedImage imagemCarta;
+	
+	public int npcBeepIndex = 9; // índice padrão de som
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;

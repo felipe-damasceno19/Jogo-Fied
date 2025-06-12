@@ -15,6 +15,7 @@ public class NPC_Nelipe extends Entity {
 	public NPC_Nelipe(GamePanel gp) {
 		super(gp); // Chama o construtor da superclasse (Entity) passando o GamePanel
 
+		npcBeepIndex = 9; // índice do som específico da Carol
 		direction = "rigth"; // Define a direção inicial do NPC como "baixo"
 		speed = 1; // Define a velocidade do NPC
 
@@ -100,7 +101,7 @@ public class NPC_Nelipe extends Entity {
 	public void speak() {
 		
 		
-		
+		gp.ui.setNpcFace(this.faceImage, npcBeepIndex);
 		//Faz coisas especificas do personagem
 		
 		super.speak();
