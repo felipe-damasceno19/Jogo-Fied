@@ -143,15 +143,9 @@ public class GamePanel extends JPanel implements Runnable {
     //METODO CASO O JOGADOR REINICIE O JOGO
     public void restart() {
     	
-    	player.setDefaultValues();
-    	player.setDefaultPositions();
-    	player.setItems();
-
-    	aSetter.setObject();
-    	aSetter.setTilesOver();
-    	aSetter.setNpc();
+    	System.exit(0);
     }
-    
+    	
     public void setFullScreen() {
     	
     	// RESOLUÇÃO DE ACORDO COM A TELA DO APARELHO LOCAL
