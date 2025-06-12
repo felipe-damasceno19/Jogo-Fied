@@ -137,7 +137,8 @@ public class KeyHandler implements KeyListener {
          }
          
          if (code == KeyEvent.VK_V) {
-        	 gp.ui.startChoice("O que você escolhe fazer? Quer comprar bolo, sim ou não?");
+        	 //gp.ui.startChoice("O que você escolhe fazer? Quer comprar bolo, sim ou não?");
+        	 gp.player.thinking("Estou pensando muito bemmmmm");
 
 
          }

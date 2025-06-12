@@ -57,6 +57,7 @@ public class Player extends Entity {
 		// Agora cria-se o solidArea com as variáveis definidas acima
 		solidArea = new Rectangle(solidAreaX, solidAreaY, solidAreaWidth, solidAreaHeight);
 		
+	
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 
@@ -97,6 +98,11 @@ public class Player extends Entity {
 		
 		//inventory.clear(); //LIMPA O INVENTARIO DO PLAYER CASO MORRA, E DEIXA APENAS O PADROES
 
+	}
+	
+	public void thinking(String text) {
+		BufferedImage faceImagePlayer = setup("/npc/silas_talking");
+		gp.gameStage.openDialog(text, faceImagePlayer );
 	}
 	
 	// Carrega os sprites do jogador a partir da imagem sprite sheet

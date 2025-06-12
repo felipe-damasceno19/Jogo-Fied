@@ -50,22 +50,26 @@ public class GameStage {
 
     // Define os diálogos
     public void setDialogue() {
-        dialogues[0][0] = "Bem-vindo de volta, Silas. Veio investigar o assassinato? Esse é o nosso coordenador!";
-        dialogues[0][1] = "Tenho certeza de que você vai encontrar o culpado!";
-        dialogues[0][2] = "Acho que você já tem um nome em mente, não é mesmo?";
-        dialogues[0][3] = "Havia uns boatos que a psicóloga da faculdade estava de olho em um dos professores da sede!! Parece que esse professor era um pouco ‘peculiar’.";
-        dialogues[0][4] = "Mas a identidade dele nunca foi revelada por questões de privacidade. Você entende, né?";
-        dialogues[0][5] = "Ela só o registrou nas anotações do diário dela.";
-        dialogues[0][6] = "E, para o nosso azar, o assassino encontrou o diário antes da gente.";
-        dialogues[0][7] = "Conseguimos achar algumas páginas espalhadas pelas salas da faculdade.";
-        dialogues[0][8] = "Parece que ele as largou por aí... Por quê?";
-        dialogues[0][9] = "Talvez para nos dar um desafio, ou só pra tirar sarro da nossa cara.";
-        dialogues[0][10] = "Nunca se sabe o que se passa na cabeça de gente assim.";
-        dialogues[0][11] = "O culpado rabiscou os campos que revelavam o nome dele, deixando apenas umas informações vagas, que até agora não conseguimos entender.";
-        dialogues[0][12] = "Mas tenho certeza de que você, o lendário coordenador, vai desvendar esse mistério!";
-        dialogues[0][13] = "Pressione W, A, S, D para se mover, ENTER para interagir com pessoas";
-        dialogues[0][14] = "F com objetos/portas e C para ver seu inverntário.";
-        dialogues[0][15] = "Boa sorte!!";
+    	dialogues[0][0] = "Bem-vindo de volta, Silas. Veio investigar o assassinato? Esse é o nosso coordenador!";
+    	dialogues[0][1] = "Ah... Sabíamos que você viria. Tenho certeza de que vai encontrar o culpado.";
+    	dialogues[0][2] = "Aposto que já tem um nome em mente, não é?";
+    	dialogues[0][3] = "Ouvi uns boatos de que a psicóloga da faculdade estava de olho em um dos professores da sede.";
+    	dialogues[0][4] = "Diziam que esse professor era... um tanto peculiar.";
+    	dialogues[0][5] = "Mas, por questões de privacidade, ela nunca revelou quem era. Só o registrou em seu diário.";
+    	dialogues[0][6] = "E, para o nosso azar, o assassino encontrou esse diário antes de nós.";
+    	dialogues[0][7] = "Algumas páginas foram encontradas espalhadas pelas salas da faculdade.";
+    	dialogues[0][8] = "Parece que ele as largou de propósito... Mas por quê?";
+    	dialogues[0][9] = "Talvez pra nos provocar... ou só pra brincar com a nossa cara.";
+    	dialogues[0][10] = "Nunca se sabe o que se passa na cabeça de gente assim.";
+    	dialogues[0][11] = "O culpado rabiscou os trechos que revelavam sua identidade, deixando apenas pistas vagas.";
+    	dialogues[0][12] = "Mas se tem alguém capaz de decifrar isso, é você, Silas — o lendário coordenador!";
+    	dialogues[0][13] = "Ah, mais um detalhe... Por conta da comoção, só os professores de Sistemas vieram hoje. Não há nenhum aluno na faculdade.";
+    	dialogues[0][14] = "Além disso, o assassino desativou a energia do campus. É por isso que tá esse breu todo.";
+    	dialogues[0][15] = "Como você sabe, as portas são elétricas e só funcionam com energia.";
+    	dialogues[0][16] = "Você vai precisar encontrar os fusíveis espalhados pelo mapa e levá-los até a caixa de energia ao lado do banheiro do auditório";
+    	dialogues[0][17] = "Use W, A, S, D para se mover, ENTER para interagir com pessoas, F para objetos e portas, e C para ver seu inventário.";
+    	dialogues[0][18] = "Boa sorte, Silas!";
+
 
     }
 
@@ -79,7 +83,7 @@ public class GameStage {
             if (gp.closedDialogues < dialogues[0].length && dialogues[0][gp.closedDialogues] != null && !dialogues[0][gp.closedDialogues].isEmpty()) {
                 openDialog(dialogues[0][gp.closedDialogues], face[0]);  // Exibe o diálogo atual
                 
-                if(gp.closedDialogues == 15) {
+                if(gp.closedDialogues == 18) {
                 	currentStage++;
                 	gp.ui.showGenericBox = false;
 
