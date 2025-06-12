@@ -43,7 +43,14 @@ public class GameStage {
     			
     			break;
     		case 2:
-    			
+    			if(gp.ui.powerRestored == true) {
+    				
+    			}
+    			break;
+    		case 3:
+    			if(gp.tasksComplete == true) {
+    				
+    			}
     			break;
     	}
     }
@@ -90,6 +97,10 @@ public class GameStage {
                 }
             }
 		
+    }
+    
+    public void openDoor() {
+    	gp.doorLocked = 1;
     }
     
     // Exibe o diálogo

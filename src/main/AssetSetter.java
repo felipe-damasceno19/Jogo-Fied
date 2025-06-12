@@ -49,10 +49,10 @@ public class AssetSetter {
 		
 		//PUZZLE CAIXA DE ENERGIA
 		
-		//gp.obj[mapNum][i] = new obj_Fuse(gp);
-		//gp.obj[mapNum][i].worldX = gp.tileSize * 66;  // coluna 10
-		//gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
-		//i++;
+	    gp.obj[mapNum][i] = new obj_Fuse(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize * 66;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
+		i++;
 		
 		gp.obj[mapNum][i] = new obj_Clip(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize * 66;  // coluna 10

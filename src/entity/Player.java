@@ -68,9 +68,38 @@ public class Player extends Entity {
 	public void obterItem(Entity item) {
 	    if (inventory.size() < maxInventorySize) {
 	        inventory.add(item);
+	        checkTasksCompletion();
 	        gp.ui.showMessage("Pressione 'C' para abrir o inventário");
 	    }
 	}
+	
+	public void checkTasksCompletion() {
+	    String[] requiredItems = {
+	        "Anotação Sala 1", 
+//	        "Anotação Sala 2", 
+//	        "Anotação Sala 3", 
+//	        "Anotação Sala 4", 
+//	        "Anotação Sala 5"
+	    };
+
+	    int count = 0;
+
+	    for (String requiredName : requiredItems) {
+	        for (Entity item : inventory) {
+	            if (item.name.equals(requiredName)) {
+	                count++;
+	                break;
+	            }
+	        }
+	    }
+
+	    if (count == requiredItems.length && !gp.tasksComplete) {
+	        gp.tasksComplete = true;
+	        thinking("Acho que já encontrei todas as notas, devo voltar e falar com o Nelipe denovo. Acho que já sei quem foi...");
+	    }
+	}
+
+
 	
 	// Define valores iniciais do jogador
 	public void setDefaultValues() {

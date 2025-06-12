@@ -175,31 +175,35 @@ public class EventHandler {
 	
 	public void teleport(int map, int col, int row) {
 		
-		if(map != gp.currentMap) gp.currentMap = map;	
-		
-		
-		gp.player.worldX = gp.tileSize * col;
-		gp.player.worldY = gp.tileSize * row;
-		previousEventX = gp.player.worldX;
-		previousEventY = gp.player.worldY;
-		
-		
-		if(gp.gameStage.currentStage == 1) {
-			gp.currentTeleport++;
-		}
-		
-		
-		canTouchEvent = false;
-		gp.player.nearInteractable = false;
-		gp.playSE(03);
-		
-		// Atualiza a área de colisão do jogador imediatamente após o teleporte
-	    gp.player.solidArea.x = gp.player.worldX + gp.player.solidAreaDefaultX;
-	    gp.player.solidArea.y = gp.player.worldY + gp.player.solidAreaDefaultY;
+		if(gp.doorLocked != 0) {
+			if(map != gp.currentMap) gp.currentMap = map;	
+			
+			
+			gp.player.worldX = gp.tileSize * col;
+			gp.player.worldY = gp.tileSize * row;
+			previousEventX = gp.player.worldX;
+			previousEventY = gp.player.worldY;
+			
+			
+			if(gp.gameStage.currentStage == 1) {
+				gp.currentTeleport++;
+			}
+			
+			
+			canTouchEvent = false;
+			gp.player.nearInteractable = false;
+			gp.playSE(03);
+			
+			// Atualiza a área de colisão do jogador imediatamente após o teleporte
+		    gp.player.solidArea.x = gp.player.worldX + gp.player.solidAreaDefaultX;
+		    gp.player.solidArea.y = gp.player.worldY + gp.player.solidAreaDefaultY;
 
-	    // Força a atualização da colisão do jogador após o teleporte
-	    gp.player.refreshSurroundingCollision();
-	    gp.cChecker.checkTile(gp.player); // Aqui, estamos forçando uma nova checagem de colisão após o teleporte
+		    // Força a atualização da colisão do jogador após o teleporte
+		    gp.player.refreshSurroundingCollision();
+		    gp.cChecker.checkTile(gp.player); // Aqui, estamos forçando uma nova checagem de colisão após o teleporte
+		}else {
+			gp.ui.showMessage("[PORTA TRANCADA!] Restaure a energia primeiro!");
+		}
 	}
 
 }

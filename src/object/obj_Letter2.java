@@ -8,7 +8,7 @@ public class obj_Letter2 extends Entity{
 		public obj_Letter2(GamePanel gp) {
 			super(gp);
 			
-			name = "Anotação sala 2";
+			name = "Anotação Sala 2";
 			ObjImage = setup("/objects/letterS");
 			conteudo = "[" + name + "]\nO sujeito tem demonstrado comportamento\n "
 					+ "defensivo quando o assunto envolve mobilidade\n"

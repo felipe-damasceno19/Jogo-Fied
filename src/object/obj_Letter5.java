@@ -8,7 +8,7 @@ public class obj_Letter5 extends Entity{
 		public obj_Letter5(GamePanel gp) {
 			super(gp);
 			
-			name = "Anotação sala 4";
+			name = "Anotação Sala 5";
 			ObjImage = setup("/objects/letterS");
 			conteudo = "[" + name + "\nO paciente apresenta sinais claros de\n"
 					+ "esgotamento psíquico e fragmentação da\n"

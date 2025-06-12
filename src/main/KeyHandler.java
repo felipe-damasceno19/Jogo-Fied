@@ -305,6 +305,7 @@ public class KeyHandler implements KeyListener {
     	            if (allConnected) {
     	                gp.ui.powerPuzzleActive = false;
     	                gp.ui.powerRestored = true;
+    	                gp.doorLocked = 1;
     	                gp.eManager.lighting = null;
     	                gp.ui.showMessage("Energia restaurada!");
     	                gp.playSE(3);
