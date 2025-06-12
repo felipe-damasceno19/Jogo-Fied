@@ -125,9 +125,21 @@ public class CutsceneManager {
                             true,
                             "Silas segura o objeto com força.",
                             "Felipe permanece em silêncio.", 
-                            "Ele não tenta fugir.", 
-                            "Apenas sussurra, como um último pedido:" 
+                            "Ele não tenta fugir."
+                           
                         ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cenaFinal2.png")),
+                            -1,
+                            true,
+                            "Apenas sussurra, como um último pedido:" 
+                			 ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/tela_preta.png")),
+                            -1,
+                            true,
+                            "Obrigado."
+                            ));
                  	segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/tela_preta.png")),
                             17,
@@ -155,10 +167,81 @@ public class CutsceneManager {
                             "E por que ele tá segurando uma faca?"
                     
                         ));
+                	break;
+                case "end2":
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/tela_preta.png")),
+                            -1,
+                            true,
+                            "Felipe não sorri. Mas algo nele muda.",
+                            "Por alguns segundos, ele só respira… fundo, pesado.", 
+                            "E então, ele sussurra:" 
+                    
+                        ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/tela_preta.png")),
+                            -1,
+                            true,
+                            "Ela voltou." 
+                    
+                        ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/CenaFinalFalso.png")),
+                            -1,
+                            true,
+                            "Você chama seu nome, mas ele não responde.", 
+                            "O som dos passos dele ecoa no corredor vazio.", 
+                            "E então... só o silêncio." 
+                    
+                        ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/CenaFinalFalso.png")),
+                            18,
+                            true, 
+                            "O som dos passos dele ecoa no corredor vazio.", 
+                            "E então... só o silêncio." 
+                    
+                        ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/Creditos1.png")),
+                            -1,
+                            false
+                    
+                        ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/Creditos2.png")),
+                            -1,
+                            false
+                    
+                        ));
                 	
-                	
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/tela_preta.png")),
+                            -1,
+                            true,
+                            "Seis meses se passaram desde aquela noite.", 
+                            "Você tentou seguir em frente."
+                    
+                        ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/tela_preta.png")),
+                            8,
+                            true,
+                            "Mas esta madrugada... algo acordou você, um barulho."
+                    
+                        ));
+                	segments.add(new CutsceneSegment(
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/posCreditosFalso.png")),
+                            -1,
+                            true,
+                            "Uma presença está parada na porta do seu quarto.", 
+                            "Observando. Silenciosa. Esperando." 
+             
+                        ));
+                	break;
             }
-        } catch (IOException e) {
+        }
+         catch (IOException e) {
             e.printStackTrace();
         }
 
