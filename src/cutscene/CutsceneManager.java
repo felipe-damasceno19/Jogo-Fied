@@ -46,7 +46,7 @@ public class CutsceneManager {
                     ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena3.png")),
-                            -1,
+                            12,
                             "Ao abrir a porta..."
 
                         ));
@@ -58,7 +58,7 @@ public class CutsceneManager {
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena5.png")),
-                            -1,
+                            14,
                             "Ali, no chão frio, jazia o corpo da psicóloga da faculdade.",
                             "Sem testemunhas.",
                             "Sem som.",
@@ -88,7 +88,7 @@ public class CutsceneManager {
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena8.png")),
-                            -1,
+                            13,
                             "Enquanto dirige, uma dúvida o persegue, como o nevoeiro que cobre o caminho...",
                             "E se o culpado estiver te esperando?",
                             "Ou pior..."
@@ -96,8 +96,8 @@ public class CutsceneManager {
                         ));
                     segments.add(new CutsceneSegment(
                             ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena9.png")),
-                            -1,
-                            "...e se ele não souber o que fez."
+                            15,
+                            "...e se ele não souber o que fez?"
                            
                         ));
                  
