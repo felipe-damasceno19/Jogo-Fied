@@ -24,6 +24,7 @@ public class Sound {
         soundURL[6] = getClass().getResource("/sound/grito.wav");
         soundURL[7] = getClass().getResource("/sound/telefone.wav");
         soundURL[8] = getClass().getResource("/sound/batida-na-porta.wav");
+        soundURL[9] = getClass().getResource("/sound/snd_floweytalk1.wav");
     }
 
     public void setFile(int i) {

@@ -193,7 +193,7 @@ public class CutsceneManager {
             if (gp.ui.textCounter > gp.ui.textDisplaySpeed) {
                 char nextChar = visibleText.charAt(gp.ui.textCharIndex);
                 if (Character.isLetterOrDigit(nextChar)) {
-                    gp.playSE(5);
+                    gp.playSE(9);
                 }
                 gp.ui.textCharIndex++;
                 gp.ui.textCounter = 0;
