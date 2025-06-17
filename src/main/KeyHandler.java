@@ -142,7 +142,7 @@ public class KeyHandler implements KeyListener {
         	// gp.cutsceneManager.startCutscene("end2");
         	 System.out.println("Dialogos fechados:" + gp.closedDialogues);
         	 System.out.println("Estágio do Jogo:" + gp.gameStage.currentStage);
-        	 System.out.println("Estágio do Jogo:" + gp.closedFinalDialogueSilas);
+        	 System.out.println("Estágio do Jogo:" + gp.tasksComplete);
         	 
          }
          if (code == KeyEvent.VK_C) {

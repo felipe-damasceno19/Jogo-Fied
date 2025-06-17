@@ -44,14 +44,12 @@ public class GameStage {
     			
     			break;
     		case 2:
-    			if(gp.ui.powerRestored == true) {
-    				
+    			if(gp.tasksComplete && gp.interactionFinalNelipe) {
+    				startDialogueSequence(1);
     			}
     			break;
     		case 3:
-    			if(gp.tasksComplete == true) {
-    				
-    			}
+
     			break;
     	}
     }
@@ -81,9 +79,24 @@ public class GameStage {
     	dialogueCounts[0] = 19; 
     	
     	
-    	dialogues[1][0] = "Testando essa merda de estagio";
-    	dialogues[1][1] = "Espero que de certo essa bomba agora, senão vou me matar";
-    	
+    	dialogues[1][0] = "...Então você descobriu.";
+    	dialogues[1][1] = "...Eu queria tanto que estivesse errado.";
+    	dialogues[1][2] = "Desde muito antes... desde que eu era só um menino em Viçosa...";
+    	dialogues[1][3] = "eu sentia algo dentro de mim. Um peso. Uma... presença.";
+    	dialogues[1][4] = "Um peso.";
+    	dialogues[1][5] = "Uma...";
+    	dialogues[1][6] = "PRESENÇA...";
+    	dialogues[1][7] = "Ela ficava quieta por anos, mas de vez em quando... tomava o controle.";
+    	dialogues[1][8] = "E quando voltava, eu não lembrava de nada.";
+    	dialogues[1][9] = "Desta vez foi diferente. Eu vi. Eu vi tudo. O sangue, os olhos dela… e a minha mão tremendo.";
+    	dialogues[1][10] = "Não fui eu. Mas também... foi.";
+    	dialogues[1][11] = "Ela... essa coisa dentro de mim... quer sair daqui. Quer continuar.";
+    	dialogues[1][12] = "Você precisa me matar. Agora.";
+    	dialogues[1][13] = "Agora!!!!";
+    	dialogues[1][14] = "...";
+    	dialogues[1][15] = "Antes que ela tome o controle de novo e... e fuja com meu corpo. E cometa algo pior.";
+
+    	dialogueCounts[1] = 16;
 
     }
 
@@ -101,7 +114,7 @@ public class GameStage {
             if (currentDialogueIndex < dialogueCounts[setIndex] && dialogues[setIndex][currentDialogueIndex] != null && !dialogues[setIndex][currentDialogueIndex].isEmpty()) {
                 // Exibe o diálogo atual
             	gp.ui.showGenericBox = true;
-                openDialog(dialogues[setIndex][currentDialogueIndex], face[setIndex]); 
+                openDialog(dialogues[setIndex][currentDialogueIndex], face[0]); 
             }
 
             

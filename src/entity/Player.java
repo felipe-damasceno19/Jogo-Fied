@@ -94,8 +94,7 @@ public class Player extends Entity {
 	    }
 
 	    if (count == requiredItems.length && !gp.tasksComplete) {
-	        gp.tasksComplete = true;
-			gp.closedFinalDialogueSilas = true;
+	    	gp.tasksComplete = true;
 	        thinking("Acho que já encontrei todas as notas, devo voltar e falar com o Nelipe denovo. Acho que já sei quem foi...");
 	    }
 	}
@@ -317,8 +316,13 @@ public class Player extends Entity {
 	public void interactNPC(int i) {
 		if(i != 999) {
 			if(gp.keyH.enterPressed == true) {
-				System.out.println(i);
-				gp.npc[gp.currentMap][i].speak(); // Faz o NPC falar
+				if(gp.tasksComplete == true && i == 0) {
+					gp.interactionFinalNelipe = true;
+					System.out.println("oiii meu amigo jah");
+				} else {
+				  gp.npc[gp.currentMap][i].speak(); // Faz o NPC falar
+				}
+				
 			}
 		}
 	}

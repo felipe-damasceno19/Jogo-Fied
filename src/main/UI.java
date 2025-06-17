@@ -530,8 +530,8 @@ public class UI {
                 
                if(gp.gameStage.currentStage == 1) {
             	   gp.closedDialogues++;
-               } else if(gp.gameStage.currentStage == 2 && gp.closedFinalDialogueSilas) {
-            	   gp.gameStage.currentStage++;
+               } else if(gp.tasksComplete && gp.interactionFinalNelipe) {
+            	   gp.closedDialogues++;
                }
             }
         }

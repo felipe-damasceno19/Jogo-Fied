@@ -103,6 +103,7 @@ public class GamePanel extends JPanel implements Runnable {
     int doorLocked = 0;
     public boolean closedFinalDialogueSilas = false;
     public boolean tasksComplete = false;
+    public boolean interactionFinalNelipe = false;
     
     // Construtor: configurações iniciais do painel
     public GamePanel() {
