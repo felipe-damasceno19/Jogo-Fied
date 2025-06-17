@@ -22,6 +22,7 @@ public class GameStage {
     public int countFrames = 0;
     int time = 2;
     int dialogueCounts[] = new int[10];  // Array de inteiros que armazena o número de diálogos por conjunto
+    boolean openCulpritSelection = false;
     
     
     
@@ -45,17 +46,32 @@ public class GameStage {
     			break;
     		case 2:
     			if(gp.tasksComplete && gp.interactionFinalNelipe) {
-    				startDialogueSequence(1);
+    				startDialogueSequence(2);
     			}
     			break;
     		case 3:
-
+    			
+    			if(openCulpritSelection) {
+    				gp.gameState = gp.culpritSelectionState;
+    				gp.ui.drawCulpritSelectionScreen();
+    			}
+    			
+    			System.out.println(openCulpritSelection);
+    			break;
+    		case 4:    			
+    			startDialogueSequence(1);
+    			break;
+    		case 5:    			
+    			gp.ui.startChoice("O que você escolhe fazer? Quer MATAR o Nelipe, sim ou não?");
     			break;
     	}
     }
 
     // Define os diálogos
     public void setDialogue() {
+    	
+    	
+    	// Matriz de dialogos
     	dialogues[0][0] = "Bem-vindo de volta, Silas. Veio investigar o assassinato? Esse é o nosso coordenador!";
     	dialogues[0][1] = "Ah... Sabíamos que você viria. Tenho certeza de que vai encontrar o culpado.";
     	dialogues[0][2] = "Aposto que já tem um nome em mente, não é?";
@@ -75,14 +91,14 @@ public class GameStage {
     	dialogues[0][16] = "Você vai precisar encontrar os fusíveis espalhados pelo mapa e levá-los até a caixa de energia ao lado do banheiro do auditório";
     	dialogues[0][17] = "Use W, A, S, D para se mover, ENTER para interagir com pessoas, F para objetos e portas, e C para ver seu inventário.";
     	dialogues[0][18] = "Boa sorte, Silas!";
-
+    	// Total de linhas por SET
     	dialogueCounts[0] = 19; 
     	
-    	
+    
     	dialogues[1][0] = "...Então você descobriu.";
     	dialogues[1][1] = "...Eu queria tanto que estivesse errado.";
     	dialogues[1][2] = "Desde muito antes... desde que eu era só um menino em Viçosa...";
-    	dialogues[1][3] = "eu sentia algo dentro de mim. Um peso. Uma... presença.";
+    	dialogues[1][3] = "eu sentia algo dentro de mim.";
     	dialogues[1][4] = "Um peso.";
     	dialogues[1][5] = "Uma...";
     	dialogues[1][6] = "PRESENÇA...";
@@ -97,6 +113,14 @@ public class GameStage {
     	dialogues[1][15] = "Antes que ela tome o controle de novo e... e fuja com meu corpo. E cometa algo pior.";
 
     	dialogueCounts[1] = 16;
+    	
+    	
+       	dialogues[2][0] = "Olha só, seu rosto é de alguém que descobriu algo...";
+    	dialogues[2][1] = "Acho que você já juntou todas as notas e já deve ter um palpite de quem seja.";
+    	dialogues[2][2] = "Com tudo que descobriu até agora, quem você acha que é?";
+    	
+    	dialogueCounts[2] = 3;
+    	
 
     }
 
@@ -121,7 +145,7 @@ public class GameStage {
             // Verifica se `gp.closedDialogues` foi incrementado
                 if (gp.closedDialogues >= dialogueCounts[setIndex]) {
                     // A sequência de diálogos terminou, chama a função de ação após os diálogos
-                    onDialogueCompleted();  // Chama o método para realizar alguma ação após os diálogos
+                    onDialogueCompleted(setIndex);  // Chama o método para realizar alguma ação após os diálogos
                 }
             }
         }
@@ -132,12 +156,18 @@ public class GameStage {
     
 
     // Método que é chamado quando os diálogos são concluídos
-    public void onDialogueCompleted() {
+    public void onDialogueCompleted(int setIndex) {
         // Exemplo: Avançar para o próximo estágio
         currentStage++;  // Incrementa o estágio atual
         gp.ui.showGenericBox = false;  // Esconde a caixa de diálogo
         gp.closedDialogues = 0;
-        System.out.println("oiiiiiii");
+        
+        if(setIndex == 2) {
+        	openCulpritSelection = true;
+        }
+        if(setIndex == 1) {
+        	currentStage = 5;
+        }
     }
 
     

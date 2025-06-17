@@ -137,8 +137,8 @@ public class KeyHandler implements KeyListener {
          }
          
          if (code == KeyEvent.VK_V) {
-        	 //gp.ui.startChoice("O que você escolhe fazer? Quer comprar bolo, sim ou não?");
-        	 //gp.player.thinking("Estou pensando muito bemmmmm");
+        	 
+
         	// gp.cutsceneManager.startCutscene("end2");
         	 System.out.println("Dialogos fechados:" + gp.closedDialogues);
         	 System.out.println("Estágio do Jogo:" + gp.gameStage.currentStage);
@@ -411,6 +411,16 @@ public class KeyHandler implements KeyListener {
     	        gp.ui.choiceActive = false;
     	        gp.gameState = gp.playState;
     	        gp.playSE(3);
+
+    	        if (gp.ui.choiceResult) {
+    	            // Jogador escolheu "Sim"
+    	            System.out.println("Escolheu SIM");
+    	            gp.cutsceneManager.startCutscene("end2");
+    	        } else {
+    	            // Jogador escolheu "Não"
+    	            System.out.println("Escolheu NÃO");
+    	            gp.cutsceneManager.startCutscene("end1");
+    	        }
     	    }
     	}
 
@@ -441,7 +451,15 @@ public class KeyHandler implements KeyListener {
     	        
     	        if (code == KeyEvent.VK_ENTER) {
     	            gp.ui.culpritChosen = gp.ui.selectedCulpritIndex;
-    	            // Aqui você pode adicionar o que acontece quando o jogador confirma a escolha
+    	            
+    	            // Se ele seleciona o Culpado Certo da continuidade aos estagios dos jogo
+    	            if(gp.ui.culpritChosen == 3) {
+    	            	gp.gameState = gp.playState;
+    	            	gp.gameStage.currentStage = 4;
+    	            } else {
+    	            	// Abre tela de gameOver
+    	            	gp.gameState = gp.gameOverState;
+    	            }
     	        }
     	    }
     	}
