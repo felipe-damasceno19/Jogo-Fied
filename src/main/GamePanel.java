@@ -76,7 +76,6 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity tilesOver[][] = new Entity[maxMap][100];
     ArrayList<Entity> entityList = new ArrayList<>();
     
-    public boolean tasksComplete = false;
     
     //GAME STATE
     public int gameState;
@@ -102,6 +101,8 @@ public class GamePanel extends JPanel implements Runnable {
     int closedDialogues = 0;
     int currentTeleport = 0;
     int doorLocked = 0;
+    public boolean closedFinalDialogueSilas = false;
+    public boolean tasksComplete = false;
     
     // Construtor: configurações iniciais do painel
     public GamePanel() {

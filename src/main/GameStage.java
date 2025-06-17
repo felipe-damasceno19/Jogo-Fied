@@ -21,6 +21,7 @@ public class GameStage {
     BufferedImage face[] = new BufferedImage[10];
     public int countFrames = 0;
     int time = 2;
+    int dialogueCounts[] = new int[10];  // Array de inteiros que armazena o número de diálogos por conjunto
     
     
     
@@ -38,7 +39,7 @@ public class GameStage {
     			break;
     		case 1:
     			// Espera passar alguns milesimos de segundo pra rodar o primeiro dialogo;    			
-    			if(countFrames >= time) {initialStage(); }
+    			if(countFrames >= time) {startDialogueSequence(0); }
     			countFrames++;
     			
     			break;
@@ -77,27 +78,55 @@ public class GameStage {
     	dialogues[0][17] = "Use W, A, S, D para se mover, ENTER para interagir com pessoas, F para objetos e portas, e C para ver seu inventário.";
     	dialogues[0][18] = "Boa sorte, Silas!";
 
+    	dialogueCounts[0] = 19; 
+    	
+    	
+    	dialogues[1][0] = "Testando essa merda de estagio";
+    	dialogues[1][1] = "Espero que de certo essa bomba agora, senão vou me matar";
+    	
 
     }
 
 
-    // Método para iniciar com Dialogo Nelipe
-    public void initialStage() {
-    		gp.ui.showGenericBox = true;
-   
+    
+    
+    
+    public void startDialogueSequence(int setIndex) {
+        // Verifica se o conjunto de diálogos existe
+        if (setIndex < dialogues.length) {
+            // Pega o valor de `gp.closedDialogues` antes de exibir o diálogo
+            int currentDialogueIndex = gp.closedDialogues; 
 
-           // Chama o método apenas após 1 segundo
-            if (gp.closedDialogues < dialogues[0].length && dialogues[0][gp.closedDialogues] != null && !dialogues[0][gp.closedDialogues].isEmpty()) {
-                openDialog(dialogues[0][gp.closedDialogues], face[0]);  // Exibe o diálogo atual
-                
-                if(gp.closedDialogues == 18) {
-                	currentStage++;
-                	gp.ui.showGenericBox = false;
+            // Verifica se o próximo diálogo existe e não é nulo
+            if (currentDialogueIndex < dialogueCounts[setIndex] && dialogues[setIndex][currentDialogueIndex] != null && !dialogues[setIndex][currentDialogueIndex].isEmpty()) {
+                // Exibe o diálogo atual
+            	gp.ui.showGenericBox = true;
+                openDialog(dialogues[setIndex][currentDialogueIndex], face[setIndex]); 
+            }
 
+            
+            // Verifica se `gp.closedDialogues` foi incrementado
+                if (gp.closedDialogues >= dialogueCounts[setIndex]) {
+                    // A sequência de diálogos terminou, chama a função de ação após os diálogos
+                    onDialogueCompleted();  // Chama o método para realizar alguma ação após os diálogos
                 }
             }
-		
+        }
+
+    
+    
+  
+    
+
+    // Método que é chamado quando os diálogos são concluídos
+    public void onDialogueCompleted() {
+        // Exemplo: Avançar para o próximo estágio
+        currentStage++;  // Incrementa o estágio atual
+        gp.ui.showGenericBox = false;  // Esconde a caixa de diálogo
+        gp.closedDialogues = 0;
+        System.out.println("oiiiiiii");
     }
+
     
     public void openDoor() {
     	gp.doorLocked = 1;

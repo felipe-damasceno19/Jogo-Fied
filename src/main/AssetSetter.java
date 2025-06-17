@@ -49,31 +49,60 @@ public class AssetSetter {
 		//i++;
 		
 		//PUZZLE CAIXA DE ENERGIA
+//		gp.obj[mapNum][i] = new obj_Fuse(gp);
+//		gp.obj[mapNum][i].worldX = gp.tileSize * 66;  // coluna 10
+//		gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
+//		i++;
+//		
+//		gp.obj[mapNum][i] = new obj_Clip(gp);
+//		gp.obj[mapNum][i].worldX = gp.tileSize * 66;  // coluna 10
+//		gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
+//		i++;
+//		
+//		
+//		gp.obj[mapNum][i] = new obj_Fuse(gp);
+//		gp.obj[mapNum][i].worldX = gp.tileSize * 43;  // coluna 10
+//		gp.obj[mapNum][i].worldY = gp.tileSize * 54;   // linha 8
+//		i++;
+//		
+//		gp.obj[mapNum][i] = new obj_Fuse(gp);
+//		gp.obj[mapNum][i].worldX = gp.tileSize * 44;  // coluna 10
+//		gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
+//		i++;
+//		
+//		gp.obj[mapNum][i] = new obj_PowerBox(gp);
+//		gp.obj[mapNum][i].worldX = gp.tileSize * 46;  // coluna 10
+//		gp.obj[mapNum][i].worldY = gp.tileSize * 34;   // linha 8
+//		i++;
+		
+		
 		gp.obj[mapNum][i] = new obj_Fuse(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 66;  // coluna 10
+		gp.obj[mapNum][i].worldX = gp.tileSize * 39;  // coluna 10
 		gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
 		i++;
 		
 		gp.obj[mapNum][i] = new obj_Clip(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 66;  // coluna 10
-		gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
+		gp.obj[mapNum][i].worldX = gp.tileSize * 40;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
 		i++;
 		
 		
 		gp.obj[mapNum][i] = new obj_Fuse(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 43;  // coluna 10
-		gp.obj[mapNum][i].worldY = gp.tileSize * 54;   // linha 8
+		gp.obj[mapNum][i].worldX = gp.tileSize * 41;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
 		i++;
 		
 		gp.obj[mapNum][i] = new obj_Fuse(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 44;  // coluna 10
-		gp.obj[mapNum][i].worldY = gp.tileSize * 23;   // linha 8
+		gp.obj[mapNum][i].worldX = gp.tileSize * 42;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
 		i++;
 		
 		gp.obj[mapNum][i] = new obj_PowerBox(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 46;  // coluna 10
-		gp.obj[mapNum][i].worldY = gp.tileSize * 34;   // linha 8
+		gp.obj[mapNum][i].worldX = gp.tileSize * 43;  // coluna 10
+		gp.obj[mapNum][i].worldY = gp.tileSize * 24;   // linha 8
 		i++;
+		
+		
 		
 		//Mapa Ismael
 		mapNum = 1;	
@@ -83,10 +112,10 @@ public class AssetSetter {
 		i++;
 		
 		obj_Gaveteiro gav1 = new obj_Gaveteiro(gp);
-		gav1.worldX = 55 * gp.tileSize;
-		gav1.worldY = 37 * gp.tileSize;
+		gav1.worldX = 44 * gp.tileSize;
+		gav1.worldY = 24 * gp.tileSize;
 		gav1.storedItems.add(new obj_Letter(gp));
-		gp.obj[1][0] = gav1;
+		gp.obj[0][5] = gav1;
 		
 		//Mapa Carol
 		mapNum = 2;	

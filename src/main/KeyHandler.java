@@ -139,9 +139,11 @@ public class KeyHandler implements KeyListener {
          if (code == KeyEvent.VK_V) {
         	 //gp.ui.startChoice("O que você escolhe fazer? Quer comprar bolo, sim ou não?");
         	 //gp.player.thinking("Estou pensando muito bemmmmm");
-        	 gp.cutsceneManager.startCutscene("end2");
-
-
+        	// gp.cutsceneManager.startCutscene("end2");
+        	 System.out.println("Dialogos fechados:" + gp.closedDialogues);
+        	 System.out.println("Estágio do Jogo:" + gp.gameStage.currentStage);
+        	 System.out.println("Estágio do Jogo:" + gp.closedFinalDialogueSilas);
+        	 
          }
          if (code == KeyEvent.VK_C) {
          	gp.gameState = gp.characterState;
