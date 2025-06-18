@@ -415,11 +415,11 @@ public class KeyHandler implements KeyListener {
     	        if (gp.ui.choiceResult) {
     	            // Jogador escolheu "Sim"
     	            System.out.println("Escolheu SIM");
-    	            gp.cutsceneManager.startCutscene("end2");
+    	            gp.cutsceneManager.startCutscene("end1");
     	        } else {
     	            // Jogador escolheu "Não"
     	            System.out.println("Escolheu NÃO");
-    	            gp.cutsceneManager.startCutscene("end1");
+    	            gp.cutsceneManager.startCutscene("end2");
     	        }
     	    }
     	}
