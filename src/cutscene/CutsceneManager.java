@@ -43,81 +43,51 @@ public class CutsceneManager {
             switch (cutsceneID) {
                 case "intro":
                     segments.add(new CutsceneSegment(
-                        ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena1.png")),
+                        ImageIO.read(getClass().getResourceAsStream("/cutscenes/cenaNew01.png")),
                         -1,
                         true,
-                        "Parecia mais uma noite comum, nada parecia diferente." 
+                        "Já passa das dez da noite. O portão está fechado, as ruas silenciosas,",
+                        "e apenas algumas lâmpadas de parede iluminam o muro branco com suas sombras alongadas.",
+                        "Mas algo aconteceu nesta noite… algo que vai marcar a memória de todos." 
                     ));
                     segments.add(new CutsceneSegment(
-                        ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena2.png")),
+                        ImageIO.read(getClass().getResourceAsStream("/cutscenes/cenaNew02.png")),
                         -1,
                         true,
-                        "Professora Carol estava indo buscar alguns papéis na enfermaria."
+                        "A vitrine central está aberta. O troféu do Intercursos, orgulho dos estudantes, não está mais lá.",
+                        "Em seu lugar, apenas marcas de dedos no vidro e arranhões recentes no pedestal.",
+                        "O prêmio mais importante da ONIINTA foi levado, e o responsável tentou apagar seus rastros… ",
+                        "Mas sempre sobra alguma pista."
                         
                     ));
                     segments.add(new CutsceneSegment(
-                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena3.png")),
-                            13,
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cenaNew03.png")),
+                            -1,
                             true,
-                            "Ao abrir a porta..."
+                            "Como se não bastasse, o ladrão desligou o quadro de energia.",
+                            "O disjuntor principal foi forçado para baixo e três fusíveis foram arrancados, espalhados pelo campus.",
+                            "Sem luz, corredores permanecem em trevas, câmeras estão cegas e, pior ainda, as portas continuam travadas.",
+                            "Quem planejou isso sabia exatamente o que fazia."
 
                         ));
                     segments.add(new CutsceneSegment(
-                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena4.png")),
-                            6,
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cenaNew04.png")),
+                            -1,
                             true,
-                            "...Ela se depara com algo que jamais esqueceria."
+                            "Pesadas portas de ferro bloqueiam a passagem. Elas dependem da energia para liberar os trincos magnéticos.",
+                            "Com o disjuntor desativado e os fusíveis ausentes, a faculdade inteira se tornou um labirinto fechado.",
+                            "Ninguém entra. Ninguém sai. A única saída: religar a energia."
                             
                         ));
                     segments.add(new CutsceneSegment(
-                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena5.png")),
-                            15,
-                            true,
-                            "Ali, no chão frio, jazia o corpo da psicóloga da faculdade.",
-                            "Sem testemunhas.",
-                            "Sem som.",
-                            "Só o silêncio e o sangue...",                       
-                            "A investigação inicial foi rápida",
-                            "Demais..."
-
-                        ));
-                    segments.add(new CutsceneSegment(
-                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena6.png")),
-                            7,
-                            true,
-                            "Silas, o coordenador do curso, foi chamado com urgência."
-
-                        ));
-                    segments.add(new CutsceneSegment(
-                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena6.1.png")),
+                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cenaNew05.png")),
                             -1,
                             true,
-                            "Disseram que o assassino pode estar entre os professores.",
-                            "E que pistas foram encontradas…?"
+                            "O coração da ONIINTA. No centro, o coreto de telhado vermelho contrasta com o piso de ladrilhos escuros.",
+                            "É aqui que a busca começa. O silêncio da noite é quebrado apenas por passos apressados.",
+                            "Um professor aguarda, nervoso, olhando em volta.",
+                            "Ele sabe que Simas é a única esperança de encontrar o troféu e restaurar a ordem."
 
-                        ));
-                    segments.add(new CutsceneSegment(
-                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena7.png")),
-                            -1,
-                            true,
-                            "Como o lendário coordenador, seu dever é descobrir a verdade. Antes que alguém mais se machuque!"
-   
-                        ));
-                    segments.add(new CutsceneSegment(
-                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena8.png")),
-                            14,
-                            true,
-                            "Enquanto dirige, uma dúvida o persegue, como o nevoeiro que cobre o caminho...",
-                            "E se o culpado estiver te esperando?",
-                            "Ou pior..."
-                            
-                        ));
-                    segments.add(new CutsceneSegment(
-                            ImageIO.read(getClass().getResourceAsStream("/cutscenes/cena9.png")),
-                            16,
-                            true,
-                            "...e se ele não souber o que fez?"
-                           
                         ));
                  
                     break;
