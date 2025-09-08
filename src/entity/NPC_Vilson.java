@@ -49,10 +49,10 @@ public class NPC_Vilson extends Entity {
 
 	public void setDialogue() {
 		
-		dialogues[0] = "No dia do crime, estacionei meu Gol perto da entrada. Não vi ninguém, mas tava aquele silêncio estranho... como se algo já tivesse acontecido.";
-		dialogues[1] = "Minha esposa acha que tô paranoico, mas eu tenho prestado atenção. Tem gente aqui que carrega um cansaço que não é só físico.";
-		dialogues[2] = "Outro dia ouvi um comentário estranho no corredor. Sobre alguém que ‘trabalha demais pra ainda parecer normal’. Achei que fosse piada...";
-		dialogues[3] = "O problema é que ninguém presta atenção no que parece comum demais.";
+		dialogues[0] = "Ótimo, Simas, luz acesa de novo. Agora dá pra trabalhar com clareza. Mas ainda temos o enigma do troféu";
+		dialogues[1] = "No banco de dados, sempre ficam logs. Aqui, as pistas ficaram nas escrivaninhas. Se for curioso, vai achar.";
+		dialogues[2] = "Você já passou pelo mais difícil, mas o jogo só começou. Agora precisa cruzar as informações e chegar ao culpado.";
+		dialogues[3] = "Pense como uma query bem escrita: cada nota encontrada é uma cláusula. Juntas, revelam quem está por trás disso.";
 		
 	}
 	

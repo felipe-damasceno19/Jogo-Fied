@@ -49,15 +49,10 @@ public class NPC_Nelipe extends Entity {
 
 	public void setDialogue() {
 		
-		dialogues[0] = "Estou com muito medo... Um dos meus colegas pode ser o assassino.";
-		dialogues[1] = "Caso precise de ajuda, tente conversar com os outros professores.";
-		dialogues[2] = "Espero que você já tenha começado a procurar as anotações. Isso é muito importante! Assim que encontrar alguma, venha falar comigo de novo.";
-		dialogues[3] = "Acho que vou aprovar todos os alunos... O clima está péssimo para pensar em NAF.";
-		dialogues[4] = "Você já foi na festa do arroz, a do Manhoso? É um evento bem diferenciado...";
-		dialogues[5] = "Aproveitando que você está aqui: o pessoal do TI disse que vão finalmente fazer um upgrade no roteador! Vão instalar um com duas antenas. Até que enfim!";
-		dialogues[6] = "Estava vendo um vídeo no YouTube e descobri que vale muito a pena montar um ecossistema da Positivo. Vou trocar todos os meus aparelhos!";
-		dialogues[7] = "Falei da festa do arroz porque ela me traz lembranças da minha adolescência... Que tempo bom! Me ajuda a esquecer, mesmo que por um momento, tudo o que aconteceu.";
-
+		dialogues[0] = "Simas, você conseguiu! Energia de volta. Isso é sinal de que podemos avançar. Mas o troféu ainda nos falta.";
+		dialogues[1] = "No sítio Oiticicas, onde moro, aprendi que todo segredo tem seu tempo de ser revelado. As pistas nas escrivaninhas são o caminho.";
+		dialogues[2] = "Esse ladrão não quer apenas roubar. Ele quer ser lembrado. Cada papel escondido é uma confissão disfarçada.";
+		dialogues[3] = "Como amante da festa do Arroz, eu não posso deixar isso assim. Traga as pistas, junte as informações e mostre à ONINTA quem realmente está por trás desse crime.";
 		
 	}
 	

@@ -49,13 +49,11 @@ public class NPC_Nelder extends Entity {
 
 	public void setDialogue() {
 		
-		dialogues[0] = "Eu tentei acessar os registros da enfermaria, mas parte deles foi apagada. Alguém sabia exatamente o que queria esconder.";
-		dialogues[1] = "Conheci bem a psicóloga... Ela desconfiava de alguém, mas nunca me disse quem. Preferiu guardar em anotações.";
-		dialogues[2] = "E antes que pergunte... não, não me venha com 'basicamente'. Nada neste caso é básico, óbvio.";
-		dialogues[3] = "Se eu soubesse quem foi, você já teria recebido um relatório completo. Mas tudo o que tenho são dados incompletos.";
+		dialogues[0] = "Boa, Simas! Energia restabelecida, sistemas de volta. Agora, vamos ao que interessa: o troféu.";
+		dialogues[1] = "Não vou florear: cada escrivaninha pode ter uma pista. O ladrão deixou informações de propósito, como se quisesse ser rastreado numa rede.";
+		dialogues[2] = "Só não me venha com a palavra proibida, hein. Já tenho estresse demais sem ouvir isso.";
+		dialogues[3] = "Você reativou a energia, mas esse mistério só vai se resolver conectando todas as peças. Vá atrás dessas notas.";
 
-
-		
 	}
 	
 	// Define o comportamento do NPC (movimento aleatório)

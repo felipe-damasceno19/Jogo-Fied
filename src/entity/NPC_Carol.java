@@ -50,10 +50,10 @@ public class NPC_Carol extends Entity {
 
 	public void setDialogue() {
 		
-		dialogues[0] = "Eu fui a primeira a ver... o corpo. Achei que fosse só mais um dia comum. Entrei na enfermaria e... Os olhos dela ainda estavam abertos.";
-		dialogues[1] = "Desde aquele dia, não consigo passar perto do pátio sem me arrepiar. E pensar que ele estava sempre por ali, como se nada fosse...";
-		dialogues[2] = "Eu li parte das anotações que ela deixou... Havia algo sombrio nelas, mas o nome do culpado estava apagado.";
-		dialogues[3] = "Na Itália, dizem: 'Il diavolo si nasconde nei dettagli'... O diabo se esconde nos detalhes. E olha... aqui tem muito detalhe estranho.";
+		dialogues[0] = "Aê, garoto! Agora sim, luz de volta. Até parece cena de filme de investigação. Mas falta o mais importante: achar o troféu.";
+		dialogues[1] = "Escuta, Simas: os criminosos sempre deixam rastros, mesmo os mais ousados. As escrivaninhas escondem papéis que podem ser cruciais.";
+		dialogues[2] = "Já vi crimes internacionais e sei como eles funcionam. Esse aqui é diferente, mas segue a mesma lógica: orgulho e vaidade. O ladrão quer ser descoberto";
+		dialogues[3] = "Presta atenção, Simas: ninguém entra aqui e some com um troféu sem deixar rastros. As escrivaninhas guardam papéis que podem entregar o culpado, é só você ter coragem de abrir e conferir.";
 
 		
 	}

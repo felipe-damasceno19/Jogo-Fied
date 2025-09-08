@@ -49,13 +49,11 @@ public class NPC_Ismael extends Entity {
 
 	public void setDialogue() {
 		
-		dialogues[0] = "Sabe o que me incomoda? A impressão de que tem alguém à beira de um colapso... mas ninguém quer ver.";
-		dialogues[1] = "Chego cedo com a Hilux, tomo meu café, mas agora nem o portão parece o mesmo. O clima aqui tá pesado.";
-		dialogues[2] = "As câmeras da faculdade falharam naquela noite. Coincidência? Talvez. Mas eu não vou tirar conclusões sem provas.";
-		dialogues[3] = "Nem quando o São Paulo tomou aquele gol nos acréscimos eu fiquei tão desconfiado quanto agora... Mas, ainda assim, não tenho como dizer quem fez isso.";
+		dialogues[0] = "Ah, ótimo trabalho, Simas! A energia voltou. Agora podemos ao menos respirar aliviados. Mas o troféu… esse ainda é um bug não resolvido.";
+		dialogues[1] = "Quem fez isso não é amador. Desligar a energia e espalhar fusíveis? Estratégia digna de um programador malicioso. Procure as escrivaninhas, o ladrão deixou rastros por lá.";
+		dialogues[2] = "Minha Hilux 2008 já me tirou de muito aperto, mas dessa vez é você quem vai conduzir essa investigação.";
+		dialogues[3] = "Seja paciente, como no Java: cada detalhe importa. As pistas estão escondidas, esperando para serem compiladas.";
 
-
-		
 	}
 	
 	// Define o comportamento do NPC (movimento aleatório)
