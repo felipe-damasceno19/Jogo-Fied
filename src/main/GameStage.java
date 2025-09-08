@@ -71,28 +71,26 @@ public class GameStage {
     public void setDialogue() {
     	
     	
-    	// Matriz de dialogos
-    	dialogues[0][0] = "Bem-vindo de volta, Silas. Veio investigar o assassinato? Esse é o nosso coordenador!";
-    	dialogues[0][1] = "Ah... Sabíamos que você viria. Tenho certeza de que vai encontrar o culpado.";
-    	dialogues[0][2] = "Aposto que já tem um nome em mente, não é?";
-    	dialogues[0][3] = "Ouvi uns boatos de que a psicóloga da faculdade estava de olho em um dos professores da sede.";
-    	dialogues[0][4] = "Diziam que esse professor era... um tanto peculiar.";
-    	dialogues[0][5] = "Mas, por questões de privacidade, ela nunca revelou quem era. Só o registrou em seu diário.";
-    	dialogues[0][6] = "E, para o nosso azar, o assassino encontrou esse diário antes de nós.";
-    	dialogues[0][7] = "Algumas páginas foram encontradas espalhadas pelas salas da faculdade.";
-    	dialogues[0][8] = "Parece que ele as largou de propósito... Mas por quê?";
-    	dialogues[0][9] = "Talvez pra nos provocar... ou só pra brincar com a nossa cara.";
-    	dialogues[0][10] = "Nunca se sabe o que se passa na cabeça de gente assim.";
-    	dialogues[0][11] = "O culpado rabiscou os trechos que revelavam sua identidade, deixando apenas pistas vagas.";
-    	dialogues[0][12] = "Mas se tem alguém capaz de decifrar isso, é você, Silas — o lendário coordenador!";
-    	dialogues[0][13] = "Ah, mais um detalhe... Por conta da comoção, só os professores de Sistemas vieram hoje. Não há nenhum aluno na faculdade.";
-    	dialogues[0][14] = "Além disso, o assassino desativou a energia do campus. É por isso que tá esse breu todo.";
-    	dialogues[0][15] = "Como você sabe, as portas são elétricas e só funcionam com energia.";
-    	dialogues[0][16] = "Você vai precisar encontrar os fusíveis espalhados pelo mapa e levá-los até a caixa de energia ao lado do banheiro do auditório";
-    	dialogues[0][17] = "Use W, A, S, D para se mover, ENTER para interagir com pessoas, F para objetos e portas, e C para ver seu inventário.";
-    	dialogues[0][18] = "Boa sorte, Silas!";
+    	// Matriz de diálogos
+    	dialogues[0][0] = "Simas! Ainda bem que você chegou.";
+    	dialogues[0][1] = "A situação é grave: o troféu do Intercursos desapareceu.";
+    	dialogues[0][2] = "O ladrão desligou a energia e escondeu os três fusíveis em algum lugar do campus.";
+    	dialogues[0][3] = "Sem eles, não há como reativar o painel elétrico.";
+    	dialogues[0][4] = "Ouça com atenção, pois cada segundo conta.";
+    	dialogues[0][5] = "Para se mover, use W, A, S, D ou as setas.";
+    	dialogues[0][6] = "Interaja com portas e objetos usando F e com pessoas usando ENTER.";
+    	dialogues[0][7] = "Pressione C para abrir o inventário e ESC para acessar o menu.";
+    	dialogues[0][8] = "Quando reunir os três fusíveis, leve-os até o quadro de energia, ao lado direito da quadra.";
+    	dialogues[0][9] = "Só então as portas vão destravar e você poderá falar com os professores.";
+    	dialogues[0][10] = "Não temos alunos hoje — todos ficaram chocados com o roubo.";
+    	dialogues[0][11] = "Mas os professores estão aqui e guardam informações valiosas... talvez até pistas do ladrão.";
+    	dialogues[0][12] = "Você também pode verificar as escrivaninhas deles.";
+    	dialogues[0][13] = "O culpado espalhou anotações por lá, como se quisesse ser descoberto.";
+    	dialogues[0][14] = "Estou confiando em você, Simas.";
+    	dialogues[0][15] = "A ONIINTA inteira conta com sua coragem!";
+
     	// Total de linhas por SET
-    	dialogueCounts[0] = 19; 
+    	dialogueCounts[0] = 15; 
     	
     
     	dialogues[1][0] = "...Então você descobriu.";
