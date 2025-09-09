@@ -1,12 +1,4 @@
-/sound/
-/cutscene/
-/entity/
-/environment/
-/main/
-/object/
-/tile/
-/tilesOverlay/
-/tiles_over/
-/title/
-/notes/
 /cutscenes/
+/main/
+/maps/
+/sound/
