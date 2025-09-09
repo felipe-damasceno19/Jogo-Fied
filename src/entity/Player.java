@@ -76,10 +76,10 @@ public class Player extends Entity {
 	public void checkTasksCompletion() {
 	    String[] requiredItems = {
 	        "Anotação Sala 1", 
-//	        "Anotação Sala 2", 
-//	        "Anotação Sala 3", 
-//	        "Anotação Sala 4", 
-//	        "Anotação Sala 5"
+	        "Anotação Sala 2", 
+	        "Anotação Sala 3", 
+	        "Anotação Sala 4", 
+	        "Anotação Sala 5"
 	    };
 
 	    int count = 0;
@@ -95,7 +95,7 @@ public class Player extends Entity {
 
 	    if (count == requiredItems.length && !gp.tasksComplete) {
 	    	gp.tasksComplete = true;
-	        thinking("Acho que já encontrei todas as notas, devo voltar e falar com o Nelipe denovo. Acho que já sei quem foi...");
+	        thinking("Encontrei todas as notas, devo voltar e falar com o Nelipe. Acho que já sei quem foi...");
 	    }
 	}
 

@@ -62,7 +62,7 @@ public class GameStage {
     			startDialogueSequence(1);
     			break;
     		case 5:    			
-    			gp.ui.startChoice("O que você escolhe fazer? Quer MATAR o Nelipe, sim ou não?");
+    			gp.ui.startChoice("O que você escolhe fazer? Quer entregar o Nelipe para a direção?");
     			break;
     	}
     }

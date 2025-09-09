@@ -154,12 +154,6 @@ public class KeyHandler implements KeyListener {
          	showDebugText  = !showDebugText ;
          }
 
-         if (code == KeyEvent.VK_R) {
-         	switch(gp.currentMap) {
-         	case 0: gp.tileM.loadMap("/maps/sampleM1.txt",0); break;
-         	case 1: gp.tileM.loadMap("/maps/sampleS1.txt",1); break;
-         	}
-         }
          
          // ESC para pausar
          if (code == KeyEvent.VK_P) {
