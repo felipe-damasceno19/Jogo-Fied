@@ -110,7 +110,7 @@ public class UI {
     public int selectedCulpritIndex = 0;
     public int culpritChosen = -1;
     public BufferedImage[] culpritSprites = new BufferedImage[5];
-    public String[] culpritNames = { "Carol", "Ismael", "Nelder", "Nelipe", "Vilson" };
+    public String[] culpritNames = { "Karol", "Israel", "Nelder", "Nelipe", "Vilson" };
     private long lastMoveTime = 0;  // Última vez que o movimento foi realizado
     private final long moveCooldown = 200;  // Tempo de espera entre movimentos (em milissegundos)
     
@@ -120,7 +120,7 @@ public class UI {
     // sistema de escolha final
     
     public boolean choiceActive = false;
-    public String choiceQuestion = "";
+    public String choiceQuestion = "Você quer entregar o Nelipe para a Direção?";
     public String[] choiceOptions = {"Sim", "Não"};
     public int selectedChoiceIndex = 0;
     public Boolean choiceResult = null;
@@ -314,7 +314,7 @@ public class UI {
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 
         // Título no topo
-        String title = "Faça sua acusação! Quem é o assassino?";
+        String title = "Faça sua acusação! Quem roubou o troféu?";
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48f));
         int titleX = getXforCenteredText(title);
         g2.setColor(Color.white);

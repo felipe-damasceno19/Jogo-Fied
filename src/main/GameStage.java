@@ -86,31 +86,38 @@ public class GameStage {
     	dialogues[0][11] = "Mas os professores estão aqui e guardam informações valiosas... talvez até pistas do ladrão.";
     	dialogues[0][12] = "Você também pode verificar as escrivaninhas deles.";
     	dialogues[0][13] = "O culpado espalhou anotações por lá, como se quisesse ser descoberto.";
-    	dialogues[0][14] = "Estou confiando em você, Simas.";
-    	dialogues[0][15] = "A ONIINTA inteira conta com sua coragem!";
+    	dialogues[0][14] = "Todas as escrivaninhas estão trancadas. Vai ser preciso arrombá-las.";
+    	dialogues[0][15] = "Há um clipe perdido pelo campus que pode ajudar com isso. Fique atento!";
+    	dialogues[0][16] = "E lembre-se: quando juntar todas as notas, volte e fale comigo novamente.";
+    	dialogues[0][17] = "Estou confiando em você, Simas.";
+    	dialogues[0][18] = "A ONIINTA inteira conta com sua coragem!";
+
 
     	// Total de linhas por SET
-    	dialogueCounts[0] = 15; 
+    	dialogueCounts[0] = 19; 
     	
     
-    	dialogues[1][0] = "...Então você descobriu.";
-    	dialogues[1][1] = "...Eu queria tanto que estivesse errado.";
-    	dialogues[1][2] = "Desde muito antes... desde que eu era só um menino em Viçosa...";
-    	dialogues[1][3] = "eu sentia algo dentro de mim.";
-    	dialogues[1][4] = "Um peso.";
-    	dialogues[1][5] = "Uma...";
-    	dialogues[1][6] = "PRESENÇA...";
-    	dialogues[1][7] = "Ela ficava quieta por anos, mas de vez em quando... tomava o controle.";
-    	dialogues[1][8] = "E quando voltava, eu não lembrava de nada.";
-    	dialogues[1][9] = "Desta vez foi diferente. Eu vi. Eu vi tudo. O sangue, os olhos dela… e a minha mão tremendo.";
-    	dialogues[1][10] = "Não fui eu. Mas também... foi.";
-    	dialogues[1][11] = "Ela... essa coisa dentro de mim... quer sair daqui. Quer continuar.";
-    	dialogues[1][12] = "Você precisa me matar. Agora.";
-    	dialogues[1][13] = "Agora!!!!";
-    	dialogues[1][14] = "...";
-    	dialogues[1][15] = "Antes que ela tome o controle de novo e... e fuja com meu corpo. E cometa algo pior.";
+    	// Matriz de diálogos - Revelação do Nelipe
+    	dialogues[1][0] = "Então você percebeu... sim, fui eu.";
+    	dialogues[1][1] = "Mas entenda, Simas, eu não fiz isso pelo troféu em si.";
+    	dialogues[1][2] = "Ele não tem valor nenhum para mim.";
+    	dialogues[1][3] = "Eu precisava que todos olhassem para o roubo, para o escândalo, para a distração.";
+    	dialogues[1][4] = "O Conselho da ONINTA planejava cortar os investimentos no nosso curso de tecnologia.";
+    	dialogues[1][5] = "Queriam fechar turmas, dispensar professores, acabar com anos de trabalho.";
+    	dialogues[1][6] = "Enquanto todos se preocupavam com esse roubo, eu consegui atrasar reuniões e travar decisões.";
+    	dialogues[1][7] = "Tudo para ganhar tempo.";
+    	dialogues[1][8] = "Tempo para mostrar que o curso merece sobreviver.";
+    	dialogues[1][9] = "Eu sabia que você encontraria as pistas.";
+    	dialogues[1][10] = "Eu queria ser descoberto... mas não antes de conseguir o que precisava.";
+    	dialogues[1][11] = "O troféu era apenas um símbolo, nada além disso.";
+    	dialogues[1][12] = "Agora você entende, Simas.";
+    	dialogues[1][13] = "Eu não queria fama, não queria glória.";
+    	dialogues[1][14] = "Eu queria apenas tempo.";
+    	dialogues[1][15] = "Se todos se distraíssem com o troféu, eu poderia salvar nosso curso.";
+    	dialogues[1][16] = "Mas a decisão final... não cabe mais a mim.";
+    	dialogues[1][17] = "Cabe a você.";
 
-    	dialogueCounts[1] = 16;
+    	dialogueCounts[1] = 18;
     	
     	
        	dialogues[2][0] = "Olha só, seu rosto é de alguém que descobriu algo...";
