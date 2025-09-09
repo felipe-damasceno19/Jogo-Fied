@@ -318,7 +318,7 @@ public class Player extends Entity {
 			if(gp.keyH.enterPressed == true) {
 				if(gp.tasksComplete == true && i == 0) {
 					gp.interactionFinalNelipe = true;
-					System.out.println("oiii meu amigo jah");
+					
 				} else {
 				  gp.npc[gp.currentMap][i].speak(); // Faz o NPC falar
 				}

@@ -10,29 +10,13 @@ public class obj_Letter4 extends Entity{
 			
 			name = "Anotação Sala 4";
 			ObjImage = setup("/objects/letter4");
-			conteudo = "[" + name + "\nO paciente demonstrou sensibilidade incomum\n"+
-					"a críticas sutis. Quando mencionei a\n"+
-					"possibilidade de um afastamento temporário,\n"+
-					"ele reagiu com pânico.\n"+
-
-					"Disse: Parar agora significaria deixar tudo\n"+
-					"escapar. A frase sugere possível mecanismo\n"+
-					"de controle obsessivo.\n"+
-
-					"Comentou em tom informal: Se eu tivesse\n"+
-					"um carro, já teria sumido daqui faz tempo.\n"+
-					"(Possível informação falsa: não está claro\n"+
-					"se foi sarcasmo ou literal.)\n"+
-
-					"Fez uma referência quase nostálgica a um\n"+
-					"lugar cheio de neblina e ladeiras, onde o\n"+
-					"silêncio era mais pesado que o vento\n"+
-					"Afirmou ter sonhos recorrentes em que\n"+
-					"retorna para esse local, mas sempre acorda\n"+
-					"antes de chegar.\n";
+			conteudo = "[" + name + "\nNão são meus olhos, mas me revelam,\r\n"
+					+ " nas lentes que nunca me deixam só.\r\n"
+					+ " Se quiser saber quem eu sou,\r\n"
+					+ " olhe bem: comigo a visão é melhor.";
 					
 					description = "[" + name + "]\nUma carta misteriosa encontrada \nna sala 4.";
-			imagemCarta = gp.setupImg("/notes/nota_01", 300, 400);
+			imagemCarta = gp.setupImg("/notes/nota_01", 300, 350);
 		}
 }
 
